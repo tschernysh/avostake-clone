@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import {MainLayout} from "../layouts/MainLayout/MainLayout";
+import {Landing} from "../components/Landing/Landing";
 
 export const routerSchema = [{
     path: '/',
@@ -7,6 +8,6 @@ export const routerSchema = [{
     element: <MainLayout/>,
     children: [{
         index: true,
-        element: <Navigate to={'/'} />,
+        element: <Landing/>,
     }],
 }];
