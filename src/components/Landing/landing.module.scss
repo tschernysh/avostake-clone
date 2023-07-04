@@ -28,6 +28,11 @@
 
 .landing__main_carousel {
     margin-top: 15vh;
+    position: relative;
+
+    &:before {
+        position: absolute;
+    }
 }
 
 .landing__main_carousel_slide {
