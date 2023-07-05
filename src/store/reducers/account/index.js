@@ -18,6 +18,23 @@ export const initialState = {
     structureMembers: 0,
     structureTurnover: 0
   },
+  userInfo: {
+    upline: '',
+    dividents: 0,
+    match_bonus: 0,
+    leader_bonus: 0,
+    last_payout: 0,
+    total_invested: 0,
+    total_withdrawn: 0,
+    total_match_bonus: 0,
+    leadTurnover: 0,
+    leadBonusReward: 0,
+    receivedBonuses: [],
+    deposits: [],
+    structure: [],
+    referrals: 0,
+    refTurnover: []
+  },
   leaderPersonalInfo: {
     personalLevel: 0,
     totalTurnover: 0,
@@ -40,6 +57,8 @@ export default function accountReducer(state = initialState, action) {
       return { ...state, leaderPersonalInfo: action.payload }
     case accountTypes().SET_LEADER_PROGRESS_DATA:
       return { ...state, leaderProgressData: action.payload }
+    case accountTypes().SET_USER_INFO:
+      return { ...state, userInfo: action.payload }
     default:
       return state
   }

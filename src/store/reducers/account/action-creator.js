@@ -2,6 +2,7 @@ import Web3 from "web3";
 import accountTypes from "./types";
 import StakeContract from 'contracts/StakeContract.json'
 import Config from "config";
+import accountReducer from ".";
 
 export const AccountActionCreator = {
   setLeaderPersonalInfo: (personalInfo) => ({
@@ -24,11 +25,15 @@ export const AccountActionCreator = {
     type: accountTypes().SET_PERSONAL_BONUSES_STATISTICS,
     payload: personalBonusesStatistics
   }),
+  setUserInfo: (userInfo) => ({
+    type: accountTypes().SET_USER_INFO,
+    payload: userInfo
+  }),
   getUserInfo:
     () => async (dispatch, store) => {
 
       const web3 = new Web3(Config().WEB3_BSC_URL);
-      const walletAddress = store().applicationReducer.walletAddress
+      const walletAddress = '0x579E92e642a5E8FE87ccd14EA0D689687f6f838F'
 
       const stakeContract = new web3.eth.Contract(StakeContract.abi, Config().STAKE_CONTRACT_ADDRESS);
 
@@ -36,17 +41,83 @@ export const AccountActionCreator = {
 
       try {
         userInfo = await stakeContract.methods.userInfo(walletAddress).call()
+        /*
         const [
           upline, dividents, match_bonus, leader_bonus,
           last_payout, total_invested, total_withdrawn,
           total_match_bonus, leadTurnover, leadBonusReward,
           receivedBonuses, deposits, structure, referrals,
-          refTurnover] = userInfo
+          refTurnover] = userInfo.player
+        */
+
+        let upline = userInfo.player[0]
+
+        let dividents = userInfo.player[1]
+        dividents = +web3.utils.fromWei(dividents.toString(), 'ether')
+
+        let match_bonus = userInfo.player[2]
+        match_bonus = +web3.utils.fromWei(match_bonus.toString(), 'ether')
+
+        let leader_bonus = userInfo.player[3]
+        leader_bonus = +web3.utils.fromWei(leader_bonus.toString(), 'ether')
+
+        let last_payout = userInfo.player[4]
+        last_payout = +web3.utils.fromWei(last_payout.toString(), 'ether')
+
+        let total_invested = userInfo.player[5]
+        total_invested = +web3.utils.fromWei(total_invested.toString(), 'ether')
+
+        let total_withdrawn = userInfo.player[6]
+        total_withdrawn = +web3.utils.fromWei(total_withdrawn.toString(), 'ether')
+
+        let total_match_bonus = userInfo.player[7]
+        total_match_bonus = +web3.utils.fromWei(total_match_bonus.toString(), 'ether')
+
+        let leadTurnover = userInfo.player[8]
+        leadTurnover = +web3.utils.fromWei(leadTurnover.toString(), 'ether')
+
+        let leadBonusReward = userInfo.player[9]
+        leadBonusReward = +web3.utils.fromWei(leadBonusReward.toString(), 'ether')
+
+        let receivedBonuses = userInfo.player[10]
+
+        let deposits = userInfo.player[11]
+
+        deposits = deposits.map(el => {
+          let tarif = el[0]
+          tarif = Number(tarif)
+          let amount = el[1]
+          amount = +web3.utils.fromWei(amount.toString(), 'ether')
+          let time = el[2]
+          time = Number(time)
+          return {
+            tarif, amount, time
+          }
+        })
+
+        let structure = userInfo.player[12]
+        structure = structure.map(el => Number(el))
+
+        let referrals = userInfo.player[13]
+
+        let refTurnover = userInfo.player[14]
+        refTurnover = refTurnover.map(el => +web3.utils.fromWei(el.toString(), 'ether'))
+
+        userInfo = {
+          upline, dividents, match_bonus, leader_bonus,
+          last_payout, total_invested, total_withdrawn,
+          total_match_bonus, leadTurnover, leadBonusReward,
+          receivedBonuses, deposits, structure, referrals,
+          refTurnover
+        }
+
         console.log(userInfo)
       } catch (error) {
         console.log(error)
         return
       }
+
+      dispatch(AccountActionCreator.setUserInfo(userInfo))
 
     },
   getLeaderProgressData:
@@ -64,7 +135,7 @@ export const AccountActionCreator = {
         try {
           currentTurnover = await stakeContract.methods.LEADER_BONUS_TRIGGERS(i).call()
           currentTurnover = currentTurnover.toString()
-          currentTurnover = web3.utils.fromWei(currentTurnover, 'ether')
+          currentTurnover = +web3.utils.fromWei(currentTurnover, 'ether')
         } catch (error) {
           console.log(error)
           return
@@ -80,7 +151,7 @@ export const AccountActionCreator = {
         try {
           currentReward = await stakeContract.methods.LEADER_BONUS_REWARDS(i).call()
           currentReward = currentReward.toString()
-          currentReward = web3.utils.fromWei(currentReward, 'ether')
+          currentReward = +web3.utils.fromWei(currentReward, 'ether')
         } catch (error) {
           console.log(error)
         }
