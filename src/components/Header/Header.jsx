@@ -6,8 +6,6 @@ import {useScrollDirection} from "../../hooks/useScrollDirection";
 export const Header = () => {
     const scrollDirection = useScrollDirection()
 
-    console.log(scrollDirection)
-
     return (
         <header data-hidden={scrollDirection === 'down'} className={s.header}>
             <a className={s.header__logo} href={'#'}><img src={logo} alt={'logo'}/></a>
