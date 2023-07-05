@@ -29,6 +29,58 @@ export const AccountActionCreator = {
     type: accountTypes().SET_USER_INFO,
     payload: userInfo
   }),
+  setContractInfo: (contractInfo) => ({
+    type: accountTypes().SET_CONTRACT_INFO,
+    payload: contractInfo
+  }),
+  getContractInfo:
+    () => async (dispatch, store) => {
+      const web3 = new Web3(Config().WEB3_BSC_URL);
+
+      const stakeContract = new web3.eth.Contract(StakeContract.abi, Config().STAKE_CONTRACT_ADDRESS);
+
+      let contractInfo
+
+      try {
+        contractInfo = await stakeContract.methods.contractInfo().call()
+
+        let invested = contractInfo[0]
+        invested = +web3.utils.fromWei(invested.toString(), 'ether')
+
+        let withdrawn = contractInfo[1]
+        withdrawn = +web3.utils.fromWei(withdrawn.toString(), 'ether')
+
+        let match_bonus = contractInfo[2]
+        match_bonus = +web3.utils.fromWei(match_bonus.toString(), 'ether')
+
+        let totalLeadBonusReward = contractInfo[3]
+        totalLeadBonusReward = +web3.utils.fromWei(totalLeadBonusReward.toString(), 'ether')
+
+        let totalPlayers = contractInfo[4]
+        totalPlayers = +web3.utils.fromWei(totalPlayers.toString(), 'ether')
+
+        let bonuses_obj = {}
+        let bonuses = contractInfo[5]
+        bonuses = bonuses.map((el, index) => {
+          let newValue = Number(el)
+          if (!!newValue) {
+            bonuses_obj[`${index}`] = newValue
+          } else return el
+
+        })
+
+        contractInfo = {
+          invested, withdrawn, match_bonus,
+          totalLeadBonusReward, totalPlayers, bonuses_obj
+        }
+      } catch (error) {
+        console.log(error)
+        return
+      }
+
+      dispatch(AccountActionCreator.setContractInfo(contractInfo))
+
+    },
   getUserInfo:
     () => async (dispatch, store) => {
 
@@ -162,6 +214,5 @@ export const AccountActionCreator = {
         rewards,
         turnover
       }))
-
-    }
+    },
 }

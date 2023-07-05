@@ -10,6 +10,10 @@ export const ApplicationActionCreator = {
     type: applicationTypes().SET_WALLET_ADDRESS,
     payload: walletAddress
   }),
+  setWeb3: (web3) => ({
+    type: applicationTypes().SET_WEB3,
+    payload: web3
+  }),
   setDefaultReferrer: (walletAddress) => ({
     type: applicationTypes().SET_DEFAULT_REFERRER,
     payload: walletAddress
@@ -82,8 +86,46 @@ export const ApplicationActionCreator = {
 
 
     },
-  connectWallet:
+  checkMetamaskWallet:
     () => async (dispatch, store) => {
+      if (typeof window.ethereum !== 'undefined') {
+        // Check if MetaMask is connected
+        if (window.ethereum.selectedAddress) {
+          const web3 = new Web3(window.ethereum);
+          dispatch(ApplicationActionCreator.setWeb3(web3))
+          dispatch(ApplicationActionCreator.setWalletAddress(window.ethereum.selectedAddress))
+          console.log('Wallet is connected:', window.ethereum.selectedAddress);
+        } else {
+          // Wallet is not connected
+          console.log('Wallet is not connected');
+        }
+      } else {
+        // MetaMask not available
+        console.log('MetaMask is not installed.');
+      }
+    },
+  connectMetamaskWallet:
+    () => async (dispatch, store) => {
+      if (typeof window.ethereum !== 'undefined') {
+        // Create a new Web3 instance using the MetaMask provider
+        const web3 = new Web3(window.ethereum);
+        let currentAddress
+        try {
+          const accounts = await window.ethereum.send(
+            "eth_requestAccounts"
+          );
+          currentAddress = accounts.result[0]
+          console.log('Wallet connected:', currentAddress)
+        } catch (error) {
+          console.error('Error connecting wallet:', error);
+        }
 
+        dispatch(ApplicationActionCreator.setWeb3(web3))
+        dispatch(ApplicationActionCreator.setWalletAddress(currentAddress))
+      }
+      else {
+        // MetaMask not available, handle accordingly
+        console.error('MetaMask is not installed.');
+      }
     },
 }

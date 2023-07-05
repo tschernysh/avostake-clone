@@ -15,6 +15,8 @@ const App = () => {
     dispatch(ApplicationActionCreator.getDefaultReferrer())
     dispatch(AccountActionCreator.getLeaderProgressData())
     dispatch(AccountActionCreator.getUserInfo())
+    dispatch(AccountActionCreator.getContractInfo())
+    dispatch(ApplicationActionCreator.checkMetamaskWallet())
   }, [])
 
   return (
