@@ -5,6 +5,7 @@ import { routerSchema } from "./routes/routerSchema";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { ApplicationActionCreator } from "store/reducers/application/action-creator";
+import { AccountActionCreator } from "store/reducers/account/action-creator";
 
 const App = () => {
 
@@ -12,6 +13,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(ApplicationActionCreator.getDefaultReferrer())
+    dispatch(AccountActionCreator.getLeaderProgressData())
   }, [])
 
   return (

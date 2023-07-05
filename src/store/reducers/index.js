@@ -1,7 +1,9 @@
 import applicationReducer from './application'
+import accountReducer from './account'
 
 const Reducers = {
-  applicationReducer
+  applicationReducer,
+  accountReducer
 }
 
 export default Reducers;

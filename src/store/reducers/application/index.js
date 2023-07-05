@@ -5,7 +5,7 @@ export const initialState = {
   web3: null,
   defaultReferrer: '',
   bnbBalance: 0,
-  busdBalance: 0,
+  tokenBalance: 0,
 }
 
 export default function applicationReducer(
@@ -19,6 +19,10 @@ export default function applicationReducer(
       return { ...state, web3: action.payload }
     case applicationTypes().SET_DEFAULT_REFERRER:
       return { ...state, defaultReferrer: action.payload }
+    case applicationTypes().SET_BNB_BALANCE:
+      return { ...state, bnbBalance: action.payload }
+    case applicationTypes().SET_TOKEN_BALANCE:
+      return { ...state, tokenBalance: action.payload }
     default:
       return state
   }
