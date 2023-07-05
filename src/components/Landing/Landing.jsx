@@ -8,7 +8,7 @@ export const Landing = () => {
             <section className={s.landing__carousel}>
                 <MainCarousel/>
             </section>
-            <section className={s.landing__carousel}>
+            <section>
                <LastTransactions/>
             </section>
         </main>
