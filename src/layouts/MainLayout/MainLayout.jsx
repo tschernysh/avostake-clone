@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom'
 
 import { Header } from "../../components/Header/Header";
 import { Footer } from "../../components/Footer/Footer";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AuthModal } from "../../components/AuthModals/AuthModal";
 import { useSelector } from 'react-redux';
 
@@ -12,12 +12,12 @@ export const MainLayout = () => {
 
   const signInButtonClickHandler = useCallback(() => {
     if (!walletAddress) {
-      // redirect to dashboard
-      return
-    } else {
       setIsModalOpen(true)
+    } else {
+      return
+      // redirect to dashboard
     }
-  }, [])
+  }, [walletAddress])
 
   return (
     <>

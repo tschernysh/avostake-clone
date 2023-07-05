@@ -83,7 +83,7 @@ export const AccountActionCreator = {
     },
   getUserInfo:
     () => async (dispatch, store) => {
-      const walletAddress = store().accountReducer.walletAddress
+      const walletAddress = store().applicationReducer.walletAddress
 
       const web3 = new Web3(Config().WEB3_BSC_URL);
 
