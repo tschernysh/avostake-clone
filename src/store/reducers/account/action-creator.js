@@ -1,6 +1,6 @@
 import Web3 from "web3";
 import accountTypes from "./types";
-import StakeContract from 'contracts'
+import StakeContract from 'contracts/StakeContract.json'
 import Config from "config";
 
 export const AccountActionCreator = {
@@ -38,6 +38,8 @@ export const AccountActionCreator = {
 
         try {
           currentTurnover = await stakeContract.methods.LEADER_BONUS_TRIGGERS(i).call()
+          currentTurnover = currentTurnover.toString()
+          currentTurnover = web3.utils.fromWei(currentTurnover, 'ether')
         } catch (error) {
           console.log(error)
         }
@@ -51,6 +53,8 @@ export const AccountActionCreator = {
 
         try {
           currentReward = await stakeContract.methods.LEADER_BONUS_REWARDS(i).call()
+          currentReward = currentReward.toString()
+          currentReward = web3.utils.fromWei(currentReward, 'ether')
         } catch (error) {
           console.log(error)
         }
