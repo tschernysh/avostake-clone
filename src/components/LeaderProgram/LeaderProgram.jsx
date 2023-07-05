@@ -73,10 +73,10 @@ export const LeaderProgram = () => {
                 </div>
                 <div className={s.leader_program__header__stats}>
                     <div>
-                        <p>Your Level: <span>{'#'}</span></p>
+                        <p>Your Level: <span>{currentLevel}</span></p>
                     </div>
                     <div >
-                        <p>Turnover: <span>{'######'} BUSD</span></p>
+                        <p>Turnover: <span>{turnover[currentLevel -1]} BUSD</span></p>
                     </div>
                 </div>
             </div>
