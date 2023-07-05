@@ -6,6 +6,11 @@ export const initialState = {
   defaultReferrer: '',
   bnbBalance: 0,
   tokenBalance: 0,
+  depositData: {
+    depositDays: 10,
+    depositAmount: 500,
+    bonus: 0,
+  }
 }
 
 export default function applicationReducer(
@@ -23,6 +28,8 @@ export default function applicationReducer(
       return { ...state, bnbBalance: action.payload }
     case applicationTypes().SET_TOKEN_BALANCE:
       return { ...state, tokenBalance: action.payload }
+    case applicationTypes().SET_DEPOSIT_DATA:
+      return { ...state, depositData: { ...state.depositData, ...action.payload } }
     default:
       return state
   }

@@ -22,6 +22,10 @@ export const ApplicationActionCreator = {
     type: applicationTypes().SET_BNB_BALANCE,
     payload: bnbBalance
   }),
+  setDepositData: (depositData) => ({
+    type: applicationTypes().SET_DEPOSIT_DATA,
+    payload: depositData
+  }),
   getDefaultReferrer:
     () => async (dispatch, store) => {
       const web3 = new Web3(Config().WEB3_BSC_URL);

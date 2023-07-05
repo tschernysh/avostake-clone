@@ -24,6 +24,31 @@ export const AccountActionCreator = {
     type: accountTypes().SET_PERSONAL_BONUSES_STATISTICS,
     payload: personalBonusesStatistics
   }),
+  getUserInfo:
+    () => async (dispatch, store) => {
+
+      const web3 = new Web3(Config().WEB3_BSC_URL);
+      const walletAddress = store().applicationReducer.walletAddress
+
+      const stakeContract = new web3.eth.Contract(StakeContract.abi, Config().STAKE_CONTRACT_ADDRESS);
+
+      let userInfo
+
+      try {
+        userInfo = await stakeContract.methods.userInfo(walletAddress).call()
+        const [
+          upline, dividents, match_bonus, leader_bonus,
+          last_payout, total_invested, total_withdrawn,
+          total_match_bonus, leadTurnover, leadBonusReward,
+          receivedBonuses, deposits, structure, referrals,
+          refTurnover] = userInfo
+        console.log(userInfo)
+      } catch (error) {
+        console.log(error)
+        return
+      }
+
+    },
   getLeaderProgressData:
     () => async (dispatch, store) => {
 
@@ -42,6 +67,7 @@ export const AccountActionCreator = {
           currentTurnover = web3.utils.fromWei(currentTurnover, 'ether')
         } catch (error) {
           console.log(error)
+          return
         }
         turnover.push(currentTurnover)
       }
