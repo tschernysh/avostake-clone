@@ -1,4 +1,5 @@
 import s from './landing.module.scss'
+import {LeaderProgram} from "../LeaderProgram/LeaderProgram";
 
 const tilesData = [{
     percent: '5%',
@@ -21,7 +22,7 @@ export const BuildTeam = () => {
                 <div className={s.build_team__referral_description__tiles}>
                     {tilesData.map(({percent}, index) => {
                         return (
-                            <div className={s.build_team__referral_description__tiles__tile}>
+                            <div key={index} className={s.build_team__referral_description__tiles__tile}>
                                 <span>{percent}</span>
                                 <p>Ref. Line {index + 1}</p>
                             </div>
@@ -29,6 +30,7 @@ export const BuildTeam = () => {
                     })}
                 </div>
             </div>
+            <LeaderProgram/>
         </section>
     )
 }
