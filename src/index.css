@@ -32,10 +32,13 @@ button {
   color: var(--dark-bg-color);
   font-weight: 700;
   white-space: nowrap;
-  border-radius: 8px;
   padding: 14px 24px;
   box-shadow: 0 0 26px var(--main-design-color);
   cursor: pointer;
+}
+
+a, button {
+  border-radius: 8px;
 }
 
 :root {
@@ -78,3 +81,7 @@ button {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/*.control-dots {
+  z-index: 1 !important;
+}*/
