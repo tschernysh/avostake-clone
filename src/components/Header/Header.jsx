@@ -14,7 +14,12 @@ export const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const signInButtonClickHandler = useCallback(() => {
-    setIsModalOpen(true)
+    if (!walletAddress) {
+      // redirect to dashboard
+      return
+    } else {
+      setIsModalOpen(true)
+    }
   }, [])
 
   const loginButtonContent = () => {

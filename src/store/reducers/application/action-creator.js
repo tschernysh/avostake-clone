@@ -4,6 +4,7 @@ import StakeContract from 'contracts/StakeContract.json'
 import IERC20 from 'contracts/IERC20.json'
 import Web3 from 'web3';
 import Config from 'config';
+import { initWeb3 } from 'utils/initWeb3';
 
 export const ApplicationActionCreator = {
   setWalletAddress: (walletAddress) => ({
@@ -88,11 +89,12 @@ export const ApplicationActionCreator = {
     },
   checkMetamaskWallet:
     () => async (dispatch, store) => {
+      const web3 = new Web3(window.ethereum)
       if (typeof window.ethereum !== 'undefined') {
         // Check if MetaMask is connected
-        if (window.ethereum.selectedAddress) {
+        const connectedAccounts = await web3.eth.getAccounts()
+        if (!!connectedAccounts.length) {
           const web3 = new Web3(window.ethereum);
-          dispatch(ApplicationActionCreator.setWeb3(web3))
           dispatch(ApplicationActionCreator.setWalletAddress(window.ethereum.selectedAddress))
           console.log('Wallet is connected:', window.ethereum.selectedAddress);
         } else {
@@ -120,7 +122,6 @@ export const ApplicationActionCreator = {
           console.error('Error connecting wallet:', error);
         }
 
-        dispatch(ApplicationActionCreator.setWeb3(web3))
         dispatch(ApplicationActionCreator.setWalletAddress(currentAddress))
       }
       else {
@@ -128,4 +129,57 @@ export const ApplicationActionCreator = {
         console.error('MetaMask is not installed.');
       }
     },
+  withdraw:
+    () => async (dispatch, store) => {
+      const web3 = await initWeb3()
+      const walletAddress = store().applicationReducer.walletAddress
+
+      const stakeContract = new web3.eth.Contract(StakeContract.abi, Config().STAKE_CONTRACT_ADDRESS);
+
+      let withdraw
+
+      try {
+        withdraw = await stakeContract.methods.withdraw().send({ from: walletAddress })
+      } catch (error) {
+        console.log(error)
+        return
+      }
+
+    },
+  depositToken:
+    () => async (dispatch, store) => {
+      const web3 = await initWeb3()
+      const walletAddress = store().applicationReducer.walletAddress
+      const referralAddress = store().applicationReducer.referralAddress
+      const depositData = store().applicationReducer.depositData
+
+      const tokenContract = new web3.eth.Contract(IERC20.abi, Config().TOKEN_CONTRACT_ADDRESS)
+      const stakeContract = new web3.eth.Contract(StakeContract.abi, Config().STAKE_CONTRACT_ADDRESS);
+
+      let approveToken
+
+      try {
+        approveToken = await tokenContract.methods.approve(
+          Config().STAKE_CONTRACT_ADDRESS,
+          web3.utils.toWei(depositData.depositAmount, 'ether')
+        ).send({ from: walletAddress })
+      } catch (error) {
+        console.log(error)
+        return
+      }
+
+      let depositTxn
+
+      try {
+        depositTxn = await stakeContract.methods.deposit(
+          depositData.depositDays,
+          referralAddress,
+          +web3.utils.toWei(depositData.depositAmount, 'ether')
+        ).send()
+      } catch (error) {
+        console.log(error)
+        return
+      }
+
+    }
 }
