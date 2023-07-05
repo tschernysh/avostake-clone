@@ -2,10 +2,27 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin-top: -120px;
+    background-size: 100%;
 }
 
 .landing section {
     width: 100%;
+}
+
+.landing__carousel {
+    width: 100%;
+    margin-bottom: 15vh;
+    overflow: hidden;
+    position: relative;
+    &:before {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        content: '';
+        background-size: 100% 100%;
+        background: url('../../media/img/main-screen-bg.png') no-repeat;
+    }
 }
 
 .landing__main_carousel__dot, .landing__main_carousel__dot_selected {
@@ -27,15 +44,11 @@
 }
 
 .landing__main_carousel {
-    margin-top: 15vh;
-    position: relative;
-
-    &:before {
-        position: absolute;
-    }
+    margin-top: 20vh;
 }
 
 .landing__main_carousel_slide {
+    margin-bottom: 10vh;
     margin-left: auto;
     margin-right: auto;
     max-width: 1230px;
