@@ -7,6 +7,7 @@ import { BuildTeam } from "./BuildTeam";
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import {Contributors} from "./Contributors";
 
 export const Landing = () => {
 
@@ -28,6 +29,7 @@ export const Landing = () => {
       <EasyStart />
       <AboutUs />
       <BuildTeam />
+        <Contributors/>
     </main>
   )
 }
