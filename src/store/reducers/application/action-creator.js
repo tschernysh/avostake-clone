@@ -150,11 +150,19 @@ export const ApplicationActionCreator = {
     () => async (dispatch, store) => {
       const web3 = await initWeb3()
       const walletAddress = store().applicationReducer.walletAddress
-      const referralAddress = store().applicationReducer.referralAddress
+      const defaultReferrer = store().applicationReducer.referralAddress
+      const upline = store().accountReducer.userInfo.upline
       const depositData = store().applicationReducer.depositData
 
       const tokenContract = new web3.eth.Contract(IERC20.abi, Config().TOKEN_CONTRACT_ADDRESS)
       const stakeContract = new web3.eth.Contract(StakeContract.abi, Config().STAKE_CONTRACT_ADDRESS);
+
+      let currentReferral
+      const localReferral = localStorage.getItem("refAddress");
+
+      if (upline) currentReferral = upline
+      else if (localReferral) currentReferral = localReferral
+      else currentReferral = defaultReferrer
 
       let approveToken
 
@@ -173,8 +181,8 @@ export const ApplicationActionCreator = {
       try {
         depositTxn = await stakeContract.methods.deposit(
           depositData.depositDays,
-          referralAddress,
-          +web3.utils.toWei(depositData.depositAmount, 'ether')
+          currentReferral,
+          web3.utils.toWei(depositData.depositAmount, 'ether')
         ).send()
       } catch (error) {
         console.log(error)

@@ -27,7 +27,7 @@ export const initialState = {
     bonuses: {}
   },
   userInfo: {
-    upline: '',
+    upline: null,
     dividents: 0,
     match_bonus: 0,
     leader_bonus: 0,

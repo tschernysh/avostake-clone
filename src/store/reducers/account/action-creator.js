@@ -83,9 +83,9 @@ export const AccountActionCreator = {
     },
   getUserInfo:
     () => async (dispatch, store) => {
+      const walletAddress = store().accountReducer.walletAddress
 
       const web3 = new Web3(Config().WEB3_BSC_URL);
-      const walletAddress = '0x579E92e642a5E8FE87ccd14EA0D689687f6f838F'
 
       const stakeContract = new web3.eth.Contract(StakeContract.abi, Config().STAKE_CONTRACT_ADDRESS);
 
