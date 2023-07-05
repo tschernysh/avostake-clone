@@ -1,34 +1,21 @@
 import s from './header.module.scss'
-
 import logo from 'media/img/logo.svg'
 import { useScrollDirection } from "../../hooks/useScrollDirection";
-import { AuthModal } from "../AuthModals/AuthModal";
-import { useHistory } from 'react-router-dom'
-import { useCallback, useState } from "react";
 import { useSelector } from 'react-redux';
+import { useCallback } from 'react';
 
-export const Header = () => {
+export const Header = ({ signInButtonClickHandler }) => {
   const scrollDirection = useScrollDirection()
   const { walletAddress } = useSelector(state => state.applicationReducer)
 
-  const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const signInButtonClickHandler = useCallback(() => {
-    if (!walletAddress) {
-      // redirect to dashboard
-      return
-    } else {
-      setIsModalOpen(true)
-    }
-  }, [])
-
-  const loginButtonContent = () => {
+  const loginButtonContent = useCallback(() => {
     if (!walletAddress) {
       return 'Sign In'
     } else if (!!walletAddress) {
       return 'Launch App'
     }
-  }
+  }, [walletAddress])
 
   return (
     <header data-hidden={scrollDirection === 'down'} className={s.header}>
@@ -39,7 +26,6 @@ export const Header = () => {
         <a className={s.header__nav_link} href={'#section-rewards'}>Rewards Program</a>
         <button onClick={signInButtonClickHandler}>{loginButtonContent()}</button>
       </nav>
-      <AuthModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </header>
   )
 }

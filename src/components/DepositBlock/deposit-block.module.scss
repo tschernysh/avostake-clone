@@ -1,0 +1,181 @@
+.deposit {
+  border-radius: 8px;
+  padding: 30px 20px;
+  font-size: 18px;
+  background: var(--main-bg-color);
+}
+
+.deposit__header {
+  color: white;
+  font-size: 1.1em;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.deposit__selectors {
+  display: flex;
+  column-gap: 40px;
+}
+
+.deposit__selectors__range_selector {
+  flex: 1 1 60%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  label {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  input {
+    cursor: pointer;
+    width: 100%;
+    opacity: 0;
+  }
+}
+
+.deposit__selectors__deposite_selector, .deposit__selectors__range_selector  {
+
+  p {
+    font-size:.91em;
+    margin-bottom: 12px;
+    color: white;
+  }
+}
+
+.deposit__selectors__range_indicator {
+  background: var(--light-bg-color);
+  width: 100%;
+  display: block;
+  height: 6px;
+  border-radius: 3px;
+  transition: .3s all;
+  position: absolute;
+  left: 0;
+  pointer-events: none;
+
+  &:after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    left: var(--range-percent-width);
+    top: 50%;
+    transform: translate(calc(var(--range-percent-width) * -1), -50%);
+    border: 7px solid var(--main-design-color);
+    background: var(--light-bg-color);
+    border-radius: 50%;
+  }
+
+  &:before {
+    border-radius: inherit;
+    content: '';
+    width: var(--range-percent-width);
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--main-design-color);
+  }
+}
+
+.deposit__selectors__range_notification {
+  font-style: normal;
+  background: var(--main-design-color);
+  padding: 6px 12px;
+  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  left: var(--range-percent-width);
+
+  transform: translate(calc(var(--range-percent-width) * -1 - 25% + var(--range-percent-width) / 2), -50%);
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform-origin: center;
+    transform: translate(-50%, -20%);
+    border-radius: 2px;
+    border-top: 10px solid var(--main-design-color);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+  }
+}
+
+.deposit__selectors__range_selector__period_labels {
+  display: flex;
+  margin-top: 14px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  span {
+    font-size: 0.8em;
+    color: var(--light-text-color);
+  }
+}
+
+.deposit__selectors__deposite_selector__input_wrapper {
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--light-bg-color);
+  display: flex;
+  align-items: center;
+
+  button {
+    background: var(--additional-bg-color);
+    margin-right: 5px;
+    color: white;
+    box-shadow: none;
+    padding: 8px;
+    font-weight: 400;
+    font-size: 1.2em;
+  }
+
+  input, span {
+    font-weight: 600;
+    color: var(--main-design-color);
+    font-size: 1.2em;
+    text-align: right;
+  }
+
+  input {
+    background: none;
+    outline: none;
+    border: none;
+    padding-right: 10px;
+  }
+}
+
+.deposit__info {
+  margin-top: 20px;
+  background: var(--light-bg-color);
+  padding: 12px 36px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: .9em;
+  color: white;
+  span, i {
+    font-style: normal;
+    color: var(--main-design-color);
+  }
+
+  span {
+    margin-left: 15px;
+  }
+}
+
+.deposit__submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
