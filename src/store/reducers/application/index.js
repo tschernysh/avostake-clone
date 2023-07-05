@@ -2,6 +2,7 @@ import applicationTypes from './types'
 
 export const initialState = {
   walletAddress: null,
+  referralAddress: null,
   web3: null,
   defaultReferrer: '',
   bnbBalance: 0,

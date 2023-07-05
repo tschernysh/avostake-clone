@@ -1,5 +1,5 @@
 {
-  "contractName": "ITRC20",
+  "contractName": "IERC20",
   "abi": [
     {
       "anonymous": false,
