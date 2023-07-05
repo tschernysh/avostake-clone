@@ -155,7 +155,7 @@
 .deposit__info {
   margin-top: 20px;
   background: var(--light-bg-color);
-  padding: 10px 36px;
+  padding: 12px 36px;
   border-radius: 8px;
   display: flex;
   justify-content: space-between;
@@ -171,4 +171,11 @@
   span {
     margin-left: 15px;
   }
+}
+
+.deposit__submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
 }

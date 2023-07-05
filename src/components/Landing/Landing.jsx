@@ -2,6 +2,8 @@ import s from './landing.module.scss'
 import {MainCarousel} from "./MainCarousel";
 import {LastTransactions} from "./LastTransactions";
 import {EasyStart} from "./EasyStart";
+import {AboutUs} from "./AboutUs";
+import {BuildTeam} from "./BuildTeam";
 
 export const Landing = () => {
     return (
@@ -9,6 +11,8 @@ export const Landing = () => {
             <MainCarousel/>
             <LastTransactions/>
             <EasyStart/>
+            <AboutUs/>
+            <BuildTeam/>
         </main>
     )
 }

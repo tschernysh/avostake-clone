@@ -6,7 +6,7 @@ const config = {
     max: 33
 }
 
-export const DepositBlock = () => {
+export const DepositBlock = ({signInButtonClickHandler}) => {
     const [rangeValue, setRangeValue] = useState(config.min);
     const [depositAmount, setDepositAmount] = useState(1000);
     const [isNotificationVisible, setIsNotificationVisible] = useState(false);
@@ -24,8 +24,6 @@ export const DepositBlock = () => {
     }
 
     const changeHandlers = ({target: {name, value}}) => {
-        console.log(value)
-
         switch(name) {
             case 'period-selector':
                 setRangeValue(+value)
@@ -70,6 +68,9 @@ export const DepositBlock = () => {
                 <p>Total profit: <span>###</span></p>
                 <p>In <i> {rangeValue} </i> days will earn: <span>### BUSD</span></p>
                 <p>Daily ROI: <span>### %</span></p>
+            </div>
+            <div className={s.deposit__submit}>
+                <button onClick={signInButtonClickHandler}>Deposit</button>
             </div>
         </div>
     )

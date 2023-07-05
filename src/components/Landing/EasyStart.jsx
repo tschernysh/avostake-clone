@@ -5,6 +5,7 @@ import s from './landing.module.scss'
 import {IoWalletSharp} from "react-icons/io5";
 import {GiPuzzle} from "react-icons/gi";
 import {DepositBlock} from "../DepositBlock/DepositBlock";
+import {useOutletContext} from "react-router-dom";
 
 const tilesData = [{
     text: 'No crypto experience required',
@@ -18,6 +19,7 @@ const tilesData = [{
 }]
 
 export const EasyStart = () => {
+    const [signInButtonClickHandler] = useOutletContext();
 
     return (
         <section className={s.landing__easy_start}>
@@ -35,7 +37,7 @@ export const EasyStart = () => {
                     )
                 })}
             </div>
-            <DepositBlock/>
+            <DepositBlock signInButtonClickHandler={signInButtonClickHandler}/>
         </section>
     )
 }
