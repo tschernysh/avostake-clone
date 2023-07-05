@@ -5,7 +5,7 @@ import s from './landing.module.scss'
 import Config from "../../config";
 
 import coinImage from 'media/img/coin-image.png'
-import {FiArrowUpRight} from "react-icons/fi";
+import {FiArrowDownRight, FiArrowUpRight} from "react-icons/fi";
 
 export const LastTransactions = () => {
     const [data, setData] = useState([]);
@@ -39,7 +39,6 @@ export const LastTransactions = () => {
             )
             .then((result) => {
                 setData(JSON.parse(result)[56]
-                    .filter(({event_name}) => event_name === 'Withdraw')
                     .splice(-3)
                     .sort((a, b) => b.timestamp - a.timestamp))
             }).catch(error => {
@@ -53,10 +52,11 @@ export const LastTransactions = () => {
     }, [data])
 
     return (
-        <div className={s.landing__last_transactions}>
-            <b>Last transactions</b>
-            <table>
-                <tbody>
+        <section>
+            <div className={s.landing__last_transactions}>
+                <b>Last transactions</b>
+                <table>
+                    <tbody>
                     {data.map(t => {
                         return (
                             <tr key={t.timestamp}>
@@ -76,7 +76,8 @@ export const LastTransactions = () => {
                                 <td>
                                     <div>
                                         <small>Event</small>
-                                        <p><FiArrowUpRight color={'red'}/>{t.event_name}</p>
+                                        <p>{t.event_name === 'Withdraw' ? <FiArrowUpRight color={'red'}/> :
+                                            <FiArrowDownRight color={'green'}/>}{t.event_name}</p>
                                     </div>
                                 </td>
                                 <td>
@@ -94,9 +95,12 @@ export const LastTransactions = () => {
                             </tr>
                         )
                     })}
-                </tbody>
-            </table>
-            <a target={'_blank'} href={'https://bscscan.com/address/0x7988bddb58439b9ab2675c85e85dd70a2720efb0'}>View on BSCScan</a>
-        </div>
+                    </tbody>
+                </table>
+                <a target={'_blank'} href={'https://bscscan.com/address/0x7988bddb58439b9ab2675c85e85dd70a2720efb0'}>View
+                    on BSCScan</a>
+            </div>
+        </section>
+
     )
 }
