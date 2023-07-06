@@ -15,7 +15,7 @@ const tilesData = [{
 
 export const AboutUs = () => {
     return (
-        <section className={s.landing__about_us}>
+        <section id={'section-about'} className={s.landing__about_us}>
             <div className={s.landing__about_us__decoration}>ABOUT</div>
             <h2>About <span>us</span></h2>
             <div className={s.landing__about_us__main_description}>

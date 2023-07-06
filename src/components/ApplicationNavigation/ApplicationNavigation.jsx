@@ -1,5 +1,5 @@
 import s from "./application-navigation.module.scss";
-import logo from "../../media/img/logo.svg";
+import logo from "../../media/img/logo.png";
 import { Link, NavLink } from "react-router-dom";
 import { MdOutlineDashboard } from "react-icons/md";
 import { SlPresent } from "react-icons/sl";

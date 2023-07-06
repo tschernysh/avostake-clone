@@ -12,22 +12,37 @@
   transition: .3s transform;
 
   @include for-specific-size($adaptive-start) {
-    padding: 0 30px
+    padding: 10px 30px
   }
 
   @include for-specific-size($mobile-start) {
-
+    display: none;
   }
 
   &[data-hidden=true] {
     transform: translate(0, -100%);
   }
 
+  &[data-transparent=false] {
+    background: var(--main-bg-color);
+  }
   &__logo {
     display: flex;
     height: 55px;
     position: relative;
-    filter: drop-shadow(0 0 24px var(--main-design-color));
+
+    &:before {
+      z-index: -1;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      opacity: .8;
+      background: var(--main-design-color);
+      content: '';
+      filter: blur(30px);
+    }
   }
 
   &__nav {
@@ -46,5 +61,79 @@
 }
 
 .mobile_header {
+  z-index: 2;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  position: sticky;
+  height: 85px;
+  top: 0;
+  transition: .3s transform;
+  background: var(--main-bg-color);
+  column-gap: 20px;
 
+  &[data-hidden=true] {
+    transform: translate(0, -100%);
+  }
+
+  @include for-specific-size($mobile-start) {
+    display: flex;
+  }
+
+  &__logo {
+    display: flex;
+    height: 32px;
+    position: relative;
+    margin-right: auto;
+
+    &:before {
+      z-index: -1;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      height: 60%;
+      opacity: .8;
+      background: var(--main-design-color);
+      content: '';
+      filter: blur(20px);
+    }
+  }
+
+  &__burger_button {
+    background: var(--additional-bg-color);
+    box-shadow: none;
+    padding: 8px;
+    svg {
+      height: 2em;
+      width: 2em;
+      color: var(--main-design-color);
+    }
+  }
+
+  &__nav {
+    position: fixed;
+    left: 0;
+    top: 85px;
+    width: 100vw;
+    height: calc(100vh - 85px);
+    background: var(--main-bg-color);
+    flex-direction: column;
+    padding: 20px;
+    display: none;
+
+    &[data-nav-open=true] {
+      display: flex;
+    }
+
+    &__link {
+      font-weight: bold;
+      margin-bottom: 20px;
+      font-size: 1.7em;
+      color: white;
+      text-decoration: none;
+    }
+  }
 }
