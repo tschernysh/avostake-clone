@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/avostake-clone/static/css/main.f4792c36.css",
-    "main.js": "/avostake-clone/static/js/main.b11fd4ad.js",
+    "main.js": "/avostake-clone/static/js/main.7aea2a2c.js",
     "static/js/409.6c856dd6.chunk.js": "/avostake-clone/static/js/409.6c856dd6.chunk.js",
     "static/js/208.e5341b51.chunk.js": "/avostake-clone/static/js/208.e5341b51.chunk.js",
     "static/js/760.8f6734d8.chunk.js": "/avostake-clone/static/js/760.8f6734d8.chunk.js",
@@ -20,7 +20,7 @@
     "index.html": "/avostake-clone/index.html",
     "static/media/arrow-left.svg": "/avostake-clone/static/media/arrow-left.810e73b21425d818c360.svg",
     "main.f4792c36.css.map": "/avostake-clone/static/css/main.f4792c36.css.map",
-    "main.b11fd4ad.js.map": "/avostake-clone/static/js/main.b11fd4ad.js.map",
+    "main.7aea2a2c.js.map": "/avostake-clone/static/js/main.7aea2a2c.js.map",
     "409.6c856dd6.chunk.js.map": "/avostake-clone/static/js/409.6c856dd6.chunk.js.map",
     "208.e5341b51.chunk.js.map": "/avostake-clone/static/js/208.e5341b51.chunk.js.map",
     "760.8f6734d8.chunk.js.map": "/avostake-clone/static/js/760.8f6734d8.chunk.js.map",
@@ -31,6 +31,6 @@
   },
   "entrypoints": [
     "static/css/main.f4792c36.css",
-    "static/js/main.b11fd4ad.js"
+    "static/js/main.7aea2a2c.js"
   ]
 }
