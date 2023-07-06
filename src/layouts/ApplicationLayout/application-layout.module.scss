@@ -1,13 +1,11 @@
 .app {
-  height: 100vh;
   width: 100%;
   display: flex;
   background: var(--main-bg-color);
-  overflow: hidden;
 }
 
 .app__body {
-  height: 100%;
+  height: 100vh;
   flex: 1 1 0;
   display: flex;
   flex-direction: column;
@@ -15,6 +13,7 @@
   &__content_wrapper {
     height: 100%;
     display: flex;
+    overflow: hidden;
 
     &__content {
       overflow: auto;
