@@ -64,6 +64,7 @@ export const ApplicationActionCreator = {
         bnbBalance = +web3.utils.fromWei(bnbBalance, 'ether')
       } catch (error) {
         console.log(error)
+        return
       }
 
       dispatch(ApplicationActionCreator.setBNBBalance(bnbBalance))
@@ -86,6 +87,7 @@ export const ApplicationActionCreator = {
         tokenBalance = +web3.utils.fromWei(tokenBalance, 'ether')
       } catch (error) {
         console.log(error)
+        return
       }
 
       dispatch(ApplicationActionCreator.setTokenBalance(tokenBalance))
@@ -151,12 +153,11 @@ export const ApplicationActionCreator = {
 
     },
   depositToken:
-    () => async (dispatch, store) => {
+    (amount, time) => async (dispatch, store) => {
       const web3 = await initWeb3()
       const walletAddress = store().applicationReducer.walletAddress
       const defaultReferrer = store().applicationReducer.referralAddress
       const upline = store().accountReducer.userInfo.upline
-      const depositData = store().applicationReducer.depositData
 
       const tokenContract = new web3.eth.Contract(IERC20.abi, Config().TOKEN_CONTRACT_ADDRESS)
       const stakeContract = new web3.eth.Contract(StakeContract.abi, Config().STAKE_CONTRACT_ADDRESS);
@@ -168,12 +169,14 @@ export const ApplicationActionCreator = {
       else if (localReferral) currentReferral = localReferral
       else currentReferral = defaultReferrer
 
+      const amountToSend = web3.utils.toWei(amount, 'ether')
+
       let approveToken
 
       try {
         approveToken = await tokenContract.methods.approve(
           Config().STAKE_CONTRACT_ADDRESS,
-          web3.utils.toWei(depositData.depositAmount, 'ether')
+          amountToSend
         ).send({ from: walletAddress })
       } catch (error) {
         console.log(error)
@@ -184,9 +187,9 @@ export const ApplicationActionCreator = {
 
       try {
         depositTxn = await stakeContract.methods.deposit(
-          depositData.depositDays,
+          time,
           currentReferral,
-          web3.utils.toWei(depositData.depositAmount, 'ether')
+          amountToSend
         ).send({ from: walletAddress })
       } catch (error) {
         console.log(error)

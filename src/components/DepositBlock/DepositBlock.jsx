@@ -44,7 +44,7 @@ export const DepositBlock = ({ signInButtonClickHandler, showMin = false }) => {
 
   const handleDeposit = () => {
     if (true) {
-      dispatch(ApplicationActionCreator.depositToken())
+      dispatch(ApplicationActionCreator.depositToken(+depositAmount, rangeValue))
     } else {
       signInButtonClickHandler()
     }
@@ -81,7 +81,7 @@ export const DepositBlock = ({ signInButtonClickHandler, showMin = false }) => {
       <div className={s.deposit__info}>
         <p>Bonus: <span>{bonusesField}</span></p>
         <p>Total profit: <span>{100 + rangeValue + '%'}</span></p>
-        <p>In <i> {rangeValue} </i> days will earn: <span>{depositAmount * (100 + rangeValue) / 100} BUSD</span></p>
+        <p>In <i> {rangeValue} </i> days will earn: <span>{(depositAmount * (100 + rangeValue) / 100).toFixed(2)} BUSD</span></p>
         <p>Daily ROI: <span>{(depositAmount * (100 + rangeValue) / 100 / rangeValue / 10).toFixed(2)} %</span></p>
       </div>
       <div className={s.deposit__submit}>
