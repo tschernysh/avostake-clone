@@ -2,7 +2,7 @@ import { BrowserRouter, Routes } from "react-router-dom";
 
 import { RouterComponent } from "./routes/RouterComponent";
 import { routerSchema } from "./routes/routerSchema";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ApplicationActionCreator } from "store/reducers/application/action-creator";
 import { AccountActionCreator } from "store/reducers/account/action-creator";
@@ -19,7 +19,33 @@ import Web3 from "web3";
 const App = () => {
 
   const dispatch = useDispatch()
-  const { walletAddress, isNeedToUpdate } = useSelector(state => state.applicationReducer)
+  const { walletAddress, isNeedToUpdate, notCorrectChain } = useSelector(state => state.applicationReducer)
+  const [seconds, setSeconds] = useState(0)
+
+
+  useEffect(() => {
+    let interval
+    interval = setInterval(() => {
+      if (!seconds) {
+        if (notCorrectChain) return
+        dispatch(ApplicationActionCreator.getDefaultReferrer())
+        dispatch(AccountActionCreator.getLeaderProgressData())
+        dispatch(AccountActionCreator.getContractInfo())
+        dispatch(ApplicationActionCreator.checkMetamaskWallet())
+
+        if (!!walletAddress) {
+          dispatch(AccountActionCreator.getUserInfo())
+          dispatch(ApplicationActionCreator.getAccountBNBBalance())
+          dispatch(ApplicationActionCreator.getAccountTokenBalance())
+        }
+        setSeconds(1);
+      } else if (seconds > Config().HEARTBEAT_RATE) {
+        setSeconds(0)
+      } else setSeconds(seconds + 1)
+    }, 1000)
+
+    return () => clearInterval(interval);
+  }, [seconds])
 
   useEffect(() => {
     if (isNeedToUpdate) {
@@ -34,19 +60,9 @@ const App = () => {
   }, [isNeedToUpdate])
 
   useEffect(() => {
-    dispatch(ApplicationActionCreator.getDefaultReferrer())
-    dispatch(AccountActionCreator.getLeaderProgressData())
-    dispatch(AccountActionCreator.getContractInfo())
-    dispatch(ApplicationActionCreator.checkMetamaskWallet())
-  }, [])
-
-  useEffect(() => {
-    if (!!walletAddress) {
-      dispatch(AccountActionCreator.getUserInfo())
-      dispatch(ApplicationActionCreator.getAccountBNBBalance())
-      dispatch(ApplicationActionCreator.getAccountTokenBalance())
-    }
-  }, [walletAddress])
+    if (notCorrectChain) alert('Connect to another supported chain')
+    if (!!walletAddress && !notCorrectChain) setSeconds(0)
+  }, [walletAddress, notCorrectChain])
 
   useEffect(() => {
     // Function to handle wallet change event
@@ -62,6 +78,16 @@ const App = () => {
     if (typeof window.ethereum !== 'undefined') {
       // Subscribe to wallet change events
       window.ethereum.on('accountsChanged', handleAccountsChanged);
+      window.ethereum.on('chainChanged', (chainId) => {
+
+        const newChainId = Number(chainId)
+
+        if (chainId !== Config().CHAIN_ID) {
+          dispatch(ApplicationActionCreator.setNotCorrectChain(false))
+          return
+        } else dispatch(ApplicationActionCreator.setNotCorrectChain(true))
+
+      });
     }
 
     // Clean up the subscription on component unmount

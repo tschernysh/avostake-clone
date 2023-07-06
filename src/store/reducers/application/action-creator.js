@@ -44,6 +44,10 @@ export const ApplicationActionCreator = {
     type: applicationTypes().SET_IS_WITHDRAW_TRANSACTION,
     payload: isWithdrawTransaction
   }),
+  setNotCorrectChain: (notCorrectChain) => ({
+    type: applicationTypes().SET_NOT_CORRECT_CHAIN,
+    payload: notCorrectChain
+  }),
   getDefaultReferrer:
     () => async (dispatch, store) => {
       const web3 = new Web3(Config().WEB3_BSC_URL);
@@ -110,6 +114,27 @@ export const ApplicationActionCreator = {
       const web3 = new Web3(window.ethereum)
       if (typeof window.ethereum !== 'undefined') {
         // Check if MetaMask is connected
+
+        async function getConnectedChainId() {
+          try {
+            // Request the current chain ID from MetaMask
+            const chainId = await web3.eth.getChainId();
+
+            const newChainId = Number(chainId)
+
+            return newChainId;
+          } catch (error) {
+            console.error('Error retrieving chain ID:', error);
+            return null;
+          }
+        }
+
+        const chainId = await getConnectedChainId()
+        if (chainId !== Config().CHAIN_ID) {
+          dispatch(ApplicationActionCreator.setNotCorrectChain(true))
+          return
+        }
+
         const connectedAccounts = await web3.eth.getAccounts()
         if (!!connectedAccounts.length) {
           const web3 = new Web3(window.ethereum);
@@ -129,6 +154,26 @@ export const ApplicationActionCreator = {
       if (typeof window.ethereum !== 'undefined') {
         // Create a new Web3 instance using the MetaMask provider
         const web3 = new Web3(window.ethereum);
+
+        async function getConnectedChainId() {
+          try {
+            // Request the current chain ID from MetaMask
+            const chainId = await web3.eth.getChainId();
+
+            const newChainId = Number(chainId)
+
+            return newChainId;
+          } catch (error) {
+            console.error('Error retrieving chain ID:', error);
+            return null;
+          }
+        }
+
+        const chainId = await getConnectedChainId()
+        if (chainId !== Config().CHAIN_ID) {
+          dispatch(ApplicationActionCreator.setNotCorrectChain(true))
+          return
+        }
         let currentAddress
         try {
           const accounts = await window.ethereum.send(

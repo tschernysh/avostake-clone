@@ -6,7 +6,8 @@ const Config = () => {
       STAKE_CONTRACT_ADDRESS: '',
       HEARTBEAT_RATE: 10,
       BASE_URL: 'https://bixter.com/?ref=',
-      PROJECT_ID: '5b88e380cb7f9736a57c4175e26f1c55'
+      PROJECT_ID: '5b88e380cb7f9736a57c4175e26f1c55',
+      CHAIN_ID: 56,
     }
   } else {
     return {
@@ -15,7 +16,8 @@ const Config = () => {
       STAKE_CONTRACT_ADDRESS: '0x0D3f49738a110dd2eD967d3B511063D4f72Db329',
       HEARTBEAT_RATE: 10,
       BASE_URL: 'https://bixter.com/?ref=',
-      PROJECT_ID: '5b88e380cb7f9736a57c4175e26f1c55'
+      PROJECT_ID: '5b88e380cb7f9736a57c4175e26f1c55',
+      CHAIN_ID: 97,
     }
   }
 }
