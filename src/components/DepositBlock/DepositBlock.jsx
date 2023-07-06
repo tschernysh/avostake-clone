@@ -1,6 +1,7 @@
 import { ApplicationActionCreator } from 'store/reducers/application/action-creator';
 import s from './deposit-block.module.scss'
 import { useCallback, useState } from "react";
+import { useDispatch } from 'react-redux';
 
 const config = {
   min: 10,
@@ -11,6 +12,7 @@ export const DepositBlock = ({ signInButtonClickHandler, showMin = false }) => {
   const [rangeValue, setRangeValue] = useState(config.min);
   const [depositAmount, setDepositAmount] = useState(1000);
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
+  const dispatch = useDispatch()
 
   const onInputHover = useCallback(() => {
     setIsNotificationVisible(true)
