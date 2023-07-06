@@ -31,6 +31,6 @@ export const routerSchema = [{
         element: <Navigate to={`${Config().DEPLOY_URL_PREFIX}/app/dashboard`}/>
     }]
 }, {
-    path: '*',
+    path: `${Config().DEPLOY_URL_PREFIX}/*`,
     element: <Navigate to={`${Config().DEPLOY_URL_PREFIX}/`}/>
 }];
