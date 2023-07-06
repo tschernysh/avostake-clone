@@ -45,6 +45,7 @@ export const AuthModal = ({ isModalOpen, setIsModalOpen }) => {
     }
   }, [isOpen])
 
+
   return isModalOpen ? (
     modalStatus === 'auth' ? (
       <dialog className={s.auth} open>
