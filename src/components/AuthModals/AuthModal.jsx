@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import s from './auth.module.scss'
 import { GrClose } from "react-icons/gr";
@@ -13,9 +13,11 @@ import { bsc, bscTestnet } from 'wagmi/chains'
 import Config from "config";
 import { configureChains, createConfig } from "wagmi";
 import { EthereumClient, w3mConnectors, w3mProvider } from "@web3modal/ethereum";
+import { ConfigContext } from "applicationContext";
 
 export const AuthModal = ({ isModalOpen, setIsModalOpen }) => {
   const [modalStatus, setModalStatus] = useState('auth')
+  const { ethereumClient, projectId } = useContext(ConfigContext)
   const { open, close, isOpen } = useWeb3Modal()
   const dispatch = useDispatch()
 
@@ -27,19 +29,6 @@ export const AuthModal = ({ isModalOpen, setIsModalOpen }) => {
     setModalStatus('connectWallet')
     open()
   }
-
-  const chains = [bsc, bscTestnet]
-  const projectId = '5b88e380cb7f9736a57c4175e26f1c55'
-
-  const { publicClient } = configureChains(chains, [w3mProvider({ projectId })])
-  const wagmiConfig = createConfig({
-    autoConnect: true,
-    connectors: w3mConnectors({ projectId, chains }),
-    publicClient
-  })
-  const ethereumClient = new EthereumClient(wagmiConfig, chains)
-
-  console.log(ethereumClient)
 
   useEffect(() => {
     if (isModalOpen) {

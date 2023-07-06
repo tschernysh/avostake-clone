@@ -6,6 +6,12 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ApplicationActionCreator } from "store/reducers/application/action-creator";
 import { AccountActionCreator } from "store/reducers/account/action-creator";
+import Config from "config";
+
+import { EthereumClient, w3mConnectors, w3mProvider } from "@web3modal/ethereum"
+import { WagmiConfig, configureChains, createConfig } from "wagmi"
+import { bsc, bscTestnet } from 'wagmi/chains'
+import { ConfigContext } from "applicationContext";
 
 const App = () => {
 
@@ -47,10 +53,26 @@ const App = () => {
     };
   }, []);
 
+  const chains = [bsc, bscTestnet]
+  const projectId = Config().PROJECT_ID
+
+  const { publicClient } = configureChains(chains, [w3mProvider({ projectId })])
+  const wagmiConfig = createConfig({
+    autoConnect: true,
+    connectors: w3mConnectors({ projectId, chains }),
+    publicClient
+  })
+  const ethereumClient = new EthereumClient(wagmiConfig, chains)
+
+
   return (
-    <BrowserRouter>
-      <Routes>{routerSchema.map(RouterComponent)}</Routes>
-    </BrowserRouter>
+    <ConfigContext.Provider value={{ ethereumClient, projectId }}>
+      <WagmiConfig config={wagmiConfig}>
+        <BrowserRouter>
+          <Routes>{routerSchema.map(RouterComponent)}</Routes>
+        </BrowserRouter>
+      </WagmiConfig >
+    </ConfigContext.Provider>
   )
 }
 export default App;
