@@ -1,6 +1,8 @@
-export const routerBook = {
-    main: '/',
+import Config from "../config";
 
-    dashboard: '/app/dashboard',
-    bonuses: '/app/bonuses',
+export const routerBook = {
+    main: `${Config().DEPLOY_URL_PREFIX}/`,
+
+    dashboard: `${Config().DEPLOY_URL_PREFIX}/app/dashboard`,
+    bonuses: `${Config().DEPLOY_URL_PREFIX}/app/bonuses`,
 }

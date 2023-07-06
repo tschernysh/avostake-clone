@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, useLocation, useNavigate } from "react-router-dom";
-
+import React from 'react'
 import { RouterComponent } from "./routes/RouterComponent";
 import { routerSchema } from "./routes/routerSchema";
 import { useEffect, useMemo, useState } from "react";
@@ -16,6 +16,33 @@ import { initWeb3 } from "utils/initWeb3";
 import Web3 from "web3";
 import { initWagmi } from "utils/initWagmi";
 import { routerBook } from "routes/routerBook";
+
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    // You can also log the error to an error reporting service
+    console.log(error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return <h1>Something went wrong.</h1>;
+    }
+
+    return this.props.children;
+  }
+}
 
 const App = () => {
 
@@ -115,13 +142,16 @@ const App = () => {
 
 
   return (
-    <ConfigContext.Provider value={{ ethereumClient, projectId }}>
-      <WagmiConfig config={wagmiConfig}>
-        <BrowserRouter>
-          <Routes>{routerSchema.map(RouterComponent)}</Routes>
-        </BrowserRouter>
-      </WagmiConfig >
-    </ConfigContext.Provider>
+      <ErrorBoundary>
+        <ConfigContext.Provider value={{ ethereumClient, projectId }}>
+          <WagmiConfig config={wagmiConfig}>
+            <BrowserRouter>
+              <Routes>{routerSchema.map(RouterComponent)}</Routes>
+            </BrowserRouter>
+          </WagmiConfig >
+        </ConfigContext.Provider>
+      </ErrorBoundary>
+
   )
 }
 export default App;

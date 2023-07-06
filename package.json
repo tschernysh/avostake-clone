@@ -5,6 +5,7 @@
   "installConfig": {
     "pnp": false
   },
+  "homepage": "https://tschernysh.github.io/avostake-clone",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
@@ -34,8 +35,10 @@
   "scripts": {
     "start": "REACT_APP_ENV=development craco start",
     "build": "REACT_APP_ENV=production craco build",
+    "predeploy": "REACT_APP_ENV=ghpages craco build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -45,9 +48,11 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "chrome >= 67",
+      "edge >= 79",
+      "firefox >= 68",
+      "opera >= 54",
+      "safari >= 14"
     ],
     "development": [
       "last 1 chrome version",
@@ -56,6 +61,8 @@
     ]
   },
   "devDependencies": {
-    "craco": "^0.0.3"
+    "@babel/plugin-syntax-bigint": "^7.8.3",
+    "craco": "^0.0.3",
+    "gh-pages": "^5.0.0"
   }
 }
