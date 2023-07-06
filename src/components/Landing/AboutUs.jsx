@@ -15,10 +15,10 @@ const tilesData = [{
 
 export const AboutUs = () => {
     return (
-        <section className={s.about_us}>
-            <div className={s.about_us__decoration}>ABOUT</div>
+        <section className={s.landing__about_us}>
+            <div className={s.landing__about_us__decoration}>ABOUT</div>
             <h2>About <span>us</span></h2>
-            <div className={s.about_us__main_description}>
+            <div className={s.landing__about_us__main_description}>
                 <p>We offer you passive income, the foundation of which is classic staking of crypto currency, which is
                     an alternative to mining, from the 2nd mine you do not need to buy expensive equipment! You simply
                     stake cryptocurrencies and receive a reward in the form of % to your deposit!
@@ -28,10 +28,10 @@ export const AboutUs = () => {
                 </p>
                 <img src={coinImage} alt={'coins-image'}/>
             </div>
-            <div className={s.about_us__tiles}>
+            <div className={s.landing__about_us__tiles}>
                 {tilesData.map((el, i) => {
                     return (
-                        <div data-sub-text={`0${1 + i}`} key={i} className={s.about_us__tiles__tile}>
+                        <div data-sub-text={`0${1 + i}`} key={i} className={s.landing__about_us__tiles__tile}>
                             <b>{el.header}</b>
                             <p>{el.text}</p>
                         </div>

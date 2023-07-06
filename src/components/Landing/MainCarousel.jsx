@@ -18,7 +18,7 @@ const carouselOptions = {
     renderIndicator: (onClickHandler, isSelected, index, label) => {
         return (
             <li
-                className={isSelected ? s.landing__main_carousel__dot_selected : s.landing__main_carousel__dot}
+                className={isSelected ? s.landing__main__carousel__dot_selected : s.landing__main__carousel__dot}
                 onClick={onClickHandler}
                 onKeyDown={onClickHandler}
                 value={index}
@@ -34,10 +34,10 @@ const carouselOptions = {
 
 export const MainCarousel = () => {
     return (
-        <section className={s.landing__carousel}>
-            <Carousel className={s.landing__main_carousel} {...carouselOptions}>
-                <div className={s.landing__main_carousel_slide}>
-                    <div className={s.landing__main_carousel_slide__text}>
+        <section className={s.landing__main}>
+            <Carousel className={s.landing__main__carousel} {...carouselOptions}>
+                <div className={s.landing__main__carousel__slide}>
+                    <div className={s.landing__main__carousel__slide__text}>
                         <h2>
                             Get up to 10% deposit bonus and
                             <span> earn to 11% ROI daily </span>
@@ -51,8 +51,8 @@ export const MainCarousel = () => {
                     </div>
                     <img src={tenPercentImage} alt={'twenty-percent-image'}/>
                 </div>
-                <div className={s.landing__main_carousel_slide}>
-                    <div className={s.landing__main_carousel_slide__text}>
+                <div className={s.landing__main__carousel__slide}>
+                    <div className={s.landing__main__carousel__slide__text}>
                         <h2>
                             Smart investment system of investing in
                             <span> BUSD From 4% to 11% daily ROI </span>

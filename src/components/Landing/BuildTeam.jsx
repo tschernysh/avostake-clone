@@ -14,17 +14,17 @@ const tilesData = [{
 }]
 export const BuildTeam = () => {
     return (
-        <section className={s.build_team}>
+        <section className={s.landing__build_team}>
             <h2>Build a team - <span>get a reward</span></h2>
-            <div className={s.build_team__referral_description}>
+            <div className={s.landing__build_team__referral_description}>
                 <b>Referral Program</b>
                 <small>BixTer offers its users a 5-level referral program with rewards as high as 9% of referral transactions.</small>
-                <div className={s.build_team__referral_description__tiles}>
+                <div className={s.landing__build_team__referral_description__tiles}>
                     {tilesData.map(({percent}, index) => {
                         return (
-                            <div key={index} className={s.build_team__referral_description__tiles__tile}>
+                            <div key={index} className={s.landing__build_team__referral_description__tiles__tile}>
                                 <span>{percent}</span>
-                                <p>Ref. Line {index + 1}</p>
+                                <p>Ref. <br/> Line {index + 1}</p>
                             </div>
                         )
                     })}

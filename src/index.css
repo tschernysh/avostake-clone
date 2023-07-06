@@ -6,7 +6,7 @@ body {
   background-color: var(--dark-bg-color);
   background-image: url('/src/media/img/landing-background.png');
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
 }
 
 code {
