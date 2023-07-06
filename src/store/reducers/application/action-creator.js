@@ -183,7 +183,7 @@ export const ApplicationActionCreator = {
           depositData.depositDays,
           currentReferral,
           web3.utils.toWei(depositData.depositAmount, 'ether')
-        ).send()
+        ).send({ from: walletAddress })
       } catch (error) {
         console.log(error)
         return
