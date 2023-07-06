@@ -1,12 +1,14 @@
+@import '../../misc/mixin.scss';
+@import '../../misc/variables.scss';
+
 .app_dashboard {
-  &__deposits, &__widthdraw {
+
+  &__withdraw {
     border-radius: 8px;
     padding: 30px 20px;
     font-size: 18px;
     background: var(--main-bg-color);
-  }
 
-  &__withdraw {
     &__header {
       color: white;
       font-size: 1.1em;
@@ -24,6 +26,20 @@
       align-items: center;
       font-size: 0.9em;
       color: white;
+
+      @include for-specific-size(1300px) {
+        flex-direction: column;
+        row-gap: 20px;
+      }
+
+      p {
+        @include for-specific-size(1300px) {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
 
       span, i {
         font-style: normal;
@@ -65,11 +81,46 @@
   }
 
   &__deposits {
+    border-radius: 8px;
+    padding: 30px 20px;
+    font-size: 18px;
+    background: var(--main-bg-color);
+
     &__header {
       color: white;
       font-size: 1.1em;
       font-weight: 500;
       margin-bottom: 20px;
+    }
+
+    &__mobile_info {
+
+      flex-direction: column;
+      display: none;
+      row-gap: 20px;
+
+      @include for-specific-size(1300px) {
+        display: flex;
+      }
+
+      &__tile {
+        background: var(--light-bg-color);
+        padding: 20px;
+        border-radius: 8px;
+      }
+
+      p {
+        font-weight: 400;
+        font-size: .8em;
+        color: var(--light-text-color);
+        display: flex;
+        justify-content: space-between;
+        padding: 4px 0;
+
+        span {
+          color: white;
+        }
+      }
     }
 
     &__info {
@@ -78,6 +129,10 @@
       margin-top: 20px;
       border-collapse: collapse;
       border-radius: 8px;
+
+      @include for-specific-size(1300px) {
+        display: none;
+      }
 
       th, td {
         padding: 8px;

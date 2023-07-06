@@ -6,7 +6,6 @@
   padding: 30px 20px;
   font-size: 18px;
   background: var(--main-bg-color);
-
   &__header {
     color: white;
     font-size: 1.1em;
@@ -18,8 +17,16 @@
     display: flex;
     column-gap: 40px;
 
-    @include for-specific-size($mobile-start) {
-      flex-direction: column;
+    &[data-dashboard=true] {
+      @include for-specific-size(1300px) {
+        flex-direction: column;
+      }
+    }
+
+    &[data-dashboard=false] {
+      @include for-specific-size($mobile-start) {
+        flex-direction: column;
+      }
     }
 
     &__deposite_selector, &__range_selector {
@@ -34,10 +41,17 @@
         font-size: .91em;
         margin-bottom: 12px;
 
-        @include for-specific-size($mobile-start) {
-          margin-bottom: 30px;
+        &[data-dashboard=true] {
+          @include for-specific-size(1300px) {
+            margin-bottom: 30px;
+          }
         }
 
+        &[data-dashboard=false] {
+          @include for-specific-size($mobile-start) {
+            margin-bottom: 30px;
+          }
+        }
         color: white;
       }
     }
@@ -61,9 +75,18 @@
         opacity: 0;
       }
 
-      @include for-specific-size($mobile-start) {
-        margin-bottom: 20px;
+      &[data-dashboard=true] {
+        @include for-specific-size(1300px) {
+          margin-bottom: 20px;
+        }
       }
+
+      &[data-dashboard=false] {
+        @include for-specific-size($mobile-start) {
+          margin-bottom: 20px;
+        }
+      }
+
 
       &__period_labels {
         display: flex;
@@ -90,8 +113,16 @@
       left: 0;
       pointer-events: none;
 
-      @include for-specific-size($mobile-start) {
-        height: 14px;
+      &[data-dashboard=true] {
+        @include for-specific-size(1300px) {
+          height: 14px;
+        }
+      }
+
+      &[data-dashboard=false] {
+        @include for-specific-size($mobile-start) {
+          height: 14px;
+        }
       }
 
       &:after {
@@ -154,9 +185,18 @@
         display: flex;
         align-items: center;
 
-        @include for-specific-size($mobile-start) {
-          width: 100%;
+        &[data-dashboard=true] {
+          @include for-specific-size(1300px) {
+            width: 100%;
+          }
         }
+
+        &[data-dashboard=false] {
+          @include for-specific-size($mobile-start) {
+            width: 100%;
+          }
+        }
+
 
         button {
           background: var(--additional-bg-color);
@@ -167,8 +207,16 @@
           font-weight: 400;
           font-size: 1.2em;
 
-          @include for-specific-size($mobile-start) {
-            flex: 0 0 70px
+          &[data-dashboard=true] {
+            @include for-specific-size(1300px) {
+              flex: 0 0 70px;
+            }
+          }
+
+          &[data-dashboard=false] {
+            @include for-specific-size($mobile-start) {
+              flex: 0 0 70px
+            }
           }
         }
 
@@ -180,8 +228,18 @@
         }
 
         span {
-          @include for-specific-size($mobile-start) {
-            flex: 0 0 70px
+          &[data-dashboard=true] {
+            @include for-specific-size(1300px) {
+              flex: 0 0 70px
+
+            }
+          }
+
+          &[data-dashboard=false] {
+            @include for-specific-size($mobile-start) {
+              flex: 0 0 70px
+
+            }
           }
         }
 
@@ -191,8 +249,18 @@
           border: none;
           padding-right: 10px;
           width: 100%;
-          @include for-specific-size($mobile-start) {
-            padding-right: 0;
+          &[data-dashboard=true] {
+            @include for-specific-size(1300px) {
+              padding-right: 0;
+
+            }
+          }
+
+          &[data-dashboard=false] {
+            @include for-specific-size($mobile-start) {
+              padding-right: 0;
+
+            }
           }
         }
       }
@@ -210,16 +278,47 @@
     font-size: .9em;
     color: white;
 
-    @include for-specific-size($mobile-start) {
-      flex-direction: column;
-      row-gap: 15px;
+    &[data-dashboard=true] {
+      @include for-specific-size(1300px) {
+        flex-direction: column;
+        row-gap: 15px;
+
+        p {
+          width: 100%;
+          display: flex;
+          align-items: center;
+        }
+
+        i {
+          margin-left: 5px;
+          margin-right: 5px;
+        }
+
+        span {
+          margin-left: auto;
+        }
+      }
     }
 
-    p {
+    &[data-dashboard=false] {
       @include for-specific-size($mobile-start) {
-        width: 100%;
-        display: flex;
-        align-items: center;
+        flex-direction: column;
+        row-gap: 15px;
+
+        p {
+          width: 100%;
+          display: flex;
+          align-items: center;
+        }
+
+        i {
+          margin-left: 5px;
+          margin-right: 5px;
+        }
+
+        span {
+          margin-left: auto;
+        }
       }
     }
 
@@ -237,10 +336,6 @@
 
     span {
       margin-left: 15px;
-
-      @include for-specific-size($mobile-start) {
-        margin-left: auto;
-      }
     }
   }
 
@@ -251,6 +346,4 @@
     margin-top: 30px;
   }
 }
-
-
 

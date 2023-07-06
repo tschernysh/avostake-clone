@@ -13,7 +13,7 @@ import { GoCopy } from "react-icons/go";
 import { FiExternalLink } from "react-icons/fi";
 import { FaTelegramPlane } from "react-icons/fa";
 
-export const ApplicationNavigation = () => {
+export const ApplicationNavigation = ({isNavOpen}) => {
   const baseUrl = Config().BASE_URL;
 
   const walletAddress = useSelector(store => store.applicationReducer.walletAddress)
@@ -30,7 +30,7 @@ export const ApplicationNavigation = () => {
   }
 
   return (
-    <nav className={s.app_nav}>
+    <nav data-is-open={isNavOpen} className={s.app_nav}>
       <Link className={s.app_nav__logo} to={'/'}><img src={logo} alt={'logo'} /></Link>
 
       <div className={s.app_nav__links_wrapper}>

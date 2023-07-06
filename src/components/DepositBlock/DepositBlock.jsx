@@ -55,12 +55,12 @@ export const DepositBlock = ({ signInButtonClickHandler, showMin = false }) => {
   return (
     <div onChange={changeHandlers} className={s.deposit}>
       <p className={s.deposit__header}>Deposit</p>
-      <div className={s.deposit__selectors}>
-        <div className={s.deposit__selectors__range_selector}>
-          <p>Deposit period (days)</p>
+      <div data-dashboard={showMin} className={s.deposit__selectors}>
+        <div data-dashboard={showMin} className={s.deposit__selectors__range_selector}>
+          <p data-dashboard={showMin}>Deposit period (days)</p>
           <label htmlFor={'period-selector'}>
             {isNotificationVisible && <i className={s.deposit__selectors__range_notification} style={{ '--range-percent-width': `${((rangeValue - config.min) / (config.max - config.min)) * 100}%` }}>{rangeValue}</i>}
-            <span style={{ '--range-percent-width': `${((rangeValue - config.min) / (config.max - config.min)) * 100}%` }} className={s.deposit__selectors__range_indicator} />
+            <span data-dashboard={showMin} style={{ '--range-percent-width': `${((rangeValue - config.min) / (config.max - config.min)) * 100}%` }} className={s.deposit__selectors__range_indicator} />
             <input onMouseOver={onInputHover} onMouseLeave={onInputHoverLeft} name={'period-selector'} value={rangeValue} step={1} type={"range"} min={10} max={33} />
           </label>
           <div className={s.deposit__selectors__range_selector__period_labels}>
@@ -69,16 +69,16 @@ export const DepositBlock = ({ signInButtonClickHandler, showMin = false }) => {
           </div>
         </div>
         <div className={s.deposit__selectors__deposite_selector}>
-          <p>Deposit Amount</p>
+          <p data-dashboard={showMin}>Deposit Amount</p>
           {showMin && <small>Min 10 BUSD</small>}
-          <div className={s.deposit__selectors__deposite_selector__input_wrapper}>
-            <button onClick={maxDepositButtonClickHandler}>Max</button>
-            <input name={'deposit-selector'} value={depositAmount} />
+          <div data-dashboard={showMin} className={s.deposit__selectors__deposite_selector__input_wrapper}>
+            <button data-dashboard={showMin} onClick={maxDepositButtonClickHandler}>Max</button>
+            <input data-dashboard={showMin} name={'deposit-selector'} value={depositAmount} />
             <span>BUSD</span>
           </div>
         </div>
       </div>
-      <div className={s.deposit__info}>
+      <div data-dashboard={showMin} className={s.deposit__info}>
         <p>Bonus: <span>{bonusesField}</span></p>
         <p>Total profit: <span>{100 + rangeValue + '%'}</span></p>
         <p>In <i> {rangeValue} </i> days will earn: <span>{(depositAmount * (100 + rangeValue) / 100).toFixed(2)} BUSD</span></p>

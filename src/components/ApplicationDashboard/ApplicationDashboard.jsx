@@ -97,6 +97,28 @@ export const ApplicationDashboard = () => {
           })}
           </tbody>
         </table>
+        <div class={s.app_dashboard__deposits__mobile_info}>
+          {dataForDisplay?.map(({transaction_hash, timestamp, tarif, amount, id}) => {
+            const progress = Math.round(((Date.now() / 1000 - (tarif * 24 * 3600)) / timestamp) * 100);
+            return (
+                <div className={s.app_dashboard__deposits__mobile_info__tile} key={id}>
+                  <p>TXN Hash <span>{transaction_hash.slice(0,5)}...{transaction_hash.slice(-5)}</span></p>
+                  <p>Date/Time <span>{new Date(timestamp * 1000).toLocaleDateString('en', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                    hour12: true,
+                    hour: 'numeric',
+                    minute: 'numeric'
+                  })}</span></p>
+                  <p>Days <span>{tarif}</span></p>
+                  <p>Amount <span>{amount} BUSD</span></p>
+                  <p>Progress <span><div className={s.app_dashboard__deposits__info__status}><span style={{width: `${progress >= 100 ? 100 : 0}%`}}/></div></span></p>
+                  <p>Profit <span>{(amount * (100 + tarif) / 100).toFixed(2)}</span></p>
+                </div>
+            )
+          })}
+        </div>
       </div>
       <div className={s.app_dashboard__withdraw}>
         <p className={s.app_dashboard__withdraw__header}>Withdraw</p>

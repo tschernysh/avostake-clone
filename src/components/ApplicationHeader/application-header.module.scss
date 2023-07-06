@@ -1,13 +1,58 @@
+@import '../../misc/variables.scss';
+@import '../../misc/mixin.scss';
+
 .app_header {
   display: flex;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: 0 20px;
+  height: 70px;
+  flex: 0 0 70px;
   align-items: center;
+
+  &__logo {
+    display: none;
+    height: 40px;
+    position: relative;
+
+    @include for-specific-size(1300px) {
+      display: block;
+    }
+
+    &:before {
+      z-index: 0;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      opacity: .8;
+      background: var(--main-design-color);
+      content: '';
+      filter: blur(30px);
+    }
+
+    img {
+      height: 100%;
+    }
+  }
 
   &__title {
     text-transform: capitalize;
     font-size: 1.4em;
-    color: white
+    color: white;
+
+    &[data-mobile = true] {
+      display: none;
+
+      @include for-specific-size(1300px) {
+        display: block;
+      }
+    }
+    &[data-mobile = false] {
+      @include for-specific-size(1300px) {
+        display: none;
+      }
+    }
   }
 
   &__account_data {
@@ -30,6 +75,26 @@
     }
 
     &__wallet_balance {
+      &[data-mobile=false] {
+        display: flex;
+
+        @include for-specific-size(1300px) {
+          display: none;
+        }
+      }
+
+      &[data-mobile=true] {
+        display: none;
+
+        @include for-specific-size(1300px) {
+          display: flex;
+          border-radius: 8px !important;
+          font-size: .9em;
+          padding: 12px;
+          justify-content: space-between;
+        }
+      }
+
       svg {
         color: var(--light-text-color);
         height: 1.5em;
@@ -68,12 +133,19 @@
 
         img {
           height: 1.8em;
+          @include for-specific-size(1300px) {
+            margin-right: 7px;
+          }
         }
 
         span {
           margin-right: 14px;
           margin-left: 12px;
           font-size: 1em;
+
+          @include for-specific-size(1300px) {
+            display: none;
+          }
         }
 
         svg {
@@ -92,6 +164,16 @@
         z-index: 1;
         display: none;
 
+        @include for-specific-size(1300px) {
+          padding-top: 0;
+          position: fixed;
+          top: 60px;
+          left: 0;
+          width: 100%;
+          height: calc(100% - 70px);
+          background: var(--main-bg-color);
+        }
+
         &[data-open=true] {
           display: block;
         }
@@ -101,6 +183,17 @@
           flex-direction: column;
           border-radius: 8px;
           background: var(--light-bg-color);
+
+          @include for-specific-size(1300px) {
+            border-radius: 0;
+            padding: 30px;
+            row-gap: 40px;
+            background: none;
+          }
+
+          button {
+            border-radius: inherit;
+          }
 
           button, a {
             padding: 12px;
@@ -112,13 +205,16 @@
             color: white;
             font-size: .8em;
             border-radius: 0;
+
+            @include for-specific-size(1300px) {
+              background: var(--light-bg-color);
+              border-radius: 8px !important;
+              font-size: .9em;
+            }
+
             &:hover {
               background: var(--additional-bg-color);
             }
-          }
-
-          button {
-            border-radius: inherit;
           }
 
           svg {
@@ -131,9 +227,31 @@
           a {
             border-top: 1px solid var(--light-text-color);
             border-bottom: 1px solid var(--light-text-color);
+
+            @include for-specific-size(1300px) {
+              border-top: 1px solid transparent;
+              border-bottom: 1px solid transparent;
+            }
           }
         }
       }
+    }
+  }
+
+  &__burger_button {
+    display: none;
+    background: var(--additional-bg-color);
+    box-shadow: none;
+    padding: 8px;
+
+    svg {
+      height: 2em;
+      width: 2em;
+      color: var(--main-design-color);
+    }
+
+    @include for-specific-size(1300px) {
+      display: block;
     }
   }
 }

@@ -1,3 +1,6 @@
+@import '../../misc/mixin.scss';
+@import '../../misc/variables.scss';
+
 .app_stats {
   position: sticky;
   top: 0;
@@ -8,6 +11,25 @@
   flex-direction: column;
   padding: 10px 30px 30px 30px;
   row-gap: 10px;
+
+  @include for-specific-size(1300px) {
+    width: 100%;
+    padding: 25px 50px;
+    background: var(--dark-bg-color);
+
+    &:before {
+      border-radius: 8px;
+      background: var(--main-bg-color);
+      z-index: -1;
+      position: absolute;
+      content: '';
+      width: calc(100% - 50px);
+      height: 100%;
+      left: 25px;
+      top: 0;
+    }
+  }
+
 
   b {
     margin-top: 15px;

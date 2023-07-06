@@ -10,8 +10,11 @@ import { BsChevronCompactDown } from "react-icons/bs";
 import { FiExternalLink } from "react-icons/fi";
 import { ImExit } from "react-icons/im";
 import { MdOutlineRefresh } from "react-icons/md";
+import {IoCloseSharp} from "react-icons/io5";
+import {GiHamburgerMenu} from "react-icons/gi";
+import logo from "../../media/img/logo.png";
 
-export const ApplicationHeader = () => {
+export const ApplicationHeader = ({isNavOpen = false, setIsNavOpen = () => {}}) => {
   const location = useLocation();
   const { walletAddress, bnbBalance, tokenBalance } = useSelector(store => store.applicationReducer)
 
@@ -36,10 +39,11 @@ export const ApplicationHeader = () => {
 
   return (
     <div className={s.app_header}>
-      <b className={s.app_header__title}>{title}</b>
+      {isNavOpen || isDropDownOpen ? null : <a className={s.app_header__logo} href={'#'}><img src={logo} alt={'logo'} /></a>}
+      <b  data-mobile={false} className={s.app_header__title}>{title}</b>
+      <b data-mobile={true} className={s.app_header__title}>{isNavOpen ? 'Menu' : isDropDownOpen ? 'Wallet' : ''}</b>
       <div className={s.app_header__account_data}>
-        <div onClick={setIsBalanceHidden.bind(null, !isBalanceHidden)}
-          className={s.app_header__account_data__wallet_balance}>
+        <div data-mobile={false} onClick={setIsBalanceHidden.bind(null, !isBalanceHidden)} className={s.app_header__account_data__wallet_balance}>
           <div className={s.app_header__account_data__wallet_balance__data}>
             <small>Wallet balance</small>
             <div className={s.app_header__account_data__wallet_balance__data__numbers}>
@@ -50,19 +54,32 @@ export const ApplicationHeader = () => {
           {isBalanceHidden ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
         </div>
         <div onMouseEnter={onMouseAccountHover} onMouseLeave={onMouseAccountLeave} className={s.app_header__account_data__profile_menu}>
-          <div className={s.app_header__account_data__profile_menu__header}>
+          <div onClick={onMouseAccountHover} className={s.app_header__account_data__profile_menu__header}>
             <img src={metamaskIcon} alt={'metamask'} />
             <span>{walletAddress?.slice(0, 4)}...{walletAddress?.slice(-5)}</span>
             <BsChevronCompactDown />
           </div>
           <div data-open={isDropDownOpen} className={s.app_header__account_data__profile_menu__content}>
             <div className={s.app_header__account_data__profile_menu__content__buttons}>
+              <div data-mobile={true} onClick={setIsBalanceHidden.bind(null, !isBalanceHidden)} className={s.app_header__account_data__wallet_balance}>
+                <div className={s.app_header__account_data__wallet_balance__data}>
+                  <small>Wallet balance</small>
+                  <div className={s.app_header__account_data__wallet_balance__data__numbers}>
+                    <span>{isBalanceHidden ? '***' : bnbBalance.toFixed(2)} BNB</span>
+                    <span>{isBalanceHidden ? '***' : tokenBalance.toFixed(2)} BUSD</span>
+                  </div>
+                </div>
+                {isBalanceHidden ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+              </div>
               <button><MdOutlineRefresh />Change wallet</button>
               <a target={'_blank'} href={`https://bscscan.com/address/${walletAddress}`}><FiExternalLink />View on explorer</a>
               <button><ImExit /> Log Out</button>
             </div>
           </div>
         </div>
+        <button onClick={setIsNavOpen.bind(null, !isNavOpen)} className={s.app_header__burger_button}>
+          { isNavOpen ? <IoCloseSharp/> : <GiHamburgerMenu/>}
+        </button>
       </div>
     </div>
   )

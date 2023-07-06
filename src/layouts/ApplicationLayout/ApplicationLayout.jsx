@@ -4,13 +4,16 @@ import {ApplicationNavigation} from "../../components/ApplicationNavigation/Appl
 import s from './application-layout.module.scss'
 import {ApplicationStatistics} from "../../components/ApplicationStatistics/ApplicationStatistics";
 import {ApplicationHeader} from "../../components/ApplicationHeader/ApplicationHeader";
+import {useState} from "react";
 
 export const ApplicationLayout = () => {
+    const [isNavOpen, setIsNavOpen] = useState(false);
+
     return (
         <main className={s.app}>
-            <ApplicationNavigation/>
+            <ApplicationNavigation isNavOpen={isNavOpen}/>
             <section className={s.app__body}>
-                <ApplicationHeader/>
+                <ApplicationHeader setIsNavOpen={setIsNavOpen} isNavOpen={isNavOpen}/>
                 <div className={s.app__body__content_wrapper}>
                     <div className={s.app__body__content_wrapper__content}>
                         <Outlet/>
