@@ -5,7 +5,7 @@ import { useCallback, useState } from "react";
 import { AiFillLock } from "react-icons/ai";
 import { BsCheckLg } from "react-icons/bs";
 
-export const LeaderProgram = () => {
+export const LeaderProgram = ({disableDescription = false}) => {
   const [currentLevel, setCurrentLevel] = useState(7)
 
   const { rewards, turnover } = useSelector(store => store.accountReducer.leaderProgressData)
@@ -66,10 +66,12 @@ export const LeaderProgram = () => {
       <div className={s.leader_program__header}>
         <div className={s.leader_program__header__text}>
           <b>Leader Program</b>
-          <small>The more active your team (the higher its turnover), the higher your Leader Bonus. Bonuses
-            are single payouts issued to Leaders on reaching a certain Level. For instance, a 1 Level Leader
-            gets a 12 BUSD bonus once their team taps 600 BUSD, while a 7 Level Leader gets a 5 000 BUSD
-            reward as soon as their team hits 150 000 BUSD.</small>
+          {!disableDescription && (
+              <small>The more active your team (the higher its turnover), the higher your Leader Bonus. Bonuses
+                are single payouts issued to Leaders on reaching a certain Level. For instance, a 1 Level Leader
+                gets a 12 BUSD bonus once their team taps 600 BUSD, while a 7 Level Leader gets a 5 000 BUSD
+                reward as soon as their team hits 150 000 BUSD.</small>
+          )}
         </div>
         <div className={s.leader_program__header__stats}>
           <div>
