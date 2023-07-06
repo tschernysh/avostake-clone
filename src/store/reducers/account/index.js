@@ -27,6 +27,7 @@ export const initialState = {
     bonuses_obj: {}
   },
   userInfo: {
+    payoutOf: 0,
     upline: null,
     dividents: 0,
     match_bonus: 0,

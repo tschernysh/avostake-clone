@@ -102,6 +102,10 @@ export const AccountActionCreator = {
           refTurnover] = userInfo.player
         */
 
+        let payoutOf = userInfo[0]
+        payoutOf = +web3.utils.fromWei(payoutOf.toString(), 'ether')
+        payoutOf = payoutOf.toFixed(2)
+
         let upline = userInfo.player[0]
         if (upline === '0x0000000000000000000000000000000000000000') upline = null
 
@@ -157,7 +161,7 @@ export const AccountActionCreator = {
         refTurnover = refTurnover.map(el => +web3.utils.fromWei(el.toString(), 'ether'))
 
         userInfo = {
-          upline, dividents, match_bonus, leader_bonus,
+          payoutOf, upline, dividents, match_bonus, leader_bonus,
           last_payout, total_invested, total_withdrawn,
           total_match_bonus, leadTurnover, leadBonusReward,
           receivedBonuses, deposits, structure, referrals,
