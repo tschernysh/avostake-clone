@@ -1,0 +1,24 @@
+.app {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  background: var(--main-bg-color);
+}
+
+.app__body {
+  height: 100%;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+
+  &__content_wrapper {
+    height: 100%;
+    display: flex;
+
+    &__content {
+      border-radius: 8px;
+      background: var(--dark-bg-color);
+      flex: 1 1 0;
+    }
+  }
+}

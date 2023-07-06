@@ -1,0 +1,177 @@
+.app_nav {
+  position: sticky;
+  top: 0;
+  width: 15vw;
+  flex: 0 0 15vw;
+  height: 100%;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+
+  &__logo {
+    padding: 20px 50px;
+    display: block;
+    width: 100%;
+    position: relative;
+    filter: drop-shadow(0 0 24px var(--main-design-color));
+
+    img {
+      width: 100%;
+      object-fit: scale-down;
+    }
+  }
+
+  &__links_wrapper, &__extra_links_wrapper {
+    padding: 0 30px 30px 30px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+  }
+
+  &__links_wrapper {
+    border-bottom: 1px solid var(--light-text-color);
+
+    &__link {
+      padding: 10px 10px;
+      width: 100%;
+      align-items: center;
+      display: flex;
+      color: var(--light-text-color);
+      text-decoration: none;
+      font-size: 1em;
+
+      &[class ~= active], &:hover {
+        color: white;
+
+        svg {
+          color: var(--main-design-color)
+        }
+      }
+
+      &[class ~= active] {
+        background: var(--additional-bg-color)
+      }
+
+      svg {
+        color: var(--light-text-color);
+        height: 1.5em;
+        width: 1.5em;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  &__extra_links_wrapper {
+    padding-top: 30px;
+
+    a {
+      padding: 10px 10px;
+      width: 100%;
+      align-items: center;
+      display: flex;
+      color: var(--light-text-color);
+      text-decoration: none;
+      font-size: 1em;
+
+      &[class ~= active], &:hover {
+        color: white;
+
+        svg {
+          color: var(--main-design-color)
+        }
+      }
+
+      svg {
+        color: var(--light-text-color);
+        height: 1.5em;
+        width: 1.5em;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  &__referral {
+    margin-top: auto;
+    border-top: 1px solid var(--light-text-color);
+    padding: 30px 30px 30px 30px;
+
+    span {
+      font-size: 1.1em;
+      color: var(--light-text-color);
+    }
+
+    &__copy_field {
+      background: var(--additional-bg-color);
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+      border-radius: 8px;
+
+      p {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        color: var(--light-text-color)
+      }
+
+      button {
+        display: flex;
+        align-items: center;
+        background: none;
+        padding: 0;
+        box-shadow: none;
+
+        svg {
+          margin-left: 8px;
+          color: var(--main-design-color);
+          height: 1.4em;
+          width: 1.4em;
+        }
+      }
+    }
+  }
+
+  &__referrer {
+    margin-top: 50px;
+    color: var(--light-text-color);
+
+    p {
+      display: flex;
+      align-items: center;
+      margin-top: 7px;
+    }
+
+    svg {
+      margin-left: 8px;
+      color: var(--main-design-color);
+      height: 1.4em;
+      width: 1.4em;
+    }
+  }
+
+  &__socials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    column-gap: 20px;
+
+    a {
+      padding: 4px;
+      text-decoration: none;
+      height: 2em;
+      width: 2em;
+      border-radius: 3px;
+      background: var(--additional-bg-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
