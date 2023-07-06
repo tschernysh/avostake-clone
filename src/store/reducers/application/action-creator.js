@@ -192,6 +192,10 @@ export const ApplicationActionCreator = {
         console.error('MetaMask is not installed.');
       }
     },
+  disconnectMetamaskWallet:
+    () => async (dispatch, store) => {
+      window.ethereum.disconnect();
+    },
   withdraw:
     () => async (dispatch, store) => {
       const web3 = await initWeb3()
