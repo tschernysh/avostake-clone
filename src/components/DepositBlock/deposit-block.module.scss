@@ -43,7 +43,7 @@
     }
 
     &__range_selector {
-      flex: 1 1 auto;
+      flex: 0 0 60%;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -145,9 +145,7 @@
     }
 
     &__deposite_selector {
-      @include for-specific-size($mobile-start) {
-        width: 100%;
-      }
+      width: 100%;
 
       &__input_wrapper {
         padding: 12px;
@@ -192,10 +190,9 @@
           outline: none;
           border: none;
           padding-right: 10px;
-
+          width: 100%;
           @include for-specific-size($mobile-start) {
             padding-right: 0;
-            width: 100%;
           }
         }
       }

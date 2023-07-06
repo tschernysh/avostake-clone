@@ -74,9 +74,19 @@
     font-size: .7em;
     width: 100%;
 
-    @include for-specific-size($mobile-start) {
-      display: none;
+    &[data-from-dashboard=true] {
+      @include for-specific-size(1600px) {
+        display: none;
+      }
     }
+
+    &[data-from-dashboard=false] {
+      @include for-specific-size($mobile-start) {
+        display: none;
+      }
+    }
+
+
 
     br {
       display: block;
@@ -186,8 +196,16 @@
     row-gap: 15px;
     display: none;
 
-    @include for-specific-size($mobile-start) {
-      display: flex;
+    &[data-from-dashboard=true] {
+      @include for-specific-size(1600px) {
+        display: flex;
+      }
+    }
+
+    &[data-from-dashboard=false] {
+      @include for-specific-size($mobile-start) {
+        display: flex;
+      }
     }
 
     &__tile {
