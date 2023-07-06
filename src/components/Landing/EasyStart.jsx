@@ -22,7 +22,7 @@ export const EasyStart = () => {
     const [signInButtonClickHandler] = useOutletContext();
 
     return (
-        <section className={s.landing__easy_start}>
+        <section id={'section-easy-start'}className={s.landing__easy_start}>
             <div className={s.landing__easy_start__decoration_text}>EASY</div>
             <h2>
                 Easy start <span>with us</span>

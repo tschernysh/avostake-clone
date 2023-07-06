@@ -13,7 +13,20 @@
     display: block;
     width: 100%;
     position: relative;
-    filter: drop-shadow(0 0 24px var(--main-design-color));
+
+    &:before {
+      z-index: -1;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      height: 60%;
+      opacity: .8;
+      background: var(--main-design-color);
+      content: '';
+      filter: blur(30px);
+    }
 
     img {
       width: 100%;

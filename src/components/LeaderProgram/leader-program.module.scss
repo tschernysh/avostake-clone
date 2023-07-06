@@ -184,6 +184,7 @@
     width: 100%;
     flex-direction: column;
     row-gap: 15px;
+    display: none;
 
     @include for-specific-size($mobile-start) {
       display: flex;

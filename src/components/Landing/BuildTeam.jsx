@@ -14,7 +14,7 @@ const tilesData = [{
 }]
 export const BuildTeam = () => {
     return (
-        <section className={s.landing__build_team}>
+        <section id={'section-rewards'} className={s.landing__build_team}>
             <h2>Build a team - <span>get a reward</span></h2>
             <div className={s.landing__build_team__referral_description}>
                 <b>Referral Program</b>
