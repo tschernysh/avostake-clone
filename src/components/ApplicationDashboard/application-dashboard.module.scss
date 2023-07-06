@@ -1,5 +1,5 @@
 .app_dashboard {
-  &__withdraw {
+  &__deposits, &__widthdraw {
     border-radius: 8px;
     padding: 30px 20px;
     font-size: 18px;
@@ -11,7 +11,9 @@
       font-weight: 500;
       margin-bottom: 20px;
     }
+  }
 
+  &__withdraw {
     &__info {
       margin-top: 20px;
       background: var(--light-bg-color);
@@ -58,6 +60,75 @@
         width: 2em;
         height: 2em;
         color: var(--main-design-color)
+      }
+    }
+  }
+
+  &__deposits {
+
+    &__info {
+      background: var(--light-bg-color);
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      border-radius: 8px;
+
+      th, td {
+        padding: 8px;
+        border-bottom: 1px solid rgba(white, 0.05);
+      }
+
+      tbody {
+        tr:last-child {
+          td {
+            &:first-child {
+              border-bottom-left-radius: 8px;
+            }
+
+            &:last-child {
+              border-bottom-right-radius: 8px;
+            }
+          }
+        }
+      }
+
+      td {
+        text-align: center;
+        color: white
+      }
+
+      thead {
+        th:first-child {
+          border-top-left-radius: 8px;
+        }
+        th:last-child {
+          border-top-right-radius: 8px;
+        }
+
+        th {
+          text-align: center;
+          font-weight: 400;
+          font-size: .8em;
+          color: var(--light-text-color)
+        }
+      }
+
+      &__status {
+        background: var(--additional-bg-color);
+        display: inline-block;
+        width: 200px;
+        height: 7px;
+        border-radius: 3px;
+        position: relative;
+
+        span {
+          position: absolute;
+          left: 0;
+          top: 0;
+          border-radius: inherit;
+          height: 100%;
+          background: var(--main-design-color);
+        }
       }
     }
   }
