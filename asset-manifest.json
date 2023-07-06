@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/avostake-clone/static/css/main.f4792c36.css",
-    "main.js": "/avostake-clone/static/js/main.7aea2a2c.js",
-    "static/js/409.6c856dd6.chunk.js": "/avostake-clone/static/js/409.6c856dd6.chunk.js",
-    "static/js/208.e5341b51.chunk.js": "/avostake-clone/static/js/208.e5341b51.chunk.js",
-    "static/js/760.8f6734d8.chunk.js": "/avostake-clone/static/js/760.8f6734d8.chunk.js",
-    "static/js/631.60ad0f29.chunk.js": "/avostake-clone/static/js/631.60ad0f29.chunk.js",
-    "static/js/774.73b7cdad.chunk.js": "/avostake-clone/static/js/774.73b7cdad.chunk.js",
-    "static/js/32.76c5fdf2.chunk.js": "/avostake-clone/static/js/32.76c5fdf2.chunk.js",
-    "static/js/176.38849dbe.chunk.js": "/avostake-clone/static/js/176.38849dbe.chunk.js",
+    "main.css": "/avostake-clone/static/css/main.47f4a5b8.css",
+    "main.js": "/avostake-clone/static/js/main.98d2845e.js",
+    "static/js/409.6e817827.chunk.js": "/avostake-clone/static/js/409.6e817827.chunk.js",
+    "static/js/208.72bc79bb.chunk.js": "/avostake-clone/static/js/208.72bc79bb.chunk.js",
+    "static/js/760.3292d40b.chunk.js": "/avostake-clone/static/js/760.3292d40b.chunk.js",
+    "static/js/631.94f68c3c.chunk.js": "/avostake-clone/static/js/631.94f68c3c.chunk.js",
+    "static/js/774.6f14a004.chunk.js": "/avostake-clone/static/js/774.6f14a004.chunk.js",
+    "static/js/32.25ab51ae.chunk.js": "/avostake-clone/static/js/32.25ab51ae.chunk.js",
+    "static/js/302.749fbf8c.chunk.js": "/avostake-clone/static/js/302.749fbf8c.chunk.js",
     "static/media/landing-background.png": "/avostake-clone/static/media/landing-background.fa7f704df5b53d557991.png",
     "static/media/banner1-left.png": "/avostake-clone/static/media/banner1-left.1c18fff3e7222b47832d.png",
     "static/media/banner1-right.png": "/avostake-clone/static/media/banner1-right.373c273427e49cb97128.png",
@@ -19,18 +19,18 @@
     "static/media/coins-image.png": "/avostake-clone/static/media/coins-image.444c6a75901433432487.png",
     "index.html": "/avostake-clone/index.html",
     "static/media/arrow-left.svg": "/avostake-clone/static/media/arrow-left.810e73b21425d818c360.svg",
-    "main.f4792c36.css.map": "/avostake-clone/static/css/main.f4792c36.css.map",
-    "main.7aea2a2c.js.map": "/avostake-clone/static/js/main.7aea2a2c.js.map",
-    "409.6c856dd6.chunk.js.map": "/avostake-clone/static/js/409.6c856dd6.chunk.js.map",
-    "208.e5341b51.chunk.js.map": "/avostake-clone/static/js/208.e5341b51.chunk.js.map",
-    "760.8f6734d8.chunk.js.map": "/avostake-clone/static/js/760.8f6734d8.chunk.js.map",
-    "631.60ad0f29.chunk.js.map": "/avostake-clone/static/js/631.60ad0f29.chunk.js.map",
-    "774.73b7cdad.chunk.js.map": "/avostake-clone/static/js/774.73b7cdad.chunk.js.map",
-    "32.76c5fdf2.chunk.js.map": "/avostake-clone/static/js/32.76c5fdf2.chunk.js.map",
-    "176.38849dbe.chunk.js.map": "/avostake-clone/static/js/176.38849dbe.chunk.js.map"
+    "main.47f4a5b8.css.map": "/avostake-clone/static/css/main.47f4a5b8.css.map",
+    "main.98d2845e.js.map": "/avostake-clone/static/js/main.98d2845e.js.map",
+    "409.6e817827.chunk.js.map": "/avostake-clone/static/js/409.6e817827.chunk.js.map",
+    "208.72bc79bb.chunk.js.map": "/avostake-clone/static/js/208.72bc79bb.chunk.js.map",
+    "760.3292d40b.chunk.js.map": "/avostake-clone/static/js/760.3292d40b.chunk.js.map",
+    "631.94f68c3c.chunk.js.map": "/avostake-clone/static/js/631.94f68c3c.chunk.js.map",
+    "774.6f14a004.chunk.js.map": "/avostake-clone/static/js/774.6f14a004.chunk.js.map",
+    "32.25ab51ae.chunk.js.map": "/avostake-clone/static/js/32.25ab51ae.chunk.js.map",
+    "302.749fbf8c.chunk.js.map": "/avostake-clone/static/js/302.749fbf8c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f4792c36.css",
-    "static/js/main.7aea2a2c.js"
+    "static/css/main.47f4a5b8.css",
+    "static/js/main.98d2845e.js"
   ]
 }
