@@ -32,6 +32,18 @@ export const ApplicationActionCreator = {
     type: applicationTypes().SET_DEPOSIT_DATA,
     payload: depositData
   }),
+  setIsNeedToUpdate: (isNeedToUpdate) => ({
+    type: applicationTypes().SET_IS_NEED_TO_UPDATE,
+    payload: isNeedToUpdate
+  }),
+  setIsDepositTransaction: (isDepositTransaction) => ({
+    type: applicationTypes().SET_IS_DEPOSIT_TRANSACTION,
+    payload: isDepositTransaction
+  }),
+  setIsWithdrawTransaction: (isWithdrawTransaction) => ({
+    type: applicationTypes().SET_IS_WITHDRAW_TRANSACTION,
+    payload: isWithdrawTransaction
+  }),
   getDefaultReferrer:
     () => async (dispatch, store) => {
       const web3 = new Web3(Config().WEB3_BSC_URL);
@@ -139,7 +151,7 @@ export const ApplicationActionCreator = {
     () => async (dispatch, store) => {
       const web3 = await initWeb3()
       const walletAddress = store().applicationReducer.walletAddress
-
+      dispatch(ApplicationActionCreator.setIsWithdrawTransaction(true))
       const stakeContract = new web3.eth.Contract(StakeContract.abi, Config().STAKE_CONTRACT_ADDRESS);
 
       let withdraw
@@ -148,8 +160,12 @@ export const ApplicationActionCreator = {
         withdraw = await stakeContract.methods.withdraw().send({ from: walletAddress })
       } catch (error) {
         console.log(error)
+        dispatch(ApplicationActionCreator.setIsWithdrawTransaction(false))
         return
       }
+
+      dispatch(ApplicationActionCreator.setIsNeedToUpdate(true))
+      dispatch(ApplicationActionCreator.setIsWithdrawTransaction(false))
 
     },
   depositToken:
@@ -159,13 +175,15 @@ export const ApplicationActionCreator = {
       const defaultReferrer = store().applicationReducer.referralAddress
       const upline = store().accountReducer.userInfo.upline
 
+      dispatch(ApplicationActionCreator.setIsDepositTransaction(true))
+
       const tokenContract = new web3.eth.Contract(IERC20.abi, Config().TOKEN_CONTRACT_ADDRESS)
       const stakeContract = new web3.eth.Contract(StakeContract.abi, Config().STAKE_CONTRACT_ADDRESS);
 
       let currentReferral
       const localReferral = localStorage.getItem("refAddress");
 
-      if (upline) currentReferral = currentReferral
+      if (upline) currentReferral = upline
       else if (localReferral) currentReferral = localReferral
       else currentReferral = defaultReferrer
 
@@ -179,6 +197,7 @@ export const ApplicationActionCreator = {
           amountToSend
         ).send({ from: walletAddress })
       } catch (error) {
+        dispatch(ApplicationActionCreator.setIsDepositTransaction(false))
         console.log(error)
         return
       }
@@ -192,9 +211,12 @@ export const ApplicationActionCreator = {
           amountToSend
         ).send({ from: walletAddress })
       } catch (error) {
+        dispatch(ApplicationActionCreator.setIsDepositTransaction(false))
         console.log(error)
         return
       }
 
+      dispatch(ApplicationActionCreator.setIsDepositTransaction(false))
+      dispatch(ApplicationActionCreator.setIsNeedToUpdate(true))
     }
 }

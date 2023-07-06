@@ -1,11 +1,17 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { DepositBlock } from "../DepositBlock/DepositBlock";
 
 import s from './application-dashboard.module.scss'
 import { PiHandCoinsDuotone } from "react-icons/pi";
+import { ApplicationActionCreator } from "store/reducers/application/action-creator";
 
 export const ApplicationDashboard = () => {
   const { dividents, match_bonus, leader_bonus } = useSelector(state => state.accountReducer.userInfo)
+  const dispatch = useDispatch()
+
+  const handleWithdrawButton = () => {
+    dispatch(ApplicationActionCreator.withdraw())
+  }
 
   return (
     <>
@@ -21,7 +27,7 @@ export const ApplicationDashboard = () => {
           <PiHandCoinsDuotone />
           <p>Withdrawable (DEPS+REFS+LEAD)</p>
           <span>{dividents + match_bonus + leader_bonus} BUSD</span>
-          <button>Withdraw</button>
+          <button onClick={handleWithdrawButton} >Withdraw</button>
         </div>
       </div>
     </>
