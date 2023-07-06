@@ -14,7 +14,7 @@ import {MdOutlineRefresh} from "react-icons/md";
 
 export const ApplicationHeader = () => {
     const location = useLocation();
-    const walletAddress = useSelector(store => store.applicationReducer.walletAddress)
+    const {walletAddress, bnbBalance, tokenBalance} = useSelector(store => store.applicationReducer)
 
     const [isBalanceHidden, setIsBalanceHidden] = useState(false);
     const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -44,8 +44,8 @@ export const ApplicationHeader = () => {
                     <div className={s.app_header__account_data__wallet_balance__data}>
                         <small>Wallet balance</small>
                         <div className={s.app_header__account_data__wallet_balance__data__numbers}>
-                            <span>## BNB</span>
-                            <span>## BUSD</span>
+                            <span>{isBalanceHidden ? '***' : bnbBalance.toFixed(2)} BNB</span>
+                            <span>{isBalanceHidden ? '***' : tokenBalance.toFixed(2)} BUSD</span>
                         </div>
                     </div>
                     {isBalanceHidden ? <AiOutlineEyeInvisible/> : <AiOutlineEye/>}
