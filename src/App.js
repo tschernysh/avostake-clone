@@ -19,7 +19,19 @@ import Web3 from "web3";
 const App = () => {
 
   const dispatch = useDispatch()
-  const { walletAddress } = useSelector(state => state.applicationReducer)
+  const { walletAddress, isNeedToUpdate } = useSelector(state => state.applicationReducer)
+
+  useEffect(() => {
+    if (isNeedToUpdate) {
+      dispatch(AccountActionCreator.getContractInfo())
+      if (!!walletAddress) {
+        dispatch(AccountActionCreator.getUserInfo())
+        dispatch(ApplicationActionCreator.getAccountBNBBalance())
+        dispatch(ApplicationActionCreator.getAccountTokenBalance())
+      }
+      dispatch(ApplicationActionCreator.setIsNeedToUpdate(false))
+    }
+  }, [isNeedToUpdate])
 
   useEffect(() => {
     dispatch(ApplicationActionCreator.getDefaultReferrer())
