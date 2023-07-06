@@ -1,0 +1,139 @@
+.app_header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  align-items: center;
+
+  &__title {
+    text-transform: capitalize;
+    font-size: 1.4em;
+    color: white
+  }
+
+  &__account_data {
+    margin-left: auto;
+    display: flex;
+    column-gap: 20px;
+
+    &__wallet_balance, &__profile_menu {
+      background: var(--light-bg-color);
+      padding: 4px 10px;
+      display: flex;
+      border-radius: 8px;
+      align-items: center;
+      cursor: pointer;
+      transition: .3s all;
+
+      &:hover {
+        background: var(--additional-bg-color);
+      }
+    }
+
+    &__wallet_balance {
+      svg {
+        color: var(--light-text-color);
+        height: 1.5em;
+        width: 1.5em;
+      }
+
+      &__data {
+        margin-right: 8px;
+        display: flex;
+        flex-direction: column;
+
+        small {
+          font-size: .7em;
+          color: var(--light-text-color);
+          margin-bottom: 4px;
+        }
+
+        &__numbers {
+          column-gap: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          color: white;
+          font-size: 0.9em;
+        }
+      }
+    }
+
+    &__profile_menu {
+      position: relative;
+
+      &__header {
+        display: flex;
+        align-items: center;
+        color: white;
+
+        img {
+          height: 1.8em;
+        }
+
+        span {
+          margin-right: 14px;
+          margin-left: 12px;
+          font-size: 1em;
+        }
+
+        svg {
+          height: .8em;
+          width: 0.8em;
+          color: var(--light-text-color)
+        }
+      }
+
+      &__content {
+        width: 100%;
+        left: 0;
+        padding-top: 8px;
+        top: 100%;
+        position: absolute;
+        z-index: 1;
+        display: none;
+
+        &[data-open=true] {
+          display: block;
+        }
+
+        &__buttons {
+          display: flex;
+          flex-direction: column;
+          border-radius: 8px;
+          background: var(--light-bg-color);
+
+          button, a {
+            padding: 12px;
+            background: none;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            box-shadow: none;
+            color: white;
+            font-size: .8em;
+            border-radius: 0;
+            &:hover {
+              background: var(--additional-bg-color);
+            }
+          }
+
+          button {
+            border-radius: inherit;
+          }
+
+          svg {
+            margin-right: 10px;
+            color: var(--light-text-color);
+            height: 1.4em;
+            width: 1.4em;
+          }
+
+          a {
+            border-top: 1px solid var(--light-text-color);
+            border-bottom: 1px solid var(--light-text-color);
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 export const routerBook = {
     main: '/',
 
-    dashboard: '/dashboard',
-    bonuses: '/dashboard/bonuses',
+    dashboard: '/app/dashboard',
+    bonuses: '/app/bonuses',
 }
