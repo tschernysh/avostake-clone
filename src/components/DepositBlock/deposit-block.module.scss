@@ -39,6 +39,12 @@
 
 .deposit__selectors__deposite_selector, .deposit__selectors__range_selector  {
 
+  small {
+    display: block;
+    color: var(--main-design-color);
+    margin-bottom: 6px;
+  }
+
   p {
     font-size:.91em;
     margin-bottom: 12px;

@@ -9,7 +9,6 @@ import {useSelector} from "react-redux";
 import {BsChevronCompactDown} from "react-icons/bs";
 import {FiExternalLink} from "react-icons/fi";
 import {ImExit} from "react-icons/im";
-import {GrRefresh} from "react-icons/gr";
 import {MdOutlineRefresh} from "react-icons/md";
 
 export const ApplicationHeader = () => {

@@ -16,8 +16,12 @@
     display: flex;
 
     &__content {
+      display: flex;
+      flex-direction: column;
+      padding: 25px;
       border-radius: 8px;
       background: var(--dark-bg-color);
+      row-gap: 25px;
       flex: 1 1 0;
     }
   }
