@@ -5,6 +5,7 @@ import IERC20 from 'contracts/IERC20.json'
 import Web3 from 'web3';
 import Config from 'config';
 import { initWeb3 } from 'utils/initWeb3';
+import applicationReducer from '.';
 
 export const ApplicationActionCreator = {
   setWalletAddress: (walletAddress) => ({
@@ -53,38 +54,43 @@ export const ApplicationActionCreator = {
     () => async (dispatch, store) => {
 
       const walletAddress = store().applicationReducer.walletAddress
-      const web3 = new Web3(Config().WEB3_BSC_URL);
+      const web3 = await initWeb3()
 
       let bnbBalance
 
       try {
         bnbBalance = await web3.eth.getBalance(walletAddress)
         bnbBalance = bnbBalance.toString()
-        bnbBalance = web3.utils.fromWei(bnbBalance, 'ether')
+        bnbBalance = +web3.utils.fromWei(bnbBalance, 'ether')
       } catch (error) {
         console.log(error)
+        return
       }
+
+      dispatch(ApplicationActionCreator.setBNBBalance(bnbBalance))
 
     },
   getAccountTokenBalance:
     () => async (dispatch, store) => {
 
-      const web3 = new Web3(Config().WEB3_BSC_URL);
+      const web3 = await initWeb3()
       const walletAddress = store().applicationReducer.walletAddress
 
-      const tokenContract = await IERC20(IERC20.abi, Config().TOKEN_CONTRACT_ADDRESS)
+      const tokenContract = new web3.eth.Contract(IERC20.abi, Config().TOKEN_CONTRACT_ADDRESS)
 
 
       let tokenBalance
 
       try {
-        tokenBalance = await tokenContract.methods.balanceOf(walletAddress)
+        tokenBalance = await tokenContract.methods.balanceOf(walletAddress).call()
         tokenBalance = tokenBalance.toString()
-        tokenBalance = web3.utils.fromWei(tokenBalance, 'ether')
+        tokenBalance = +web3.utils.fromWei(tokenBalance, 'ether')
       } catch (error) {
         console.log(error)
+        return
       }
 
+      dispatch(ApplicationActionCreator.setTokenBalance(tokenBalance))
 
     },
   checkMetamaskWallet:
@@ -147,12 +153,11 @@ export const ApplicationActionCreator = {
 
     },
   depositToken:
-    () => async (dispatch, store) => {
+    (amount, time) => async (dispatch, store) => {
       const web3 = await initWeb3()
       const walletAddress = store().applicationReducer.walletAddress
       const defaultReferrer = store().applicationReducer.referralAddress
       const upline = store().accountReducer.userInfo.upline
-      const depositData = store().applicationReducer.depositData
 
       const tokenContract = new web3.eth.Contract(IERC20.abi, Config().TOKEN_CONTRACT_ADDRESS)
       const stakeContract = new web3.eth.Contract(StakeContract.abi, Config().STAKE_CONTRACT_ADDRESS);
@@ -164,12 +169,14 @@ export const ApplicationActionCreator = {
       else if (localReferral) currentReferral = localReferral
       else currentReferral = defaultReferrer
 
+      const amountToSend = web3.utils.toWei(amount, 'ether')
+
       let approveToken
 
       try {
         approveToken = await tokenContract.methods.approve(
           Config().STAKE_CONTRACT_ADDRESS,
-          web3.utils.toWei(depositData.depositAmount, 'ether')
+          amountToSend
         ).send({ from: walletAddress })
       } catch (error) {
         console.log(error)
@@ -180,9 +187,9 @@ export const ApplicationActionCreator = {
 
       try {
         depositTxn = await stakeContract.methods.deposit(
-          depositData.depositDays,
+          time,
           currentReferral,
-          web3.utils.toWei(depositData.depositAmount, 'ether')
+          amountToSend
         ).send({ from: walletAddress })
       } catch (error) {
         console.log(error)

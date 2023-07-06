@@ -24,7 +24,7 @@ export const initialState = {
     match_bonus: 0,
     totalLeadBonusReward: 0,
     totalPlayers: 0,
-    bonuses: {}
+    bonuses_obj: {}
   },
   userInfo: {
     upline: null,

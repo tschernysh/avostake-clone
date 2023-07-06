@@ -1,4 +1,4 @@
-import {Carousel} from "react-responsive-carousel";
+import { Carousel } from "react-responsive-carousel";
 
 import tenPercentImage from 'media/img/ten-percent.png'
 import growUpImage from 'media/img/grow-arrows.webp'
@@ -6,6 +6,8 @@ import growUpImage from 'media/img/grow-arrows.webp'
 import s from './landing.module.scss'
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useSelector } from "react-redux";
+import { useCallback } from "react";
 
 const carouselOptions = {
     autoPlay: false,
@@ -32,7 +34,19 @@ const carouselOptions = {
     }
 }
 
+
 export const MainCarousel = () => {
+
+    const { walletAddress } = useSelector(state => state.applicationReducer)
+
+    const loginButtonContent = useCallback(() => {
+        if (!walletAddress) {
+            return 'Sign In'
+        } else if (!!walletAddress) {
+            return 'Launch App'
+        }
+    }, [walletAddress])
+
     return (
         <section className={s.landing__main}>
             <Carousel className={s.landing__main__carousel} {...carouselOptions}>
@@ -47,7 +61,7 @@ export const MainCarousel = () => {
                             time.
                         </h3>
                         <h4>Join today and get 10% bonus on your deposit</h4>
-                        <button>Sign in</button>
+                        <button>{loginButtonContent()}</button>
                     </div>
                     <img src={tenPercentImage} alt={'twenty-percent-image'}/>
                 </div>
@@ -62,7 +76,7 @@ export const MainCarousel = () => {
                             you have a chance to join us and start earning right now!
                         </h3>
                         <h4>Join today and get 10% bonus on your deposit</h4>
-                        <button>Sign in</button>
+                        <button>{loginButtonContent()}</button>
                     </div>
                     <img src={growUpImage} alt={'grow-up-image'}/>
                 </div>

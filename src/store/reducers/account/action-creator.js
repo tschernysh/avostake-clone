@@ -57,7 +57,7 @@ export const AccountActionCreator = {
         totalLeadBonusReward = +web3.utils.fromWei(totalLeadBonusReward.toString(), 'ether')
 
         let totalPlayers = contractInfo[4]
-        totalPlayers = +web3.utils.fromWei(totalPlayers.toString(), 'ether')
+        totalPlayers = Number(totalPlayers)
 
         let bonuses_obj = {}
         let bonuses = contractInfo[5]
@@ -103,6 +103,7 @@ export const AccountActionCreator = {
         */
 
         let upline = userInfo.player[0]
+        if (upline === 0x0000000000000000000000000000000000000000) upline = null
 
         let dividents = userInfo.player[1]
         dividents = +web3.utils.fromWei(dividents.toString(), 'ether')

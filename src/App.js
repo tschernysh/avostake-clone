@@ -28,6 +28,8 @@ const App = () => {
   useEffect(() => {
     if (!!walletAddress) {
       dispatch(AccountActionCreator.getUserInfo())
+      dispatch(ApplicationActionCreator.getAccountBNBBalance())
+      dispatch(ApplicationActionCreator.getAccountTokenBalance())
     }
   }, [walletAddress])
 
@@ -36,6 +38,8 @@ const App = () => {
     const handleAccountsChanged = (accounts) => {
       dispatch(ApplicationActionCreator.setWalletAddress(accounts[0]))
       dispatch(AccountActionCreator.getUserInfo())
+      dispatch(ApplicationActionCreator.getAccountBNBBalance())
+      dispatch(ApplicationActionCreator.getAccountTokenBalance())
       console.log('Active wallet changed:', accounts);
     };
 
