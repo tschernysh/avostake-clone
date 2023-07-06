@@ -4,9 +4,10 @@ import {Landing} from "../components/Landing/Landing";
 import {ApplicationLayout} from "../layouts/ApplicationLayout/ApplicationLayout";
 import {ApplicationDashboard} from "../components/ApplicationDashboard/ApplicationDashboard";
 import {ApplicationBonuses} from "../components/ApplicationBonuses/ApplicationBonuses";
+import Config from "../config";
 
 export const routerSchema = [{
-    path: '/',
+    path: `${Config().DEPLOY_URL_PREFIX}/`,
     exact: true,
     title: 'Main',
     element: <MainLayout/>,
@@ -27,9 +28,9 @@ export const routerSchema = [{
     }, {
         index: true,
         exact: true,
-        element: <Navigate to={'/app/dashboard'}/>
+        element: <Navigate to={`${Config().DEPLOY_URL_PREFIX}/app/dashboard`}/>
     }]
 }, {
     path: '*',
-    element: <Navigate to={'/'}/>
+    element: <Navigate to={`${Config().DEPLOY_URL_PREFIX}/`}/>
 }];
