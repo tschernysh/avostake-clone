@@ -10,6 +10,7 @@ export const initialState = {
   isDepositTransaction: false,
   isWithdrawTransaction: false,
   notCorrectChain: false,
+  redirectTo: null,
   depositData: {
     depositDays: 10,
     depositAmount: 500,
@@ -42,6 +43,8 @@ export default function applicationReducer(
       return { ...state, isWithdrawTransaction: action.payload }
     case applicationTypes().SET_NOT_CORRECT_CHAIN:
       return { ...state, notCorrectChain: action.payload }
+    case applicationTypes().SET_REDIRECT_TO:
+      return { ...state, redirectTo: action.payload }
     default:
       return state
   }

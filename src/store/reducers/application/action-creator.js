@@ -1,4 +1,5 @@
 import { store } from 'store';
+import { Navigate } from 'react-router-dom';
 import applicationTypes from './types'
 import StakeContract from 'contracts/StakeContract.json'
 import IERC20 from 'contracts/IERC20.json'
@@ -47,6 +48,10 @@ export const ApplicationActionCreator = {
   setNotCorrectChain: (notCorrectChain) => ({
     type: applicationTypes().SET_NOT_CORRECT_CHAIN,
     payload: notCorrectChain
+  }),
+  setRedirectTo: (redirectTo) => ({
+    type: applicationTypes().SET_REDIRECT_TO,
+    payload: redirectTo
   }),
   getDefaultReferrer:
     () => async (dispatch, store) => {
@@ -181,16 +186,21 @@ export const ApplicationActionCreator = {
           );
           currentAddress = accounts.result[0]
           console.log('Wallet connected:', currentAddress)
+          dispatch(ApplicationActionCreator.setWalletAddress(currentAddress))
+          dispatch(ApplicationActionCreator.setRedirectTo('/app'))
         } catch (error) {
           console.error('Error connecting wallet:', error);
         }
 
-        dispatch(ApplicationActionCreator.setWalletAddress(currentAddress))
       }
       else {
         // MetaMask not available, handle accordingly
         console.error('MetaMask is not installed.');
       }
+    },
+  disconnectMetamaskWallet:
+    () => async (dispatch, store) => {
+      dispatch(ApplicationActionCreator.setRedirectTo('/'))
     },
   withdraw:
     () => async (dispatch, store) => {

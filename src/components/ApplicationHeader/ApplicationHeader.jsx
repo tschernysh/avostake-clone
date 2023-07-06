@@ -5,7 +5,7 @@ import { routerBook } from "../../routes/routerBook";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 import metamaskIcon from 'media/img/metamask-icon.png'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BsChevronCompactDown } from "react-icons/bs";
 import { FiExternalLink } from "react-icons/fi";
 import { ImExit } from "react-icons/im";
@@ -13,11 +13,14 @@ import { MdOutlineRefresh } from "react-icons/md";
 import {IoCloseSharp} from "react-icons/io5";
 import {GiHamburgerMenu} from "react-icons/gi";
 import logo from "../../media/img/logo.png";
+import { ApplicationActionCreator } from 'store/reducers/application/action-creator';
+import { useDisconnect } from 'wagmi';
 
 export const ApplicationHeader = ({isNavOpen = false, setIsNavOpen = () => {}}) => {
   const location = useLocation();
   const { walletAddress, bnbBalance, tokenBalance } = useSelector(store => store.applicationReducer)
-
+  const dispatch = useDispatch()
+  const { disconnect } = useDisconnect();
   const [isBalanceHidden, setIsBalanceHidden] = useState(false);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
@@ -35,6 +38,10 @@ export const ApplicationHeader = ({isNavOpen = false, setIsNavOpen = () => {}}) 
 
   const onMouseAccountLeave = () => {
     setIsDropDownOpen(false)
+  }
+
+  const handleWalletDisconnect = () => {
+    disconnect()
   }
 
   return (
@@ -73,7 +80,7 @@ export const ApplicationHeader = ({isNavOpen = false, setIsNavOpen = () => {}}) 
               </div>
               <button><MdOutlineRefresh />Change wallet</button>
               <a target={'_blank'} href={`https://bscscan.com/address/${walletAddress}`}><FiExternalLink />View on explorer</a>
-              <button><ImExit /> Log Out</button>
+              <button onClick={handleWalletDisconnect}><ImExit /> Log Out</button>
             </div>
           </div>
         </div>
