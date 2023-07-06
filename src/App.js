@@ -7,11 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { ApplicationActionCreator } from "store/reducers/application/action-creator";
 import { AccountActionCreator } from "store/reducers/account/action-creator";
 import Config from "config";
+import StakeContract from 'contracts/StakeContract.json'
 
 import { EthereumClient, w3mConnectors, w3mProvider } from "@web3modal/ethereum"
 import { WagmiConfig, configureChains, createConfig } from "wagmi"
 import { bsc, bscTestnet } from 'wagmi/chains'
 import { ConfigContext } from "applicationContext";
+import { initWeb3 } from "utils/initWeb3";
+import Web3 from "web3";
 
 const App = () => {
 

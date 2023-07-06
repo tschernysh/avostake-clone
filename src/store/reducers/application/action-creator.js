@@ -165,7 +165,7 @@ export const ApplicationActionCreator = {
       let currentReferral
       const localReferral = localStorage.getItem("refAddress");
 
-      if (upline) currentReferral = localReferral
+      if (upline) currentReferral = currentReferral
       else if (localReferral) currentReferral = localReferral
       else currentReferral = defaultReferrer
 
