@@ -58,9 +58,7 @@
       "last 1 safari version"
     ]
   },
-  "plugins": [
-    "babel/plugin-syntax-bigint"
-  ],
+  "plugins": ["@babel/plugin-syntax-bigint"],
   "devDependencies": {
     "@babel/plugin-syntax-bigint": "^7.8.3",
     "craco": "^0.0.3",
