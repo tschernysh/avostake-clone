@@ -30,6 +30,7 @@
       @include for-specific-size(1300px) {
         flex-direction: column;
         row-gap: 20px;
+        padding: 12px 20px;
       }
 
       p {
@@ -110,6 +111,7 @@
       }
 
       p {
+        white-space: nowrap;
         font-weight: 400;
         font-size: .8em;
         color: var(--light-text-color);
@@ -181,6 +183,10 @@
         height: 7px;
         border-radius: 3px;
         position: relative;
+
+        @include for-specific-size(1300px) {
+          width: 140px;
+        }
 
         span {
           position: absolute;

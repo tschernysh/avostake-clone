@@ -22,6 +22,18 @@ export const ApplicationLayout = () => {
         }
     }, [redirectTo])
 
+    useEffect(() => {
+        if (isNavOpen) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = 'auto'
+        }
+
+        return () => {
+            document.body.style.overflow = 'auto'
+        }
+    }, [isNavOpen]);
+
     return (
         <main className={s.app}>
             <ApplicationNavigation isNavOpen={isNavOpen}/>

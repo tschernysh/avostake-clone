@@ -33,7 +33,9 @@ export const ApplicationHeader = ({isNavOpen = false, setIsNavOpen = () => {}}) 
   }, [location.pathname])
 
   const onMouseAccountHover = () => {
-    setIsDropDownOpen(true)
+    if (!isNavOpen) {
+      setIsDropDownOpen(true)
+    }
   }
 
   const onMouseAccountLeave = () => {
@@ -43,6 +45,18 @@ export const ApplicationHeader = ({isNavOpen = false, setIsNavOpen = () => {}}) 
   const handleWalletDisconnect = () => {
     disconnect()
   }
+
+  useEffect(() => {
+    if (isDropDownOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [isDropDownOpen]);
 
   return (
     <div className={s.app_header}>
