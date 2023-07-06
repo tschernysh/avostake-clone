@@ -28,6 +28,8 @@ const App = () => {
   useEffect(() => {
     if (!!walletAddress) {
       dispatch(AccountActionCreator.getUserInfo())
+      dispatch(ApplicationActionCreator.getAccountBNBBalance())
+      dispatch(ApplicationActionCreator.getAccountTokenBalance())
     }
   }, [walletAddress])
 

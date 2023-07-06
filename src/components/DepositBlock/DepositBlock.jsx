@@ -1,7 +1,7 @@
 import { ApplicationActionCreator } from 'store/reducers/application/action-creator';
 import s from './deposit-block.module.scss'
 import { useCallback, useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const config = {
   min: 10,
@@ -9,6 +9,8 @@ const config = {
 }
 
 export const DepositBlock = ({ signInButtonClickHandler, showMin = false }) => {
+  const { tokenBalance } = useSelector(state => state.applicationReducer)
+  const { contractInfo } = useSelector(state => state.accountReducer)
   const [rangeValue, setRangeValue] = useState(config.min);
   const [depositAmount, setDepositAmount] = useState(1000);
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
@@ -23,7 +25,7 @@ export const DepositBlock = ({ signInButtonClickHandler, showMin = false }) => {
   }, [])
 
   const maxDepositButtonClickHandler = () => {
-    setDepositAmount(999)
+    setDepositAmount(tokenBalance)
   }
 
   const changeHandlers = ({ target: { name, value } }) => {
@@ -47,6 +49,8 @@ export const DepositBlock = ({ signInButtonClickHandler, showMin = false }) => {
       signInButtonClickHandler()
     }
   }
+
+  const bonusesField = depositAmount * (contractInfo.bonuses_obj[rangeValue - config.min] || '0') / 100
 
   return (
     <div onChange={changeHandlers} className={s.deposit}>
@@ -75,11 +79,10 @@ export const DepositBlock = ({ signInButtonClickHandler, showMin = false }) => {
         </div>
       </div>
       <div className={s.deposit__info}>
-        <p>Bonus: <span>###</span></p>
-        <p>Total profit: <span>###</span></p>
-        <p>Total profit: <span>###</span></p>
-        <p>In <i> {rangeValue} </i> days will earn: <span>### BUSD</span></p>
-        <p>Daily ROI: <span>### %</span></p>
+        <p>Bonus: <span>{bonusesField}</span></p>
+        <p>Total profit: <span>{100 + rangeValue + '%'}</span></p>
+        <p>In <i> {rangeValue} </i> days will earn: <span>{depositAmount * (100 + rangeValue) / 100} BUSD</span></p>
+        <p>Daily ROI: <span>{(depositAmount * (100 + rangeValue) / 100 / rangeValue / 10).toFixed(2)} %</span></p>
       </div>
       <div className={s.deposit__submit}>
         <button onClick={handleDeposit}>Deposit</button>
