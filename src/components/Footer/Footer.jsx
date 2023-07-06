@@ -11,8 +11,8 @@ export const Footer = () => {
                 <a href={'#'}><AiOutlineTwitter color={'#e3af2e'}/></a>
             </div>
             <div className={s.footer__links}>
-                <a href={'#'}>Terms of Use</a>
-                <a href={'#'}>Privacy Policy</a>
+                <a target={'_blank'} href={'https://bixter.gitbook.io/bixter-white-paper/'}>Terms of Use</a>
+                <a target={'_blank'} href={'https://bixter.gitbook.io/bixter-white-paper/'}>Privacy Policy</a>
             </div>
             <small>© 2023 AvoStake. All rights reserved.</small>
         </footer>
