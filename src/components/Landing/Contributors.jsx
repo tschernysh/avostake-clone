@@ -1,11 +1,13 @@
 import { useCallback } from 'react';
 import s from './landing.module.scss'
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import { routerBook } from 'routes/routerBook';
 
 export const Contributors = () => {
   const [signInButtonClickHandler] = useOutletContext();
   const { walletAddress } = useSelector(state => state.applicationReducer)
+  const navigate = useNavigate()
 
   const loginButtonContent = useCallback(() => {
     if (!walletAddress) {
@@ -14,6 +16,15 @@ export const Contributors = () => {
       return 'Launch App'
     }
   }, [walletAddress])
+
+
+  const handleLoginButton = () => {
+    if (!!walletAddress) {
+      navigate(routerBook.dashboard)
+    } else {
+      signInButtonClickHandler()
+    }
+  }
 
   return (
     <section className={s.landing__contributors}>
@@ -25,7 +36,7 @@ export const Contributors = () => {
       </div>
       <div className={s.landing__contributors__banner}>
         <h2>Do not delay the start of <span>crypto staking</span></h2>
-        <button onClick={signInButtonClickHandler}>{loginButtonContent()}</button>
+        <button onClick={handleLoginButton}>{loginButtonContent()}</button>
       </div>
     </section>
   )

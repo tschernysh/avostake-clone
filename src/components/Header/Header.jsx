@@ -2,9 +2,9 @@ import s from './header.module.scss'
 import logo from 'media/img/logo.png'
 import { useScrollDirection } from "../../hooks/useScrollDirection";
 import { useSelector } from 'react-redux';
-import {useCallback, useEffect, useState} from 'react';
-import {GiHamburgerMenu} from "react-icons/gi";
-import {IoCloseSharp} from "react-icons/io5";
+import { useCallback, useEffect, useState } from 'react';
+import { GiHamburgerMenu } from "react-icons/gi";
+import { IoCloseSharp } from "react-icons/io5";
 
 export const Header = ({ signInButtonClickHandler }) => {
   const scrollDirection = useScrollDirection()
@@ -72,7 +72,7 @@ export const Header = ({ signInButtonClickHandler }) => {
         <a className={s.mobile_header__logo} href={'#'}><img src={logo} alt={'logo'} /></a>
         <button onClick={signInButtonClickHandler}>{loginButtonContent()}</button>
         <button onClick={setIsNavOpen.bind(null, !isNavOpen)} className={s.mobile_header__burger_button}>
-          { isNavOpen ? <IoCloseSharp/> : <GiHamburgerMenu/>}
+          {isNavOpen ? <IoCloseSharp /> : <GiHamburgerMenu />}
         </button>
         <nav onClick={mobileNavLinkClickHandler} data-nav-open={isNavOpen} className={s.mobile_header__nav}>
           <a className={s.mobile_header__nav__link} href={'#section-easy-start'}>Invest</a>

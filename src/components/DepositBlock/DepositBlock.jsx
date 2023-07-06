@@ -2,6 +2,8 @@ import { ApplicationActionCreator } from 'store/reducers/application/action-crea
 import s from './deposit-block.module.scss'
 import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { routerBook } from 'routes/routerBook';
 
 const config = {
   min: 10,
@@ -9,12 +11,14 @@ const config = {
 }
 
 export const DepositBlock = ({ signInButtonClickHandler, showMin = false }) => {
-  const { tokenBalance } = useSelector(state => state.applicationReducer)
+  const { tokenBalance, walletAddress } = useSelector(state => state.applicationReducer)
   const { contractInfo } = useSelector(state => state.accountReducer)
   const [rangeValue, setRangeValue] = useState(config.min);
   const [depositAmount, setDepositAmount] = useState(1000);
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
   const dispatch = useDispatch()
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const onInputHover = useCallback(() => {
     setIsNotificationVisible(true)
@@ -43,8 +47,12 @@ export const DepositBlock = ({ signInButtonClickHandler, showMin = false }) => {
   }
 
   const handleDeposit = () => {
-    if (true) {
-      dispatch(ApplicationActionCreator.depositToken(+depositAmount, rangeValue))
+    if (!!walletAddress) {
+      if (location.pathname !== routerBook.dashboard) {
+        navigate(routerBook.dashboard)
+      } else {
+        dispatch(ApplicationActionCreator.depositToken(+depositAmount, rangeValue))
+      }
     } else {
       signInButtonClickHandler()
     }
