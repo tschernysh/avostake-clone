@@ -7,6 +7,7 @@ import Web3 from 'web3';
 import Config from 'config';
 import { initWeb3 } from 'utils/initWeb3';
 import applicationReducer from '.';
+import { routerBook } from 'routes/routerBook';
 
 export const ApplicationActionCreator = {
   setWalletAddress: (walletAddress) => ({
@@ -187,7 +188,7 @@ export const ApplicationActionCreator = {
           currentAddress = accounts.result[0]
           console.log('Wallet connected:', currentAddress)
           dispatch(ApplicationActionCreator.setWalletAddress(currentAddress))
-          dispatch(ApplicationActionCreator.setRedirectTo('/app'))
+          dispatch(ApplicationActionCreator.setRedirectTo(routerBook.dashboard))
         } catch (error) {
           console.error('Error connecting wallet:', error);
         }
@@ -200,7 +201,7 @@ export const ApplicationActionCreator = {
     },
   disconnectMetamaskWallet:
     () => async (dispatch, store) => {
-      dispatch(ApplicationActionCreator.setRedirectTo('/'))
+      dispatch(ApplicationActionCreator.setRedirectTo(routerBook.main))
     },
   withdraw:
     () => async (dispatch, store) => {

@@ -9,8 +9,8 @@ export const LeaderProgram = ({ disableDescription = false }) => {
 
   const { refTurnover } = useSelector(store => store.accountReducer.userInfo)
   const { rewards, turnover } = useSelector(store => store.accountReducer.leaderProgressData)
+  const [userLevel, setUserLevel] = useState(0)
   const [totalTurnover, setTotalTurnover] = useState(0)
-  const [userLevel, setUserLevel] = useState(7)
 
   const getLevelData = () => {
     let totalTurnover = 0
@@ -35,7 +35,7 @@ export const LeaderProgram = ({ disableDescription = false }) => {
       const { totalTurnover, userLevel } = getLevelData()
 
       setTotalTurnover(totalTurnover)
-      setUserLevel(userLevel || 0)
+      setUserLevel(userLevel)
     }
   }, [turnover, refTurnover])
 
@@ -112,7 +112,7 @@ export const LeaderProgram = ({ disableDescription = false }) => {
           </div>
         </div>
       </div>
-      <table data-from-dashboard={disableDescription}  className={s.leader_program__body}>
+      <table className={s.leader_program__body}>
         <tbody>
           <tr>
             <th>Level</th>
@@ -136,22 +136,6 @@ export const LeaderProgram = ({ disableDescription = false }) => {
           </tr>
         </tbody>
       </table>
-      <div data-from-dashboard={disableDescription} className={s.leader_program__body_mobile}>
-        {rewards.map((r, i) => {
-          return (
-              <div data-completed-level={i + 1 <= userLevel} className={s.leader_program__body_mobile__tile}>
-                <div className={s.leader_program__body_mobile__tile__header}>
-                  <p>Level <span>{i+ 1}</span></p>
-                  {i + 1 <= userLevel && <BsCheckLg color={'#e3af2e'} />}
-                </div>
-                <div className={s.leader_program__body_mobile__tile__body}>
-                  <p>Reward <span>{r} BUSD</span></p>
-                  <p>Turnover <i>{turnover[i]}</i></p>
-                </div>
-              </div>
-          )
-        })}
-      </div>
     </div>
   )
 }
