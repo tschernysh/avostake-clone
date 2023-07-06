@@ -103,7 +103,7 @@ export const AccountActionCreator = {
         */
 
         let upline = userInfo.player[0]
-        if (upline === 0x0000000000000000000000000000000000000000) upline = null
+        if (upline === '0x0000000000000000000000000000000000000000') upline = null
 
         let dividents = userInfo.player[1]
         dividents = +web3.utils.fromWei(dividents.toString(), 'ether')

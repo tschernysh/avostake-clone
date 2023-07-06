@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 export const BonusesStats = () => {
   const { invested, totalPlayers, totalLeadBonusReward } = useSelector(store => store.accountReducer.contractInfo)
 
-  const { total_invested, total_withdrawn, leadBonusReward, referrals, refTurnover } = useSelector(store => store.accountReducer.userInfo)
+  const { total_invested, total_withdrawn, leadBonusReward, referrals, refTurnover, leader_bonus } = useSelector(store => store.accountReducer.userInfo)
 
   const [totalTurnover, setTotalTurnover] = useState(0)
 
@@ -37,7 +37,7 @@ export const BonusesStats = () => {
       </div>
       <div className={s.app_stats__tile}>
         <small>Leadership Bonuses</small>
-        <span>{totalPlayers}</span>
+        <span>{leader_bonus}</span>
       </div>
       <div className={s.app_stats__tile}>
         <small>Structure Members</small>
