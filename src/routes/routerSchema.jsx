@@ -3,6 +3,7 @@ import {MainLayout} from "../layouts/MainLayout/MainLayout";
 import {Landing} from "../components/Landing/Landing";
 import {ApplicationLayout} from "../layouts/ApplicationLayout/ApplicationLayout";
 import {ApplicationDashboard} from "../components/ApplicationDashboard/ApplicationDashboard";
+import {ApplicationBonuses} from "../components/ApplicationBonuses/ApplicationBonuses";
 
 export const routerSchema = [{
     path: '/',
@@ -20,6 +21,9 @@ export const routerSchema = [{
     children: [{
         path: 'dashboard',
         element: <ApplicationDashboard/>
+    }, {
+        path: 'bonuses',
+        element: <ApplicationBonuses/>
     }, {
         index: true,
         exact: true,
