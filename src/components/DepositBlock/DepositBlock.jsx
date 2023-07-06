@@ -6,7 +6,7 @@ const config = {
     max: 33
 }
 
-export const DepositBlock = ({signInButtonClickHandler}) => {
+export const DepositBlock = ({signInButtonClickHandler, showMin = false}) => {
     const [rangeValue, setRangeValue] = useState(config.min);
     const [depositAmount, setDepositAmount] = useState(1000);
     const [isNotificationVisible, setIsNotificationVisible] = useState(false);
@@ -55,6 +55,7 @@ export const DepositBlock = ({signInButtonClickHandler}) => {
                 </div>
                 <div className={s.deposit__selectors__deposite_selector}>
                     <p>Deposit Amount</p>
+                    {showMin && <small>Min 10 BUSD</small>}
                     <div className={s.deposit__selectors__deposite_selector__input_wrapper}>
                         <button onClick={maxDepositButtonClickHandler}>Max</button>
                         <input name={'deposit-selector'} value={depositAmount}/>

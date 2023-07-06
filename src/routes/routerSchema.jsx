@@ -2,7 +2,7 @@ import { Navigate } from 'react-router-dom';
 import {MainLayout} from "../layouts/MainLayout/MainLayout";
 import {Landing} from "../components/Landing/Landing";
 import {ApplicationLayout} from "../layouts/ApplicationLayout/ApplicationLayout";
-import {Dashboard} from "../components/Dashboard/Dashboard";
+import {ApplicationDashboard} from "../components/ApplicationDashboard/ApplicationDashboard";
 
 export const routerSchema = [{
     path: '/',
@@ -19,7 +19,7 @@ export const routerSchema = [{
     element: <ApplicationLayout/>,
     children: [{
         path: 'dashboard',
-        element: <Dashboard/>
+        element: <ApplicationDashboard/>
     }, {
         index: true,
         exact: true,
