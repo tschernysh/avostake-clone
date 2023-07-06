@@ -8,14 +8,38 @@ import walletConnectIcon from 'media/img/wallet-connect-icon.png'
 import trustWalletIcon from 'media/img/trust-wallet-icon.png'
 import { useDispatch } from "react-redux";
 import { ApplicationActionCreator } from "store/reducers/application/action-creator";
+import { Web3Modal, useWeb3Modal } from "@web3modal/react";
+import { bsc, bscTestnet } from 'wagmi/chains'
+import Config from "config";
+import { configureChains, createConfig } from "wagmi";
+import { EthereumClient, w3mConnectors, w3mProvider } from "@web3modal/ethereum";
 
 export const AuthModal = ({ isModalOpen, setIsModalOpen }) => {
   const [modalStatus, setModalStatus] = useState('auth')
+  const { open, close, isOpen } = useWeb3Modal()
   const dispatch = useDispatch()
 
   const handleMetamaskConnect = () => {
     dispatch(ApplicationActionCreator.connectMetamaskWallet())
   }
+
+  const handleConnectWallet = () => {
+    setModalStatus('connectWallet')
+    open()
+  }
+
+  const chains = [bsc, bscTestnet]
+  const projectId = '5b88e380cb7f9736a57c4175e26f1c55'
+
+  const { publicClient } = configureChains(chains, [w3mProvider({ projectId })])
+  const wagmiConfig = createConfig({
+    autoConnect: true,
+    connectors: w3mConnectors({ projectId, chains }),
+    publicClient
+  })
+  const ethereumClient = new EthereumClient(wagmiConfig, chains)
+
+  console.log(ethereumClient)
 
   useEffect(() => {
     if (isModalOpen) {
@@ -26,6 +50,11 @@ export const AuthModal = ({ isModalOpen, setIsModalOpen }) => {
     };
   }, [isModalOpen]);
 
+  useEffect(() => {
+    if (!isOpen) {
+      setModalStatus('auth')
+    }
+  }, [isOpen])
 
   return isModalOpen ? (
     modalStatus === 'auth' ? (
@@ -35,12 +64,12 @@ export const AuthModal = ({ isModalOpen, setIsModalOpen }) => {
           <b>Connect Your Wallet</b>
           <div className={s.auth__wrapper__auth_types}>
             <button onClick={handleMetamaskConnect}><img src={metamaskIcon} alt={'metamask-icon'} />Metamask</button>
-            <button><img src={walletConnectIcon} alt={'metamask-icon'} />Wallet Connect</button>
+            <button onClick={handleConnectWallet}><img src={walletConnectIcon} alt={'metamask-icon'} />Wallet Connect</button>
           </div>
           <button className={s.auth__help} onClick={setModalStatus.bind('help')}>How to connect a wallet ?</button>
         </div>
       </dialog>
-    ) : (
+    ) : modalStatus === 'help' ? (
       <dialog className={s.auth} open>
         <div className={s.auth__wrapper}>
           <button className={s.auth__close} onClick={setModalStatus.bind(null, 'auth')}><GrClose color={'#ffffff'} /></button>
@@ -57,6 +86,10 @@ export const AuthModal = ({ isModalOpen, setIsModalOpen }) => {
             <a href={'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn'} target={'_blank'}><img src={metamaskIcon} alt={'metamask-icon'} />Install browser extension</a>
           </div>
         </div>
+      </dialog>
+    ) : (
+      <dialog className={s.auth} open>
+        <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
       </dialog>
     )
   ) : null
