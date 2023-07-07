@@ -85,6 +85,18 @@
         color: var(--color-error);
       }
     }
+
+    button {
+      pointer-events: all;
+      backdrop-filter: none;
+      box-shadow: none;
+      background: none;
+      padding: 0;
+      margin-left: 40px;
+      svg {
+        color: var(--main-bg-color) !important;
+      }
+    }
   }
 }
 

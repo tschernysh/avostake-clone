@@ -207,7 +207,7 @@ export const ApplicationDashboard = () => {
                   <animate attributeName="cx" repeatCount="indefinite" dur="1s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.75s"></animate>
                 </circle>
               </svg>
-          ) : 'Deposit'}</button>
+          ) : 'Withdraw'}</button>
         </div>
       </div>
     </>

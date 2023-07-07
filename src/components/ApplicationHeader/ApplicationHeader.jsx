@@ -30,18 +30,17 @@ export const ApplicationHeader = ({ isNavOpen = false, setIsNavOpen = () => { } 
     return _title
   }, [location.pathname])
 
-  const onMouseAccountHover = () => {
-    if (!isNavOpen) {
-      setIsDropDownOpen(true)
-    }
+  const onWalletOpen = () => {
+    setIsNavOpen(false);
+    setIsDropDownOpen(!isDropDownOpen)
   }
-
-  const onMouseAccountLeave = () => {
-    setIsDropDownOpen(false)
-  }
-
   const handleWalletDisconnect = () => {
     disconnect()
+  }
+
+  const openNav = () => {
+    setIsDropDownOpen(false)
+    setIsNavOpen(!isNavOpen)
   }
 
   useEffect(() => {
@@ -74,8 +73,8 @@ export const ApplicationHeader = ({ isNavOpen = false, setIsNavOpen = () => { } 
           </div>
           {isBalanceHidden ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
         </div>
-        <div onMouseEnter={onMouseAccountHover} onMouseLeave={onMouseAccountLeave} className={s.app_header__account_data__profile_menu}>
-          <div onClick={onMouseAccountHover} className={s.app_header__account_data__profile_menu__header}>
+        <div className={s.app_header__account_data__profile_menu}>
+          <div onClick={onWalletOpen} className={s.app_header__account_data__profile_menu__header}>
             <img src={metamaskIcon} alt={'metamask'} />
             <span>{walletAddress?.slice(0, 4)}...{walletAddress?.slice(-5)}</span>
             <BsChevronCompactDown />
@@ -96,7 +95,7 @@ export const ApplicationHeader = ({ isNavOpen = false, setIsNavOpen = () => { } 
             </div>
           </div>
         </div>
-        <button onClick={setIsNavOpen.bind(null, !isNavOpen)} className={s.app_header__burger_button}>
+        <button onClick={openNav} className={s.app_header__burger_button}>
           {isNavOpen ? <IoCloseSharp /> : <GiHamburgerMenu />}
         </button>
       </div>

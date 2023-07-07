@@ -1,7 +1,7 @@
 import {useContext, useEffect, useRef} from "react";
 import {ToastifyContext} from "../../applicationContext";
 import s from './toastify.module.scss'
-import {AiOutlineWarning} from "react-icons/ai";
+import {AiOutlineClose, AiOutlineWarning} from "react-icons/ai";
 import {FaCheck} from "react-icons/fa";
 import {BiErrorCircle} from "react-icons/bi";
 import {VscLoading} from "react-icons/vsc";
@@ -31,12 +31,17 @@ export const Toastify = () => {
         }
     }, [toastifyData])
 
+    const clearToastifyData = () => {
+        setToasifyData(null)
+    }
+
     return (
         <div className={s.toastify}>
             {toastifyData && (
                 <div data-toast-type={toastifyData.type} className={s.toastify__tile}>
                     {toastsIcons[toastifyData.type]}
                     <p>{toastifyData.text}</p>
+                    <button onClick={clearToastifyData}><AiOutlineClose/></button>
                 </div>
             )}
         </div>
