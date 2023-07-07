@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, useLocation, useNavigate } from "react-router-dom";
-import React from 'react'
+import React, { useCallback } from 'react'
 import { RouterComponent } from "./routes/RouterComponent";
 import { routerSchema } from "./routes/routerSchema";
 import { useEffect, useMemo, useState } from "react";

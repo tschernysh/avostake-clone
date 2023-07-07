@@ -163,7 +163,12 @@ export const AccountActionCreator = {
         let referrals = userInfo.player[13]
 
         let refTurnover = userInfo.player[14]
-        refTurnover = refTurnover.map(el => +web3.utils.fromWei(el.toString(), 'ether'))
+        refTurnover = refTurnover.map((el, index) => {
+          if (index === 0) return +web3.utils.fromWei(el.toString(), 'ether') * 1
+          else if (index === 1) return +web3.utils.fromWei(el.toString(), 'ether') * 0.3
+          else if (index === 2) return +web3.utils.fromWei(el.toString(), 'ether') * 0.15
+          else return +web3.utils.fromWei(el.toString(), 'ether')
+        })
 
         userInfo = {
           payoutOf, upline, dividents, match_bonus, leader_bonus,
