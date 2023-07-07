@@ -164,7 +164,7 @@ export const ApplicationDashboard = () => {
         <div className={s.app_dashboard__withdraw__button_wrapper}>
           <PiHandCoinsDuotone />
           <p>Withdrawable (DEPS+REFS+LEAD)</p>
-          <span>{payoutOf + match_bonus + leader_bonus} BUSD</span>
+          <span>{payoutOf + dividents + match_bonus + leader_bonus} BUSD</span>
           <button onClick={handleWithdrawButton} >Withdraw</button>
         </div>
       </div>

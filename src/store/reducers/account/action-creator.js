@@ -106,7 +106,8 @@ export const AccountActionCreator = {
           refTurnover] = userInfo.player
         */
 
-        let payoutOf = userInfo[0]
+
+        let payoutOf = await stakeContract.methods.payoutOf(walletAddress).call()
         payoutOf = +web3.utils.fromWei(payoutOf.toString(), 'ether')
         payoutOf = payoutOf.toFixed(2)
 
