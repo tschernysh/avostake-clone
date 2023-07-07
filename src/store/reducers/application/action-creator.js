@@ -54,6 +54,10 @@ export const ApplicationActionCreator = {
     type: applicationTypes().SET_REDIRECT_TO,
     payload: redirectTo
   }),
+  setToastData: (toastData) => ({
+    type: applicationTypes().SET_TOAST_DATA,
+    payload: toastData
+  }),
   getDefaultReferrer:
     () => async (dispatch, store) => {
       const walletRPC = store().applicationReducer.walletRPC
@@ -247,14 +251,36 @@ export const ApplicationActionCreator = {
       const stakeContract = new web3.eth.Contract(StakeContract.abi, Config().STAKE_CONTRACT_ADDRESS);
 
       let withdraw
+      dispatch(ApplicationActionCreator.setToastData({
+        type: 'default',
+        duration: 5000,
+        text: <>Check your wallet to withdraw</>,
+      }))
 
       try {
         withdraw = await stakeContract.methods.withdraw().send({ from: walletAddress })
+
+        dispatch(ApplicationActionCreator.setToastData({
+          type: 'loader',
+          duration: 0,
+          text: <>Withdraw transaction is processing</>,
+        }))
       } catch (error) {
         console.log(error)
         dispatch(ApplicationActionCreator.setIsWithdrawTransaction(false))
+        dispatch(ApplicationActionCreator.setToastData({
+          type: 'error',
+          duration: 0,
+          text: <>{error.message}</>,
+        }))
         return
       }
+
+      dispatch(ApplicationActionCreator.setToastData({
+        type: 'success',
+        duration: 0,
+        text: <>You have successfuly withdrawed BUSD <br /> <a target='_blank' href={Config().BSC_SCAN_URL + withdraw.transactionHash}>View on BSC Scan</a> </>,
+      }))
 
       dispatch(ApplicationActionCreator.setIsNeedToUpdate(true))
       dispatch(ApplicationActionCreator.setIsWithdrawTransaction(false))
@@ -284,16 +310,41 @@ export const ApplicationActionCreator = {
 
       let approveToken
 
+      dispatch(ApplicationActionCreator.setToastData({
+        type: 'default',
+        duration: 5000,
+        text: <>Check your wallet to approve BUSD token</>,
+      }))
+
       try {
         approveToken = await tokenContract.methods.approve(
           Config().STAKE_CONTRACT_ADDRESS,
           amountToSend
         ).send({ from: walletAddress })
+
+
+        dispatch(ApplicationActionCreator.setToastData({
+          type: 'loader',
+          duration: 0,
+          text: <>Approving your BUSD tokens</>,
+        }))
       } catch (error) {
         dispatch(ApplicationActionCreator.setIsDepositTransaction(false))
+        dispatch(ApplicationActionCreator.setToastData({
+          type: 'error',
+          duration: 0,
+          text: <>{error.message}</>,
+        }))
         console.log(error)
         return
       }
+
+      dispatch(ApplicationActionCreator.setToastData({
+        type: 'success',
+        duration: 5000,
+        text: <>Approved BUSD <br /> <a target='_blank' href={Config().BSC_SCAN_URL + approveToken.transactionHash}>View on BSC Scan</a> </>,
+      }))
+
 
       let depositTxn
 
@@ -303,11 +354,29 @@ export const ApplicationActionCreator = {
           currentReferral,
           amountToSend
         ).send({ from: walletAddress })
+
+        dispatch(ApplicationActionCreator.setToastData({
+          type: 'loader',
+          duration: 0,
+          text: <>Deposit transaction</>,
+        }))
       } catch (error) {
         dispatch(ApplicationActionCreator.setIsDepositTransaction(false))
+
+        dispatch(ApplicationActionCreator.setToastData({
+          type: 'error',
+          duration: 0,
+          text: <>{error.message}</>,
+        }))
         console.log(error)
         return
       }
+
+      dispatch(ApplicationActionCreator.setToastData({
+        type: 'success',
+        duration: 5000,
+        text: <>You have successfuly deposited BUSD <br /> <a target='_blank' href={Config().BSC_SCAN_URL + depositTxn.transactionHash}>View on BSC Scan</a>  </>,
+      }))
 
       dispatch(ApplicationActionCreator.setIsDepositTransaction(false))
       dispatch(ApplicationActionCreator.setIsNeedToUpdate(true))

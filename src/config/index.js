@@ -9,6 +9,7 @@ const Config = () => {
       BASE_URL: 'https://bixter.com/?ref=',
       PROJECT_ID: '5b88e380cb7f9736a57c4175e26f1c55',
       CHAIN_ID: 56,
+      BSC_SCAN_URL: 'https://bscscan.com/tx/'
     }
   } if (process.env.REACT_APP_ENV === 'ghpages') {
     return {
@@ -20,6 +21,7 @@ const Config = () => {
       BASE_URL: 'https://bixter.com/?ref=',
       PROJECT_ID: '5b88e380cb7f9736a57c4175e26f1c55',
       CHAIN_ID: 97,
+      BSC_SCAN_URL: 'https://testnet.bscscan.com/tx/'
     }
   } else {
     return {
@@ -31,6 +33,7 @@ const Config = () => {
       BASE_URL: 'https://bixter.com/?ref=',
       PROJECT_ID: '5b88e380cb7f9736a57c4175e26f1c55',
       CHAIN_ID: 97,
+      BSC_SCAN_URL: 'https://testnet.bscscan.com/tx/'
     }
   }
 }

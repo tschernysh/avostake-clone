@@ -11,26 +11,23 @@ import StakeContract from 'contracts/StakeContract.json'
 
 import { EthereumClient, w3mConnectors, w3mProvider } from "@web3modal/ethereum"
 import { WagmiConfig, configureChains, createConfig, useAccount } from "wagmi"
-import {ConfigContext, ToastifyContext} from "applicationContext";
+import { ConfigContext, ToastifyContext } from "applicationContext";
 import { initWeb3 } from "utils/initWeb3";
 import Web3 from "web3";
 import { initWagmi } from "utils/initWagmi";
 import { routerBook } from "routes/routerBook";
-import {Toastify} from "./components/Toastify/Toastify";
+import { Toastify } from "./components/Toastify/Toastify";
 
 
 const App = () => {
 
   const dispatch = useDispatch()
-  const { walletAddress, isNeedToUpdate, notCorrectChain, redirectTo } = useSelector(state => state.applicationReducer)
+  const { walletAddress, isNeedToUpdate, notCorrectChain, redirectTo, toastData } = useSelector(state => state.applicationReducer)
   const [seconds, setSeconds] = useState(0)
   const [wagmiConfig, setWagmiConfig] = useState()
   const [ethereumClient, setEthereumClient] = useState()
   const [projectId, setProjectId] = useState()
-  const [toastifyData, setToasifyData] = useState({
-    type: 'warning',
-    text: <>Your transaction was passed. <br/>You can <a target="_blank" href="https://google.com"> check it</a> here</>,
-  });
+
 
   useMemo(() => {
     const { wagmiConfig, ethereumClient, projectId } = initWagmi()
@@ -118,19 +115,21 @@ const App = () => {
     };
   }, []);
 
-
+  const setToastData = (data) => {
+    dispatch(ApplicationActionCreator.setToastData(data))
+  }
 
   return (
-      <ToastifyContext.Provider value={{setToasifyData, toastifyData}}>
-        <ConfigContext.Provider value={{ ethereumClient, projectId }}>
-          <WagmiConfig config={wagmiConfig}>
-            <BrowserRouter>
-              <Routes>{routerSchema.map(RouterComponent)}</Routes>
-            </BrowserRouter>
-            <Toastify/>
-          </WagmiConfig >
-        </ConfigContext.Provider>
-      </ToastifyContext.Provider>
+    <ToastifyContext.Provider value={{ setToasifyData: setToastData, toastifyData: toastData }}>
+      <ConfigContext.Provider value={{ ethereumClient, projectId }}>
+        <WagmiConfig config={wagmiConfig}>
+          <BrowserRouter>
+            <Routes>{routerSchema.map(RouterComponent)}</Routes>
+          </BrowserRouter>
+          <Toastify />
+        </WagmiConfig >
+      </ConfigContext.Provider>
+    </ToastifyContext.Provider>
 
 
   )

@@ -15,7 +15,8 @@ export const initialState = {
     depositDays: 10,
     depositAmount: 500,
     bonus: 0,
-  }
+  },
+  toastData: null,
 }
 
 export default function applicationReducer(
@@ -45,6 +46,8 @@ export default function applicationReducer(
       return { ...state, notCorrectChain: action.payload }
     case applicationTypes().SET_REDIRECT_TO:
       return { ...state, redirectTo: action.payload }
+    case applicationTypes().SET_TOAST_DATA:
+      return { ...state, toastData: action.payload }
     default:
       return state
   }
