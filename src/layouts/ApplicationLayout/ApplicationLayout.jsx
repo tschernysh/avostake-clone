@@ -6,22 +6,38 @@ import { ApplicationHeader } from "../../components/ApplicationHeader/Applicatio
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ApplicationActionCreator } from "../../store/reducers/application/action-creator";
+import { routerBook } from 'routes/routerBook';
+import { useAccount } from 'wagmi';
+import { AccountActionCreator } from 'store/reducers/account/action-creator';
 
 export const ApplicationLayout = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
-  const { redirectTo } = useSelector(state => state.applicationReducer)
+  const { redirectTo, walletAddress } = useSelector(state => state.applicationReducer)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  /*
-    useEffect(() => {
-        if (!!redirectTo) {
-            const path = redirectTo
-            dispatch(ApplicationActionCreator.setRedirectTo(null))
-            navigate(path)
-        }
-    }, [redirectTo])
-*/
+  const { isDisconnected } = useAccount()
+
+  useEffect(() => {
+    if (!!redirectTo) {
+      const path = redirectTo
+      dispatch(ApplicationActionCreator.setRedirectTo(null))
+      navigate(path)
+    }
+  }, [redirectTo])
+
+  useEffect(() => {
+    if (isDisconnected) {
+      dispatch(AccountActionCreator.resetUserInfo())
+    }
+  }, [isDisconnected])
+
+  useEffect(() => {
+    if (!walletAddress) {
+      navigate(routerBook.main)
+    }
+  }, [walletAddress])
+
   useEffect(() => {
     if (isNavOpen) {
       document.body.style.overflow = 'hidden'

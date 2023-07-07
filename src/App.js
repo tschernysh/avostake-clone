@@ -10,7 +10,7 @@ import Config from "config";
 import StakeContract from 'contracts/StakeContract.json'
 
 import { EthereumClient, w3mConnectors, w3mProvider } from "@web3modal/ethereum"
-import { WagmiConfig, configureChains, createConfig } from "wagmi"
+import { WagmiConfig, configureChains, createConfig, useAccount } from "wagmi"
 import { ConfigContext } from "applicationContext";
 import { initWeb3 } from "utils/initWeb3";
 import Web3 from "web3";
@@ -142,15 +142,15 @@ const App = () => {
 
 
   return (
-      <ErrorBoundary>
-        <ConfigContext.Provider value={{ ethereumClient, projectId }}>
-          <WagmiConfig config={wagmiConfig}>
-            <BrowserRouter>
-              <Routes>{routerSchema.map(RouterComponent)}</Routes>
-            </BrowserRouter>
-          </WagmiConfig >
-        </ConfigContext.Provider>
-      </ErrorBoundary>
+    <ErrorBoundary>
+      <ConfigContext.Provider value={{ ethereumClient, projectId }}>
+        <WagmiConfig config={wagmiConfig}>
+          <BrowserRouter>
+            <Routes>{routerSchema.map(RouterComponent)}</Routes>
+          </BrowserRouter>
+        </WagmiConfig >
+      </ConfigContext.Provider>
+    </ErrorBoundary>
 
   )
 }

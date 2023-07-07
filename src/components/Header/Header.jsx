@@ -60,6 +60,7 @@ export const Header = ({ signInButtonClickHandler }) => {
   return (
     <>
       <header data-transparent={isHeaderTransparent} data-hidden={scrollDirection === 'down'} className={s.desktop_header}>
+
         <a className={s.desktop_header__logo} href={'#'}><img src={logo} alt={'logo'} /></a>
         <nav className={s.desktop_header__nav}>
           <a className={s.desktop_header__nav__link} href={'#section-easy-start'}>Invest</a>

@@ -9,42 +9,23 @@ import trustWalletIcon from 'media/img/trust-wallet-icon.png'
 import { useDispatch } from "react-redux";
 import { ApplicationActionCreator } from "store/reducers/application/action-creator";
 import { Web3Modal, useWeb3Modal } from "@web3modal/react";
-import { bsc, bscTestnet } from 'wagmi/chains'
-import Config from "config";
-import { configureChains, createConfig, useAccount, useConnect } from "wagmi";
-import { EthereumClient, w3mConnectors, w3mProvider } from "@web3modal/ethereum";
+import { useAccount, useConnect, useWalletClient } from "wagmi";
 import { ConfigContext } from "applicationContext";
+import Web3 from "web3";
 
 export const AuthModal = ({ isModalOpen, setIsModalOpen }) => {
   const [modalStatus, setModalStatus] = useState('auth')
-  const { ethereumClient, projectId } = useContext(ConfigContext)
   const { open, close, isOpen } = useWeb3Modal()
-  const { connect, connectors, error, isLoading, pendingConnector } =
-    useConnect()
-  const { connector: activeConnector, address, isConnecting, isDisconnected } = useAccount()
-  const dispatch = useDispatch()
 
   const handleMetamaskConnect = () => {
-    dispatch(ApplicationActionCreator.connectMetamaskWallet())
-  }
-
-  const handleConnectWallet = () => {
-    setModalStatus('connectWallet')
+    setIsModalOpen(false)
     open()
   }
 
-  useMemo(() => {
-    connectors[0].addListener('connect', () => {
-      console.log(address)
-      let walletConnector = connectors[0]
-      connect({ walletConnector })
-      alert('connected')
-    })
-    connectors[0].addListener('disconnect', () => {
-      console.log(address)
-      alert('disconnected')
-    })
-  }, [])
+  const handleConnectWallet = () => {
+    setIsModalOpen(false)
+    open()
+  }
 
   useEffect(() => {
     if (isModalOpen) {
@@ -54,13 +35,6 @@ export const AuthModal = ({ isModalOpen, setIsModalOpen }) => {
       document.body.style.overflow = 'auto'
     };
   }, [isModalOpen]);
-
-  useEffect(() => {
-    if (!isOpen) {
-      setModalStatus('auth')
-    }
-  }, [isOpen])
-
 
   return isModalOpen ? (
     modalStatus === 'auth' ? (
@@ -93,10 +67,5 @@ export const AuthModal = ({ isModalOpen, setIsModalOpen }) => {
           </div>
         </div>
       </dialog>
-    ) : (
-      <dialog className={s.auth} open>
-        <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
-      </dialog>
-    )
-  ) : null
+    ) : null) : null
 }

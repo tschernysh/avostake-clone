@@ -3,6 +3,7 @@ import accountTypes from "./types";
 import StakeContract from 'contracts/StakeContract.json'
 import Config from "config";
 import accountReducer from ".";
+import { ApplicationActionCreator } from "../application/action-creator";
 
 export const AccountActionCreator = {
   setLeaderPersonalInfo: (personalInfo) => ({
@@ -175,6 +176,31 @@ export const AccountActionCreator = {
       }
 
       dispatch(AccountActionCreator.setUserInfo(userInfo))
+
+    },
+  resetUserInfo:
+    () => async (dispatch, store) => {
+      const userInfo = {
+        payoutOf: 0,
+        upline: null,
+        dividents: 0,
+        match_bonus: 0,
+        leader_bonus: 0,
+        last_payout: 0,
+        total_invested: 0,
+        total_withdrawn: 0,
+        total_match_bonus: 0,
+        leadTurnover: 0,
+        leadBonusReward: 0,
+        receivedBonuses: [],
+        deposits: [],
+        structure: [],
+        referrals: 0,
+        refTurnover: []
+      }
+
+      dispatch(AccountActionCreator.setUserInfo(userInfo))
+      dispatch(ApplicationActionCreator.setWalletAddress(null))
 
     },
   getLeaderProgressData:

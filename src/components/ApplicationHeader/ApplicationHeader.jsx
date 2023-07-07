@@ -1,22 +1,20 @@
 import s from './application-header.module.scss'
 import { useLocation } from "react-router-dom";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { routerBook } from "../../routes/routerBook";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 import metamaskIcon from 'media/img/metamask-icon.png'
 import { useDispatch, useSelector } from "react-redux";
 import { BsChevronCompactDown } from "react-icons/bs";
-import { FiExternalLink } from "react-icons/fi";
 import { ImExit } from "react-icons/im";
-import { MdOutlineRefresh } from "react-icons/md";
-import {IoCloseSharp} from "react-icons/io5";
-import {GiHamburgerMenu} from "react-icons/gi";
+import { IoCloseSharp } from "react-icons/io5";
+import { GiHamburgerMenu } from "react-icons/gi";
 import logo from "../../media/img/logo.png";
-import { ApplicationActionCreator } from 'store/reducers/application/action-creator';
 import { useDisconnect } from 'wagmi';
+import { AccountActionCreator } from 'store/reducers/account/action-creator';
 
-export const ApplicationHeader = ({isNavOpen = false, setIsNavOpen = () => {}}) => {
+export const ApplicationHeader = ({ isNavOpen = false, setIsNavOpen = () => { } }) => {
   const location = useLocation();
   const { walletAddress, bnbBalance, tokenBalance } = useSelector(store => store.applicationReducer)
   const dispatch = useDispatch()
@@ -58,10 +56,17 @@ export const ApplicationHeader = ({isNavOpen = false, setIsNavOpen = () => {}}) 
     }
   }, [isDropDownOpen]);
 
+  const disconnected = useDisconnect({
+    onSuccess(data) {
+      dispatch(AccountActionCreator.resetUserInfo())
+    },
+  })
+
   return (
     <div className={s.app_header}>
       {isNavOpen || isDropDownOpen ? null : <a className={s.app_header__logo} href={'#'}><img src={logo} alt={'logo'} /></a>}
-      <b  data-mobile={false} className={s.app_header__title}>{title}</b>
+
+      <b data-mobile={false} className={s.app_header__title}>{title}</b>
       <b data-mobile={true} className={s.app_header__title}>{isNavOpen ? 'Menu' : isDropDownOpen ? 'Wallet' : ''}</b>
       <div className={s.app_header__account_data}>
         <div data-mobile={false} onClick={setIsBalanceHidden.bind(null, !isBalanceHidden)} className={s.app_header__account_data__wallet_balance}>
@@ -92,14 +97,12 @@ export const ApplicationHeader = ({isNavOpen = false, setIsNavOpen = () => {}}) 
                 </div>
                 {isBalanceHidden ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
               </div>
-              <button><MdOutlineRefresh />Change wallet</button>
-              <a target={'_blank'} href={`https://bscscan.com/address/${walletAddress}`}><FiExternalLink />View on explorer</a>
               <button onClick={handleWalletDisconnect}><ImExit /> Log Out</button>
             </div>
           </div>
         </div>
         <button onClick={setIsNavOpen.bind(null, !isNavOpen)} className={s.app_header__burger_button}>
-          { isNavOpen ? <IoCloseSharp/> : <GiHamburgerMenu/>}
+          {isNavOpen ? <IoCloseSharp /> : <GiHamburgerMenu />}
         </button>
       </div>
     </div>

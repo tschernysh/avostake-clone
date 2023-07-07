@@ -199,6 +199,39 @@ export const ApplicationActionCreator = {
         console.error('MetaMask is not installed.');
       }
     },
+  connectConnectWallet:
+    () => async (dispatch, store) => {
+
+      if (typeof window.ethereum !== 'undefined') {
+        // Create a new Web3 instance using the MetaMask provider
+        const web3 = new Web3(window.ethereum);
+
+        async function getConnectedChainId() {
+          try {
+            // Request the current chain ID from MetaMask
+            const chainId = await web3.eth.getChainId();
+
+            const newChainId = Number(chainId)
+
+            return newChainId;
+          } catch (error) {
+            console.error('Error retrieving chain ID:', error);
+            return null;
+          }
+        }
+
+        const chainId = await getConnectedChainId()
+        const currentAddress = window.ethereum.account.address
+        console.log('Wallet connected:', currentAddress)
+        dispatch(ApplicationActionCreator.setWalletAddress(currentAddress))
+        dispatch(ApplicationActionCreator.setRedirectTo(routerBook.dashboard))
+
+      }
+      else {
+        // MetaMask not available, handle accordingly
+        console.error('MetaMask is not installed.');
+      }
+    },
   disconnectMetamaskWallet:
     () => async (dispatch, store) => {
       dispatch(ApplicationActionCreator.setRedirectTo(routerBook.main))
@@ -228,7 +261,7 @@ export const ApplicationActionCreator = {
     (amount, time) => async (dispatch, store) => {
       const web3 = await initWeb3()
       const walletAddress = store().applicationReducer.walletAddress
-      const defaultReferrer = store().applicationReducer.referralAddress
+      const defaultReferrer = store().applicationReducer.defaultReferrer
       const upline = store().accountReducer.userInfo.upline
 
       dispatch(ApplicationActionCreator.setIsDepositTransaction(true))
