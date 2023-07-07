@@ -109,7 +109,7 @@ export const AccountActionCreator = {
 
         let payoutOf = await stakeContract.methods.payoutOf(walletAddress).call()
         payoutOf = +web3.utils.fromWei(payoutOf.toString(), 'ether')
-        payoutOf = payoutOf.toFixed(2)
+        payoutOf = +payoutOf.toFixed(2)
 
         let upline = userInfo.player[0]
         if (upline === '0x0000000000000000000000000000000000000000') upline = null
