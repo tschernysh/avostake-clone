@@ -6,7 +6,7 @@ const Config = () => {
       TOKEN_CONTRACT_ADDRESS: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
       STAKE_CONTRACT_ADDRESS: '0x9d247Da6960E2503B9eaFEb2F15ACC9FBD19c276',
       HEARTBEAT_RATE: 20,
-      BASE_URL: 'https://bixter.com/?ref=',
+      BASE_URL: 'https://bixter.tech/?ref=',
       PROJECT_ID: '5b88e380cb7f9736a57c4175e26f1c55',
       CHAIN_ID: 56,
       BSC_SCAN_URL: 'https://bscscan.com/tx/'
@@ -18,7 +18,7 @@ const Config = () => {
       TOKEN_CONTRACT_ADDRESS: '0x1E694CA11967Aa260BF32cedc9f5C09453E968d4',
       STAKE_CONTRACT_ADDRESS: '0x08e10ED3c9eaa72e260f5428ebe353f27291FebF',
       HEARTBEAT_RATE: 20,
-      BASE_URL: 'https://bixter.com/?ref=',
+      BASE_URL: 'https://bixter.tech/?ref=',
       PROJECT_ID: '5b88e380cb7f9736a57c4175e26f1c55',
       CHAIN_ID: 97,
       BSC_SCAN_URL: 'https://testnet.bscscan.com/tx/'
@@ -30,7 +30,7 @@ const Config = () => {
       TOKEN_CONTRACT_ADDRESS: '0x1E694CA11967Aa260BF32cedc9f5C09453E968d4',
       STAKE_CONTRACT_ADDRESS: '0x08e10ED3c9eaa72e260f5428ebe353f27291FebF',
       HEARTBEAT_RATE: 20,
-      BASE_URL: 'https://bixter.com/?ref=',
+      BASE_URL: 'https://bixter.tech/?ref=',
       PROJECT_ID: '5b88e380cb7f9736a57c4175e26f1c55',
       CHAIN_ID: 97,
       BSC_SCAN_URL: 'https://testnet.bscscan.com/tx/'
