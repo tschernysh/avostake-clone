@@ -34,6 +34,7 @@
   },
   "scripts": {
     "start": "REACT_APP_ENV=development craco start",
+    "start-prod": "REACT_APP_ENV=production craco start",
     "build": "REACT_APP_ENV=production craco build",
     "predeploy": "REACT_APP_ENV=ghpages craco build",
     "test": "react-scripts test",

@@ -3,8 +3,8 @@ const Config = () => {
     return {
       DEPLOY_URL_PREFIX: '',
       WEB3_BSC_URL: 'https://bsc-dataseed.binance.org/',
-      TOKEN_CONTRACT_ADDRESS: '',
-      STAKE_CONTRACT_ADDRESS: '',
+      TOKEN_CONTRACT_ADDRESS: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+      STAKE_CONTRACT_ADDRESS: '0x9d247Da6960E2503B9eaFEb2F15ACC9FBD19c276',
       HEARTBEAT_RATE: 20,
       BASE_URL: 'https://bixter.com/?ref=',
       PROJECT_ID: '5b88e380cb7f9736a57c4175e26f1c55',
