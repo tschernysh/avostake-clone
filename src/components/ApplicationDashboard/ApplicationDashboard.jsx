@@ -4,8 +4,9 @@ import { DepositBlock } from "../DepositBlock/DepositBlock";
 import s from './application-dashboard.module.scss'
 import { PiHandCoinsDuotone } from "react-icons/pi";
 import { ApplicationActionCreator } from "store/reducers/application/action-creator";
-import { useEffect, useMemo, useState } from "react";
+import {useContext, useEffect, useMemo, useState} from "react";
 import Config from "../../config";
+import {ToastifyContext} from "../../applicationContext";
 
 export const ApplicationDashboard = () => {
   const { dividents, match_bonus, leader_bonus, payoutOf } = useSelector(state => state.accountReducer.userInfo)

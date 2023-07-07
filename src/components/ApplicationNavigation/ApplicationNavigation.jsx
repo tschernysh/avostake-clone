@@ -12,6 +12,8 @@ import { useSelector } from "react-redux";
 import { GoCopy } from "react-icons/go";
 import { FiExternalLink } from "react-icons/fi";
 import { FaTelegramPlane } from "react-icons/fa";
+import {useContext} from "react";
+import {ToastifyContext} from "../../applicationContext";
 
 export const ApplicationNavigation = ({isNavOpen}) => {
   const baseUrl = Config().BASE_URL;
@@ -22,12 +24,20 @@ export const ApplicationNavigation = ({isNavOpen}) => {
   const upline = useSelector(store => store.accountReducer.userInfo.upline)
   const referrer = upline || localStorage.getItem('refAddress') || defaultReferrer
 
+    const {setToasifyData} = useContext(ToastifyContext)
+
   const referralUrl = useMemo(() => {
     return `${baseUrl}${walletAddress}`
   }, [walletAddress, total_invested])
 
   const copyReferralUrlToClipboard = () => {
     navigator.clipboard.writeText(referralUrl)
+
+      setToasifyData({
+          text: 'The referral link has been copied!',
+          type: 'success',
+          duration: 3000
+      })
   }
 
   return (
