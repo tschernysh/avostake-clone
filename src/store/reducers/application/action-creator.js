@@ -210,35 +210,29 @@ export const ApplicationActionCreator = {
 
       const walletRPC = store().applicationReducer.walletRPC
 
-      if (typeof window.ethereum !== 'undefined') {
-        // Create a new Web3 instance using the MetaMask provider
-        const web3 = await initWeb3(walletRPC)
+      // Create a new Web3 instance using the MetaMask provider
+      const web3 = await initWeb3(walletRPC)
 
-        async function getConnectedChainId() {
-          try {
-            // Request the current chain ID from MetaMask
-            const chainId = await web3.eth.getChainId();
+      async function getConnectedChainId() {
+        try {
+          // Request the current chain ID from MetaMask
+          const chainId = await web3.eth.getChainId();
 
-            const newChainId = Number(chainId)
+          const newChainId = Number(chainId)
 
-            return newChainId;
-          } catch (error) {
-            console.error('Error retrieving chain ID:', error);
-            return null;
-          }
+          return newChainId;
+        } catch (error) {
+          console.error('Error retrieving chain ID:', error);
+          return null;
         }
-
-        const chainId = await getConnectedChainId()
-        const currentAddress = walletRPC.account.address
-        console.log('Wallet connected:', currentAddress)
-        dispatch(ApplicationActionCreator.setWalletAddress(currentAddress))
-        dispatch(ApplicationActionCreator.setRedirectTo(routerBook.dashboard))
-
       }
-      else {
-        // MetaMask not available, handle accordingly
-        console.error('MetaMask is not installed.');
-      }
+
+      const chainId = await getConnectedChainId()
+      const currentAddress = walletRPC.account.address
+      console.log('Wallet connected:', currentAddress)
+      dispatch(ApplicationActionCreator.setWalletAddress(currentAddress))
+      dispatch(ApplicationActionCreator.setRedirectTo(routerBook.dashboard))
+
     },
   disconnectMetamaskWallet:
     () => async (dispatch, store) => {
