@@ -11,8 +11,8 @@ export const LastTransactions = () => {
   const [data, setData] = useState([]);
 
   const dataForDisplay = useMemo(() => {
-    fetch(`https://avostake.com/api/getSiteTransactions?chainIds[]=${Config().CHAIN_ID}&address=${Config().STAKE_CONTRACT_ADDRESS}`)
-      //fetch(`https://avostake.com/api/getSiteTransactions?chainIds[]=56&address=0x7988bddb58439b9ab2675c85e85dd70a2720efb0`)
+    //fetch(`https://avostake.com/api/getSiteTransactions?chainIds[]=${Config().CHAIN_ID}&address=${Config().STAKE_CONTRACT_ADDRESS}`)
+    fetch(`https://avostake.com/api/getSiteTransactions?chainIds[]=56&address=0x7988bddb58439b9ab2675c85e85dd70a2720efb0`)
       .then((response) => response.body)
       .then((rb) => {
         const reader = rb.getReader();
@@ -47,9 +47,6 @@ export const LastTransactions = () => {
 
   }, [])
 
-  useEffect(() => {
-    console.log(data)
-  }, [data])
 
   return (
     <section>
@@ -97,8 +94,10 @@ export const LastTransactions = () => {
             })}
           </tbody>
         </table>
+        {/*
         <a target={'_blank'} href={'https://bscscan.com/address/0x7988bddb58439b9ab2675c85e85dd70a2720efb0'}>View
           on BSCScan</a>
+        */}
       </div>
     </section>
 
