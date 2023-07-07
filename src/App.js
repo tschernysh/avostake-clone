@@ -120,7 +120,7 @@ const App = () => {
   }
 
   return (
-    <ToastifyContext.Provider value={{ setToasifyData: setToastData, toastifyData: toastData }}>
+    <ToastifyContext.Provider value={{ setToasifyData: setToastData, toastifyData: toastData}}>
       <ConfigContext.Provider value={{ ethereumClient, projectId }}>
         <WagmiConfig config={wagmiConfig}>
           <BrowserRouter>

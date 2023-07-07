@@ -5,7 +5,7 @@
   "installConfig": {
     "pnp": false
   },
-  "homepage": "https://tschernysh.github.io/avostake-clone",
+  "homepage": "https://bixter.tech",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
