@@ -49,7 +49,7 @@ export const AuthModal = ({ isModalOpen, setIsModalOpen }) => {
           <button className={s.auth__help} onClick={setModalStatus.bind('help')}>How to connect a wallet ?</button>
         </div>
       </dialog>
-    ) : modalStatus === 'help' ? (
+    ) : (
       <dialog className={s.auth} open>
         <div className={s.auth__wrapper}>
           <button className={s.auth__close} onClick={setModalStatus.bind(null, 'auth')}><GrClose color={'#ffffff'} /></button>
@@ -67,5 +67,5 @@ export const AuthModal = ({ isModalOpen, setIsModalOpen }) => {
           </div>
         </div>
       </dialog>
-    ) : null) : null
+    )) : null
 }
