@@ -56,11 +56,6 @@ export const ApplicationHeader = ({ isNavOpen = false, setIsNavOpen = () => { } 
     }
   }, [isDropDownOpen]);
 
-  const disconnected = useDisconnect({
-    onSuccess(data) {
-      dispatch(AccountActionCreator.resetUserInfo())
-    },
-  })
 
   return (
     <div className={s.app_header}>

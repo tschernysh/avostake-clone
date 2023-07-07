@@ -22,7 +22,7 @@ export const MainLayout = () => {
       navigate(routerBook.dashboard)
       return
     }
-  }, [walletAddress])
+  }, [window.wallet])
 
   useEffect(() => {
     if (!!redirectTo) {

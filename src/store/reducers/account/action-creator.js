@@ -4,6 +4,7 @@ import StakeContract from 'contracts/StakeContract.json'
 import Config from "config";
 import accountReducer from ".";
 import { ApplicationActionCreator } from "../application/action-creator";
+import { initWeb3 } from "utils/initWeb3";
 
 export const AccountActionCreator = {
   setLeaderPersonalInfo: (personalInfo) => ({
@@ -36,7 +37,8 @@ export const AccountActionCreator = {
   }),
   getContractInfo:
     () => async (dispatch, store) => {
-      const web3 = new Web3(Config().WEB3_BSC_URL);
+      const walletRPC = store().applicationReducer.walletRPC
+      const web3 = await initWeb3(walletRPC)
 
       const stakeContract = new web3.eth.Contract(StakeContract.abi, Config().STAKE_CONTRACT_ADDRESS);
 
@@ -84,9 +86,10 @@ export const AccountActionCreator = {
     },
   getUserInfo:
     () => async (dispatch, store) => {
+      const walletRPC = store().applicationReducer.walletRPC
       const walletAddress = store().applicationReducer.walletAddress
 
-      const web3 = new Web3(Config().WEB3_BSC_URL);
+      const web3 = await initWeb3(walletRPC)
 
       const stakeContract = new web3.eth.Contract(StakeContract.abi, Config().STAKE_CONTRACT_ADDRESS);
 
@@ -205,8 +208,9 @@ export const AccountActionCreator = {
     },
   getLeaderProgressData:
     () => async (dispatch, store) => {
+      const walletRPC = store().applicationReducer.walletRPC
 
-      const web3 = new Web3(Config().WEB3_BSC_URL);
+      const web3 = await initWeb3(walletRPC)
 
       const stakeContract = new web3.eth.Contract(StakeContract.abi, Config().STAKE_CONTRACT_ADDRESS);
 

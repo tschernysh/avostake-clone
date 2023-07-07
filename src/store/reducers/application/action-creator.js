@@ -56,6 +56,7 @@ export const ApplicationActionCreator = {
   }),
   getDefaultReferrer:
     () => async (dispatch, store) => {
+      const walletRPC = store().applicationReducer.walletRPC
       const web3 = new Web3(Config().WEB3_BSC_URL);
 
       const stakeContract = new web3.eth.Contract(StakeContract.abi, Config().STAKE_CONTRACT_ADDRESS);
@@ -75,8 +76,9 @@ export const ApplicationActionCreator = {
   getAccountBNBBalance:
     () => async (dispatch, store) => {
 
+      const walletRPC = store().applicationReducer.walletRPC
       const walletAddress = store().applicationReducer.walletAddress
-      const web3 = await initWeb3()
+      const web3 = await initWeb3(walletRPC)
 
       let bnbBalance
 
@@ -95,7 +97,8 @@ export const ApplicationActionCreator = {
   getAccountTokenBalance:
     () => async (dispatch, store) => {
 
-      const web3 = await initWeb3()
+      const walletRPC = store().applicationReducer.walletRPC
+      const web3 = await initWeb3(walletRPC)
       const walletAddress = store().applicationReducer.walletAddress
 
       const tokenContract = new web3.eth.Contract(IERC20.abi, Config().TOKEN_CONTRACT_ADDRESS)
@@ -117,6 +120,8 @@ export const ApplicationActionCreator = {
     },
   checkMetamaskWallet:
     () => async (dispatch, store) => {
+
+      const walletRPC = store().applicationReducer.walletRPC
       const web3 = new Web3(window.ethereum)
       if (typeof window.ethereum !== 'undefined') {
         // Check if MetaMask is connected
@@ -143,7 +148,7 @@ export const ApplicationActionCreator = {
 
         const connectedAccounts = await web3.eth.getAccounts()
         if (!!connectedAccounts.length) {
-          const web3 = new Web3(window.ethereum);
+          const web3 = await initWeb3(walletRPC)
           dispatch(ApplicationActionCreator.setWalletAddress(window.ethereum.selectedAddress))
           console.log('Wallet is connected:', window.ethereum.selectedAddress);
         } else {
@@ -159,7 +164,8 @@ export const ApplicationActionCreator = {
     () => async (dispatch, store) => {
       if (typeof window.ethereum !== 'undefined') {
         // Create a new Web3 instance using the MetaMask provider
-        const web3 = new Web3(window.ethereum);
+        const walletRPC = store().applicationReducer.walletRPC
+        const web3 = await initWeb3(walletRPC)
 
         async function getConnectedChainId() {
           try {
@@ -202,9 +208,11 @@ export const ApplicationActionCreator = {
   connectConnectWallet:
     () => async (dispatch, store) => {
 
+      const walletRPC = store().applicationReducer.walletRPC
+
       if (typeof window.ethereum !== 'undefined') {
         // Create a new Web3 instance using the MetaMask provider
-        const web3 = new Web3(window.ethereum);
+        const web3 = await initWeb3(walletRPC)
 
         async function getConnectedChainId() {
           try {
@@ -221,7 +229,7 @@ export const ApplicationActionCreator = {
         }
 
         const chainId = await getConnectedChainId()
-        const currentAddress = window.ethereum.account.address
+        const currentAddress = walletRPC.account.address
         console.log('Wallet connected:', currentAddress)
         dispatch(ApplicationActionCreator.setWalletAddress(currentAddress))
         dispatch(ApplicationActionCreator.setRedirectTo(routerBook.dashboard))
@@ -238,7 +246,8 @@ export const ApplicationActionCreator = {
     },
   withdraw:
     () => async (dispatch, store) => {
-      const web3 = await initWeb3()
+      const walletRPC = store().applicationReducer.walletRPC
+      const web3 = await initWeb3(walletRPC)
       const walletAddress = store().applicationReducer.walletAddress
       dispatch(ApplicationActionCreator.setIsWithdrawTransaction(true))
       const stakeContract = new web3.eth.Contract(StakeContract.abi, Config().STAKE_CONTRACT_ADDRESS);
@@ -259,7 +268,8 @@ export const ApplicationActionCreator = {
     },
   depositToken:
     (amount, time) => async (dispatch, store) => {
-      const web3 = await initWeb3()
+      const walletRPC = store().applicationReducer.walletRPC
+      const web3 = await initWeb3(walletRPC)
       const walletAddress = store().applicationReducer.walletAddress
       const defaultReferrer = store().applicationReducer.defaultReferrer
       const upline = store().accountReducer.userInfo.upline

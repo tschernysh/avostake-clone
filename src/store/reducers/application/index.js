@@ -2,7 +2,7 @@ import applicationTypes from './types'
 
 export const initialState = {
   walletAddress: null,
-  web3: null,
+  walletRPC: null,
   defaultReferrer: null,
   bnbBalance: 0,
   tokenBalance: 0,
@@ -26,7 +26,7 @@ export default function applicationReducer(
     case applicationTypes().SET_WALLET_ADDRESS:
       return { ...state, walletAddress: action.payload }
     case applicationTypes().SET_WEB3:
-      return { ...state, web3: action.payload }
+      return { ...state, walletRPC: action.payload }
     case applicationTypes().SET_DEFAULT_REFERRER:
       return { ...state, defaultReferrer: action.payload }
     case applicationTypes().SET_BNB_BALANCE:

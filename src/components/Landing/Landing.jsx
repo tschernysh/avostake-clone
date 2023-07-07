@@ -29,7 +29,7 @@ export const Landing = () => {
   useEffect(() => {
     console.log(address, data)
     if (!!data && !isDisconnected) {
-      window.wallet = data
+      dispatch(ApplicationActionCreator.setWeb3(data))
       dispatch(ApplicationActionCreator.connectConnectWallet())
     }
   }, [address, data])
