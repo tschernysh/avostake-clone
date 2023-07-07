@@ -23,6 +23,7 @@ code {
 }
 
 button {
+  transition: .3s all;
   border: none;
   outline: none;
   background-color: var(--main-design-color);
@@ -32,6 +33,13 @@ button {
   padding: 14px 24px;
   box-shadow: 0 0 26px var(--main-design-color);
   cursor: pointer;
+}
+
+
+button:disabled {
+  cursor: not-allowed;
+  box-shadow: none;
+  background-color: #717171;
 }
 
 a, button {

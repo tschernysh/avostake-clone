@@ -3,21 +3,22 @@ import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Header } from "../../components/Header/Header";
 import { Footer } from "../../components/Footer/Footer";
 import { useCallback, useEffect, useState } from "react";
-import { AuthModal } from "../../components/AuthModals/AuthModal";
 import { useDispatch, useSelector } from 'react-redux';
 import { routerBook } from 'routes/routerBook';
 import { ApplicationActionCreator } from 'store/reducers/application/action-creator';
+import {useWeb3Modal} from "@web3modal/react";
 
 export const MainLayout = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { walletAddress, redirectTo } = useSelector(state => state.applicationReducer)
+  const {open} = useWeb3Modal();
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const signInButtonClickHandler = useCallback(() => {
     if (!walletAddress) {
-      setIsModalOpen(true)
+      open()
     } else {
       navigate(routerBook.dashboard)
       return
@@ -35,7 +36,6 @@ export const MainLayout = () => {
   return (
     <>
       <Header signInButtonClickHandler={signInButtonClickHandler} />
-      <AuthModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       <Outlet context={[signInButtonClickHandler, setIsModalOpen]} />
       <Footer />
     </>

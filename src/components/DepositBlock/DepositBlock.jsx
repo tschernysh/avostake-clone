@@ -51,7 +51,7 @@ export const DepositBlock = ({ signInButtonClickHandler, showMin = false }) => {
       if (location.pathname !== routerBook.dashboard) {
         navigate(routerBook.dashboard)
       } else {
-        if (depositAmount < 10) {
+        if (depositAmount > tokenBalance || depositAmount < 10) {
 
         } else {
           dispatch(ApplicationActionCreator.depositToken(+depositAmount, rangeValue))
@@ -97,7 +97,7 @@ export const DepositBlock = ({ signInButtonClickHandler, showMin = false }) => {
         <p>Daily ROI: <span>{(depositAmount * (100 + rangeValue) / 100 / rangeValue / 10).toFixed(2)} %</span></p>
       </div>
       <div className={s.deposit__submit}>
-        <button onClick={handleDeposit}>Deposit</button>
+        <button disabled={!!walletAddress ? depositAmount > tokenBalance || depositAmount < 10 : false} onClick={handleDeposit}>Deposit</button>
       </div>
     </div>
   )
