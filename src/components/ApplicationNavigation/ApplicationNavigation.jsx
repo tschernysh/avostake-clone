@@ -50,9 +50,9 @@ export const ApplicationNavigation = ({isNavOpen}) => {
       </div>
 
       <div className={s.app_nav__extra_links_wrapper}>
-        <a href={'#'}><AiOutlineInfoCircle /> About</a>
-        <a href={'#'}><AiOutlineAudit /> Audit</a>
-        <a href={'#'}><LiaFileContractSolid /> Smart Contract</a>
+        <a target={'_blank'} href={'https://bixter.gitbook.io/bixter-white-paper/'}><AiOutlineInfoCircle /> About</a>
+        <a target={'_blank'} href={'https://bixter.gitbook.io/bixter-white-paper/'}><AiOutlineAudit /> Audit</a>
+        <a target={'_blank'} href={'https://bscscan.com/address/0x9d247da6960e2503b9eafeb2f15acc9fbd19c276'}><LiaFileContractSolid /> Smart Contract</a>
       </div>
 
       <div className={s.app_nav__referral}>
