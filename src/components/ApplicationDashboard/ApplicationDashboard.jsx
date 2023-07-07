@@ -10,6 +10,7 @@ import Config from "../../config";
 export const ApplicationDashboard = () => {
   const { dividents, match_bonus, leader_bonus, payoutOf } = useSelector(state => state.accountReducer.userInfo)
   const { walletAddress } = useSelector(state => state.applicationReducer)
+  const contractUnpausedTimestamp = useSelector(state => state.accountReducer.contractInfo?.contractUnpausedTimestamp)
   const dispatch = useDispatch()
 
   const [dataForDisplay, setDataForDisplay] = useState([])
@@ -72,7 +73,24 @@ export const ApplicationDashboard = () => {
           </thead>
           <tbody>
             {dataForDisplay?.map(({ transaction_hash, timestamp, tarif, amount, id }) => {
-              const progress = Math.round(((Date.now() / 1000 - (tarif * 24 * 3600)) / timestamp) * 100);
+              let progress = null;
+
+              console.log(contractUnpausedTimestamp)
+
+              if (contractUnpausedTimestamp) {
+                if (timestamp > contractUnpausedTimestamp) {
+                  const currentProgress = (Date.now() / 1000) - timestamp
+
+                  progress = (currentProgress / (tarif * 24 * 3600)) * 100
+                } else {
+                  const currentProgress = (Date.now() / 1000) - contractUnpausedTimestamp
+
+                  progress = (currentProgress / (tarif * 24 * 3600)) * 100
+                }
+              } else {
+                progress = 0;
+              }
+
               return (
                 <tr key={id}>
                   <td>
@@ -90,16 +108,31 @@ export const ApplicationDashboard = () => {
                   </td>
                   <td>{tarif}</td>
                   <td>{amount} BUSD</td>
-                  <td><div className={s.app_dashboard__deposits__info__status}><span style={{ width: `${progress >= 100 ? 100 : 0}%` }} /></div></td>
+                  <td><div className={s.app_dashboard__deposits__info__status}><span style={{ width: `${progress >= 100 ? 100 : progress}%` }} /></div></td>
                   <td>{(amount * (100 + tarif) / 100).toFixed(2)}</td>
                 </tr>
               )
             })}
           </tbody>
         </table>
-        <div class={s.app_dashboard__deposits__mobile_info}>
+        <div className={s.app_dashboard__deposits__mobile_info}>
           {dataForDisplay?.map(({ transaction_hash, timestamp, tarif, amount, id }) => {
-            const progress = Math.round(((Date.now() / 1000 - (tarif * 24 * 3600)) / timestamp) * 100);
+            let progress = null;
+
+            if (contractUnpausedTimestamp) {
+              if (timestamp > contractUnpausedTimestamp) {
+                const currentProgress = (Date.now() / 1000) - timestamp
+
+                progress = (currentProgress / (tarif * 24 * 3600)) * 100
+              } else {
+                const currentProgress = (Date.now() / 1000) - contractUnpausedTimestamp
+
+                progress = (currentProgress / (tarif * 24 * 3600)) * 100
+              }
+            } else {
+              progress = 0;
+            }
+
             return (
               <div className={s.app_dashboard__deposits__mobile_info__tile} key={id}>
                 <p>TXN Hash <span>{transaction_hash.slice(0, 5)}...{transaction_hash.slice(-5)}</span></p>
@@ -113,7 +146,7 @@ export const ApplicationDashboard = () => {
                 })}</span></p>
                 <p>Days <span>{tarif}</span></p>
                 <p>Amount <span>{amount} BUSD</span></p>
-                <p>Progress <span><div className={s.app_dashboard__deposits__info__status}><span style={{ width: `${progress >= 100 ? 100 : 0}%` }} /></div></span></p>
+                <p>Progress <span><div className={s.app_dashboard__deposits__info__status}><span style={{ width: `${progress >= 100 ? 100 : progress}%` }} /></div></span></p>
                 <p>Profit <span>{(amount * (100 + tarif) / 100).toFixed(2)}</span></p>
               </div>
             )

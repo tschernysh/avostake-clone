@@ -51,7 +51,11 @@ export const DepositBlock = ({ signInButtonClickHandler, showMin = false }) => {
       if (location.pathname !== routerBook.dashboard) {
         navigate(routerBook.dashboard)
       } else {
-        dispatch(ApplicationActionCreator.depositToken(+depositAmount, rangeValue))
+        if (depositAmount < 10) {
+
+        } else {
+          dispatch(ApplicationActionCreator.depositToken(+depositAmount, rangeValue))
+        }
       }
     } else {
       signInButtonClickHandler()
