@@ -27,11 +27,7 @@ const App = () => {
   const [wagmiConfig, setWagmiConfig] = useState()
   const [ethereumClient, setEthereumClient] = useState()
   const [projectId, setProjectId] = useState()
-  const [toastifyData, setToasifyData] = useState({
-    type: 'warning',
-    text: 'Here is test warning notification',
-    duration: 0,
-  });
+  const [toastifyData, setToasifyData] = useState(null);
 
   useMemo(() => {
     const { wagmiConfig, ethereumClient, projectId } = initWagmi()
