@@ -166,7 +166,7 @@ export const ApplicationDashboard = () => {
           <PiHandCoinsDuotone />
           <p>Withdrawable (DEPS+REFS+LEAD)</p>
           <span>{+payoutOf + dividents + match_bonus + leader_bonus} BUSD</span>
-          <button onClick={handleWithdrawButton} >{isWithdrawTransaction ? (
+          <button disabled={!(+payoutOf + dividents + match_bonus + leader_bonus)} onClick={handleWithdrawButton} >{isWithdrawTransaction ? (
               <svg xmlns="http://www.w3.org/2000/svg" width="200px" height="100px" viewBox="0 0 100 50">
                 <circle cx="84" cy="25" r="10" fill="black">
                   <animate attributeName="r" repeatCount="indefinite" dur="0.25s" calcMode="spline"

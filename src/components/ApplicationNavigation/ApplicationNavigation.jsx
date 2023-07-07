@@ -17,7 +17,7 @@ import {ToastifyContext} from "../../applicationContext";
 
 export const ApplicationNavigation = ({isNavOpen}) => {
   const baseUrl = Config().BASE_URL;
-  const {total_invested} = useSelector(store => store.accountReducer.userInfo)
+  const {deposits} = useSelector(store => store.accountReducer.userInfo)
 
   const walletAddress = useSelector(store => store.applicationReducer.walletAddress)
   const defaultReferrer = useSelector(store => store.applicationReducer.defaultReferrer)
@@ -28,7 +28,7 @@ export const ApplicationNavigation = ({isNavOpen}) => {
 
   const referralUrl = useMemo(() => {
     return `${baseUrl}${walletAddress}`
-  }, [walletAddress, total_invested])
+  }, [walletAddress, deposits])
 
   const copyReferralUrlToClipboard = () => {
     navigator.clipboard.writeText(referralUrl)
@@ -58,7 +58,7 @@ export const ApplicationNavigation = ({isNavOpen}) => {
       <div className={s.app_nav__referral}>
         <span>Your referral link:</span>
         <div className={s.app_nav__referral__copy_field}>
-            {total_invested ? (
+            {deposits.length ? (
                 <>
                     <p>{referralUrl}</p>
                     <button onClick={copyReferralUrlToClipboard}><GoCopy /></button>
@@ -66,7 +66,6 @@ export const ApplicationNavigation = ({isNavOpen}) => {
             ) : (
                 <p>You need to make one deposit at least</p>
             )}
-
         </div>
         {referrer && (
           <div className={s.app_nav__referrer}>
