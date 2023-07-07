@@ -27,7 +27,10 @@ const App = () => {
   const [wagmiConfig, setWagmiConfig] = useState()
   const [ethereumClient, setEthereumClient] = useState()
   const [projectId, setProjectId] = useState()
-  const [toastifyData, setToasifyData] = useState(null);
+  const [toastifyData, setToasifyData] = useState({
+    type: 'warning',
+    text: <>Your transaction was passed. <br/>You can <a target="_blank" href="https://google.com"> check it</a> here</>,
+  });
 
   useMemo(() => {
     const { wagmiConfig, ethereumClient, projectId } = initWagmi()

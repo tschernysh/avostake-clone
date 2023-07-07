@@ -26,6 +26,13 @@
     display: flex;
     border-radius: 8px;
     align-items: center;
+    max-width: 400px;
+
+    a {
+      pointer-events: all;
+      text-decoration: underline;
+      color: var(--main-design-color)
+    }
 
     @include for-specific-size(480px) {
       width: 100%;

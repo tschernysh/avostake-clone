@@ -15,6 +15,7 @@ import { FaTelegramPlane } from "react-icons/fa";
 
 export const ApplicationNavigation = ({isNavOpen}) => {
   const baseUrl = Config().BASE_URL;
+  const {total_invested} = useSelector(store => store.accountReducer.userInfo)
 
   const walletAddress = useSelector(store => store.applicationReducer.walletAddress)
   const defaultReferrer = useSelector(store => store.applicationReducer.defaultReferrer)
@@ -23,7 +24,7 @@ export const ApplicationNavigation = ({isNavOpen}) => {
 
   const referralUrl = useMemo(() => {
     return `${baseUrl}${walletAddress}`
-  }, [walletAddress])
+  }, [walletAddress, total_invested])
 
   const copyReferralUrlToClipboard = () => {
     navigator.clipboard.writeText(referralUrl)
@@ -47,8 +48,15 @@ export const ApplicationNavigation = ({isNavOpen}) => {
       <div className={s.app_nav__referral}>
         <span>Your referral link:</span>
         <div className={s.app_nav__referral__copy_field}>
-          <p>{referralUrl}</p>
-          <button onClick={copyReferralUrlToClipboard}><GoCopy /></button>
+            {total_invested ? (
+                <>
+                    <p>{referralUrl}</p>
+                    <button onClick={copyReferralUrlToClipboard}><GoCopy /></button>
+                </>
+            ) : (
+                <p>You need to make one deposit at least</p>
+            )}
+
         </div>
         {referrer && (
           <div className={s.app_nav__referrer}>

@@ -9,7 +9,7 @@ import Config from "../../config";
 
 export const ApplicationDashboard = () => {
   const { dividents, match_bonus, leader_bonus, payoutOf } = useSelector(state => state.accountReducer.userInfo)
-  const { walletAddress } = useSelector(state => state.applicationReducer)
+  const { walletAddress, isWithdrawTransaction } = useSelector(state => state.applicationReducer)
   const contractUnpausedTimestamp = useSelector(state => state.accountReducer.contractInfo?.contractUnpausedTimestamp)
   const dispatch = useDispatch()
 
@@ -165,7 +165,49 @@ export const ApplicationDashboard = () => {
           <PiHandCoinsDuotone />
           <p>Withdrawable (DEPS+REFS+LEAD)</p>
           <span>{payoutOf + dividents + match_bonus + leader_bonus} BUSD</span>
-          <button onClick={handleWithdrawButton} >Withdraw</button>
+          <button onClick={handleWithdrawButton} >{isWithdrawTransaction ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="200px" height="100px" viewBox="0 0 100 50">
+                <circle cx="84" cy="25" r="10" fill="black">
+                  <animate attributeName="r" repeatCount="indefinite" dur="0.25s" calcMode="spline"
+                           keyTimes="0;1" values="10;0" keySplines="0 0.5 0.5 1" begin="0s"></animate>
+                  <animate attributeName="fill" repeatCount="indefinite" dur="1s" calcMode="discrete"
+                           keyTimes="0;0.25;0.5;0.75;1" values="#fcc337;#fff069;#ffe818;#ffe600;#fcc337"
+                           begin="0s"></animate>
+                </circle>
+                <circle cx="16" cy="25" r="10" fill="black">
+                  <animate attributeName="r" repeatCount="indefinite" dur="1s" calcMode="spline"
+                           keyTimes="0;0.25;0.5;0.75;1" values="0;0;10;10;10"
+                           keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="0s"></animate>
+                  <animate attributeName="cx" repeatCount="indefinite" dur="1s" calcMode="spline"
+                           keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84"
+                           keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="0s"></animate>
+                </circle>
+                <circle cx="50" cy="25" r="10" fill="black">
+                  <animate attributeName="r" repeatCount="indefinite" dur="1s" calcMode="spline"
+                           keyTimes="0;0.25;0.5;0.75;1" values="0;0;10;10;10"
+                           keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                           begin="-0.25s"></animate>
+                  <animate attributeName="cx" repeatCount="indefinite" dur="1s" calcMode="spline"
+                           keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84"
+                           keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                           begin="-0.25s"></animate>
+                </circle>
+                <circle cx="84" cy="25" r="10" fill="black">
+                  <animate attributeName="r" repeatCount="indefinite" dur="1s" calcMode="spline"
+                           keyTimes="0;0.25;0.5;0.75;1" values="0;0;10;10;10"
+                           keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                           begin="-0.5s"></animate>
+                  <animate attributeName="cx" repeatCount="indefinite" dur="1s" calcMode="spline"
+                           keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84"
+                           keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                           begin="-0.5s"></animate>
+                </circle>
+                <circle cx="16" cy="25" r="10" fill="black">
+                  <animate attributeName="r" repeatCount="indefinite" dur="1s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="0;0;9;9;9" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.75s"></animate>
+                  <animate attributeName="cx" repeatCount="indefinite" dur="1s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.75s"></animate>
+                </circle>
+              </svg>
+          ) : 'Deposit'}</button>
         </div>
       </div>
     </>
