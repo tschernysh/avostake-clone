@@ -30,6 +30,15 @@
     }
   }
 
+  @include for-specific-size($mobile-min) {
+    padding: 25px 40px;
+
+    &:before {
+      width: calc(100% - 20px);
+      left: 10px;
+    }
+  }
+
 
   b {
     margin-top: 15px;

@@ -40,6 +40,10 @@
           align-items: center;
           justify-content: space-between;
         }
+
+        @include for-specific-size(450px) {
+          font-size: .8em;
+        }
       }
 
       span, i {
@@ -118,6 +122,10 @@
         display: flex;
         justify-content: space-between;
         padding: 4px 0;
+
+        @include for-specific-size(450px) {
+          font-size: .7em;
+        }
 
         span {
           color: white;

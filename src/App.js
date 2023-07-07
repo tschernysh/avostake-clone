@@ -11,38 +11,13 @@ import StakeContract from 'contracts/StakeContract.json'
 
 import { EthereumClient, w3mConnectors, w3mProvider } from "@web3modal/ethereum"
 import { WagmiConfig, configureChains, createConfig, useAccount } from "wagmi"
-import { ConfigContext } from "applicationContext";
+import {ConfigContext, ToastifyContext} from "applicationContext";
 import { initWeb3 } from "utils/initWeb3";
 import Web3 from "web3";
 import { initWagmi } from "utils/initWagmi";
 import { routerBook } from "routes/routerBook";
+import {Toastify} from "./components/Toastify/Toastify";
 
-
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error) {
-    // Update state so the next render will show the fallback UI.
-    return { hasError: true };
-  }
-
-  componentDidCatch(error, errorInfo) {
-    // You can also log the error to an error reporting service
-    console.log(error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      // You can render any custom fallback UI
-      return <h1>Something went wrong.</h1>;
-    }
-
-    return this.props.children;
-  }
-}
 
 const App = () => {
 
@@ -52,6 +27,7 @@ const App = () => {
   const [wagmiConfig, setWagmiConfig] = useState()
   const [ethereumClient, setEthereumClient] = useState()
   const [projectId, setProjectId] = useState()
+  const [toastifyData, setToasifyData] = useState(null);
 
   useMemo(() => {
     const { wagmiConfig, ethereumClient, projectId } = initWagmi()
@@ -142,15 +118,17 @@ const App = () => {
 
 
   return (
-    <ErrorBoundary>
-      <ConfigContext.Provider value={{ ethereumClient, projectId }}>
-        <WagmiConfig config={wagmiConfig}>
-          <BrowserRouter>
-            <Routes>{routerSchema.map(RouterComponent)}</Routes>
-          </BrowserRouter>
-        </WagmiConfig >
-      </ConfigContext.Provider>
-    </ErrorBoundary>
+      <ToastifyContext.Provider value={{setToasifyData, toastifyData}}>
+        <ConfigContext.Provider value={{ ethereumClient, projectId }}>
+          <WagmiConfig config={wagmiConfig}>
+            <BrowserRouter>
+              <Routes>{routerSchema.map(RouterComponent)}</Routes>
+            </BrowserRouter>
+            <Toastify/>
+          </WagmiConfig >
+        </ConfigContext.Provider>
+      </ToastifyContext.Provider>
+
 
   )
 }

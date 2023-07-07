@@ -1,0 +1,92 @@
+@import '../../misc/mixin.scss';
+@import '../../misc/variables.scss';
+
+.toastify {
+  position: fixed;
+  top: 100vh;
+  transform: translate(0, -100%);
+  left: 0;
+  padding: 40px;
+  z-index: 1;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include for-specific-size(480px) {
+    padding: 10px;
+    width: 100%;
+  }
+
+  &__tile {
+    color: white;
+    background: rgba(#1D2127FF, .7);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    display: flex;
+    border-radius: 8px;
+    align-items: center;
+
+    @include for-specific-size(480px) {
+      width: 100%;
+    }
+
+    svg {
+      height: 1.4em;
+      width: 1.4em;
+      margin-right: 15px;;
+    }
+
+    &[data-toast-type = 'loader'], &[data-toast-type = 'default'] {
+      border-top: 1px solid var(--additional-bg-color);
+      border-left: 1px solid var(--additional-bg-color);
+      svg {
+        color: white;
+      }
+    }
+
+    &[data-toast-type = 'warning'] {
+      background: #544d29D0;
+      border-top: 1px solid var(--main-design-color);
+      border-left: 1px solid var(--main-design-color);
+      svg {
+        color: var(--main-design-color);
+      }
+    }
+
+    &[data-toast-type = 'loader'] {
+      svg {
+        transform-origin: center;
+        animation: spin 1s ease-in-out infinite;
+      }
+    }
+
+    &[data-toast-type = 'success'] {
+      background: rgba(36, 55, 47, 0.82);
+      border-top: 1px solid var(--color-success);
+      border-left: 1px solid var(--color-success);
+      svg {
+        color: var(--color-success);
+      }
+    }
+
+    &[data-toast-type = 'error'] {
+      background: #431414D0;
+      border-top: 1px solid var(--color-error);
+      border-left: 1px solid var(--color-error);
+      svg {
+        color: var(--color-error);
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

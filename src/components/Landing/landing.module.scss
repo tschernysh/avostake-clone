@@ -30,6 +30,7 @@
 
     @include for-specific-size($mobile-min) {
       margin-bottom: 40px;
+      padding: 0 15px;
     }
   }
 

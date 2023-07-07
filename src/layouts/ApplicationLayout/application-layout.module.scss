@@ -36,6 +36,10 @@
       background: var(--dark-bg-color);
       row-gap: 25px;
       flex: 1 1 0;
+
+      @include for-specific-size($mobile-min) {
+        padding: 10px;
+      }
     }
   }
 }
