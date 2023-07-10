@@ -11,7 +11,7 @@ export const ApplicationBonuses = () => {
   return (
     <>
       <div className={s.app_bonuses__banner}>
-        <b>Get up to 10% deposit bonus and earn to 11% ROI daily</b>
+        <b>Get up to 10% deposit bonus and earn to 12% ROI daily</b>
         <p>We have prepared for you a bonus of 10% to your FIRST deposit, the offer may be limited in time.</p>
         <Link to={routerBook.dashboard}>Get to Bonuses</Link>
       </div>

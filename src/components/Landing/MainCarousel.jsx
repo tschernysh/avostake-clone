@@ -66,7 +66,7 @@ export const MainCarousel = () => {
           <div className={s.landing__main__carousel__slide__text}>
             <h2>
               Get up to 10% deposit bonus and
-              <span> earn to 11% ROI daily </span>
+              <span> earn to 12% ROI daily </span>
             </h2>
             <h3>
               We have prepared for you a bonus of 10% to your FIRST deposit, the offer may be limited in
@@ -81,7 +81,7 @@ export const MainCarousel = () => {
           <div className={s.landing__main__carousel__slide__text}>
             <h2>
               Smart investment system of investing in
-              <span> BUSD From 4% to 11% daily ROI </span>
+              <span> BUSD From 7.1% to 12% daily ROI </span>
             </h2>
             <h3>
               <span>Today* </span>

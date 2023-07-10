@@ -12,19 +12,19 @@ import { useSelector } from "react-redux";
 import { GoCopy } from "react-icons/go";
 import { FiExternalLink } from "react-icons/fi";
 import { FaTelegramPlane } from "react-icons/fa";
-import {useContext} from "react";
-import {ToastifyContext} from "../../applicationContext";
+import { useContext } from "react";
+import { ToastifyContext } from "../../applicationContext";
 
-export const ApplicationNavigation = ({isNavOpen}) => {
+export const ApplicationNavigation = ({ isNavOpen }) => {
   const baseUrl = Config().BASE_URL;
-  const {deposits} = useSelector(store => store.accountReducer.userInfo)
+  const { deposits } = useSelector(store => store.accountReducer.userInfo)
 
   const walletAddress = useSelector(store => store.applicationReducer.walletAddress)
   const defaultReferrer = useSelector(store => store.applicationReducer.defaultReferrer)
   const upline = useSelector(store => store.accountReducer.userInfo.upline)
   const referrer = upline || localStorage.getItem('refAddress') || defaultReferrer
 
-    const {setToasifyData} = useContext(ToastifyContext)
+  const { setToasifyData } = useContext(ToastifyContext)
 
   const referralUrl = useMemo(() => {
     return `${baseUrl}${walletAddress}`
@@ -33,11 +33,11 @@ export const ApplicationNavigation = ({isNavOpen}) => {
   const copyReferralUrlToClipboard = () => {
     navigator.clipboard.writeText(referralUrl)
 
-      setToasifyData({
-          text: 'The referral link has been copied!',
-          type: 'success',
-          duration: 3000
-      })
+    setToasifyData({
+      text: 'The referral link has been copied!',
+      type: 'success',
+      duration: 3000
+    })
   }
 
   return (
@@ -58,14 +58,14 @@ export const ApplicationNavigation = ({isNavOpen}) => {
       <div className={s.app_nav__referral}>
         <span>Your referral link:</span>
         <div className={s.app_nav__referral__copy_field}>
-            {deposits.length ? (
-                <>
-                    <p>{referralUrl}</p>
-                    <button onClick={copyReferralUrlToClipboard}><GoCopy /></button>
-                </>
-            ) : (
-                <p>You need to make one deposit at least</p>
-            )}
+          {deposits.length ? (
+            <>
+              <p>{referralUrl}</p>
+              <button onClick={copyReferralUrlToClipboard}><GoCopy /></button>
+            </>
+          ) : (
+            <p>You need to make one deposit at least</p>
+          )}
         </div>
         {referrer && (
           <div className={s.app_nav__referrer}>
@@ -76,8 +76,8 @@ export const ApplicationNavigation = ({isNavOpen}) => {
       </div>
 
       <div className={s.app_nav__socials}>
-        <a href={'#'}><FaTelegramPlane color={'#e3af2e'} /></a>
-        <a href={'#'}><AiOutlineTwitter color={'#e3af2e'} /></a>
+        <a href={'https://t.me/bixter_tech'} target='_blank'><FaTelegramPlane color={'#e3af2e'} /></a>
+        <a href={'https://t.me/bixter_ru'} target='_blank'><FaTelegramPlane color={'#e3af2e'} /></a>
       </div>
     </nav>
   )
